@@ -4,7 +4,7 @@ import React from 'react';
 export default function App() {
 
   // Component for displaying a visual Risk Rating (Colored Dot + Text)
-  const RiskRatingBadge = ({ level }) => {
+  const RiskRatingBadge = ({ level }: { level: string }) => {
     let colorClass = 'bg-gray-400';
     let text = level;
 
@@ -32,7 +32,7 @@ export default function App() {
 
 
   // Utility function for table cells that need background colors (used for descriptive/insight columns)
-  const RiskCell = ({ children, level, className = '' }) => {
+  const RiskCell = ({ children, level, className = '' }: { children: React.ReactNode; level: string; className?: string }) => {
     let bgColor = 'bg-white';
     // Map Critical/High to 'high', Medium to 'medium' for color coding
     if (level === 'high' || level === 'critical') bgColor = 'bg-red-50';
@@ -47,7 +47,7 @@ export default function App() {
     );
   };
 
-  const DataCell = ({ children, isHighlight = false, isROI = false, wrap = false, className = '' }) => {
+  const DataCell = ({ children, isHighlight = false, isROI = false, wrap = false, className = '' }: { children: React.ReactNode; isHighlight?: boolean; isROI?: boolean; wrap?: boolean; className?: string }) => {
     let textColor = 'text-gray-900';
     if (isHighlight) textColor = 'text-red-700 font-bold';
     else if (isROI) textColor = 'text-blue-700 font-bold'; // Using blue for targets
@@ -62,7 +62,7 @@ export default function App() {
     );
   };
 
-  const Caption = ({ children }) => (
+  const Caption = ({ children }: { children: React.ReactNode }) => (
     <div className="text-xs font-medium text-gray-500 uppercase tracking-widest mt-10 mb-3 border-b-2 border-orange-200 pb-1">
       {children}
     </div>
@@ -187,7 +187,7 @@ export default function App() {
               
               {/* Total Row - Summarizing the Financial Impact, but de-emphasized */}
               <tr className="font-bold bg-gray-100/80 border-t-2 border-gray-400">
-                <td colSpan="4" className="px-3 py-3 text-left text-base text-gray-700">Total Addressable Churn Drivers</td>
+                <td colSpan={4} className="px-3 py-3 text-left text-base text-gray-700">Total Addressable Churn Drivers</td>
                 <DataCell isROI={true} className="text-base text-gray-500">Estimated €{preventableExposure} Revenue Protected</DataCell>
                 <DataCell isHighlight={true} className="text-base text-gray-500">Total Risk: €{totalExposure}</DataCell>
               </tr>
