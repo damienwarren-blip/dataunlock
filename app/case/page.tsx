@@ -38,47 +38,47 @@ export default function CaseStudyPage() {
           <p className="text-xl text-cyan-600 font-bold mb-4 tracking-wider">
             ZEUS SCOOTERS • CUSTOMER CHURN
           </p>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-pink-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
             How DataUnlock Unlocked 3X Churn Insights for Zeus Scooters.
           </h1>
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3 p-6 border-y border-gray-300 bg-gray-50 rounded-xl">
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3 p-6 border-y border-gray-200 bg-white rounded-xl shadow-sm">
             <div className="text-center py-4">
-              <div className="text-4xl md:text-7xl font-extrabold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">€900K</div>
-              <p className="text-gray-700 text-sm md:text-base mt-2 font-medium">annual projected revenue recovery</p>
+              <div className="text-4xl md:text-7xl font-extrabold text-pink-600">€900K</div>
+              <p className="text-gray-600 text-sm md:text-base mt-2 font-medium">annual projected revenue recovery</p>
             </div>
             <div className="text-center py-4">
-              <div className="text-4xl md:text-7xl font-extrabold bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">10K</div>
-              <p className="text-gray-700 text-sm md:text-base mt-2 font-medium">customers targeted for win-back Q1</p>
+              <div className="text-4xl md:text-7xl font-extrabold text-purple-600">10K</div>
+              <p className="text-gray-600 text-sm md:text-base mt-2 font-medium">customers targeted for win-back Q1</p>
             </div>
             <div className="text-center py-4">
-              <div className="text-4xl md:text-7xl font-extrabold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">{'<7'}</div>
-              <p className="text-gray-700 text-sm md:text-base mt-2 font-medium">Strategy delivered in days</p>
+              <div className="text-4xl md:text-7xl font-extrabold text-cyan-600">{'<7'}</div>
+              <p className="text-gray-600 text-sm md:text-base mt-2 font-medium">Strategy delivered in days</p>
             </div>
           </div>
         </motion.div>
 
         {/* THE CHALLENGE */}
         <section className="mt-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-6 text-rose-600">
+          <h2 className="text-4xl font-bold mb-6 text-pink-600">
             The Challenge: The Cost of Silent Churn
           </h2>
-          <p className="text-lg text-gray-800 leading-relaxed font-medium">
+          <p className="text-lg text-gray-700 leading-relaxed font-medium">
             Zeus Scooters was battling a critical customer retention crisis. Their reliance on traditional email surveys yielded a <strong>sub-1% engagement rate</strong>, providing only shallow, multiple-choice data. This meant they were unable to determine the true 'why' behind their escalating churn—a problem costing them <strong>significant annual revenue</strong>. To solve this, <strong>the Irish management team needed a culturally appropriate, German-speaking, high-engagement method</strong> to truly listen to their massive German user base: 150,000 customers across 30 cities.
           </p>
         </section>
 
         {/* THE APPROACH & OUTCOME */}
         <section className="mt-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-6 text-rose-600">
+          <h2 className="text-4xl font-bold mb-6 text-pink-600">
             The Solution: Video at Scale
           </h2>
-          <p className="text-lg text-gray-800 leading-relaxed font-medium">
+          <p className="text-lg text-gray-700 leading-relaxed font-medium">
             DataUnlock implemented a <strong>high-impact, interactive video campaign</strong>, strategically distributed across email, in-app, and social channels. This personalized, mobile-first approach, delivered entirely in German, was specifically engineered to mirror the casual, high-speed brand experience of Zeus Scooters. The result was immediate: DataUnlock achieved a <strong>3X higher participation rate</strong> than traditional surveys and, crucially, delivered the <strong>rich, qualitative 'why'</strong> necessary to understand and solve their retention problems.
           </p>
 
-          <div className="mt-12 p-8 bg-pink-50 rounded-xl border border-pink-200 shadow-2xl shadow-pink-200/40">
+          <div className="mt-12 p-8 bg-white rounded-xl border border-pink-200 shadow-sm">
             <h3 className="text-2xl font-bold mb-4 text-pink-600">Key Results:</h3>
-            <ul className="list-disc list-inside space-y-3 text-lg text-gray-800 pl-4 font-medium">
+            <ul className="list-disc list-inside space-y-3 text-lg text-gray-700 pl-4 font-medium">
               <li>
                 <strong>Rapid Strategy:</strong> Full strategic blueprint delivered in less than seven days from campaign launch.
               </li>
@@ -96,12 +96,12 @@ export default function CaseStudyPage() {
         </section>
 
         {/* QUOTE & CONCLUSION */}
-        <section className="mt-20 py-16 bg-gradient-to-r from-purple-50 to-gray-50 rounded-xl border border-purple-200">
+        <section className="mt-20 py-16 bg-gradient-to-r from-pink-50 to-cyan-50 rounded-xl border border-pink-200">
           <figure className="max-w-4xl mx-auto px-8 text-center">
             <blockquote className="text-4xl italic font-semibold leading-snug text-gray-900">
               "You've given me a <strong>step-by-step guide to reduce churn</strong>. We went from guessing to knowing exactly which button to press to fix our problem."
             </blockquote>
-            <figcaption className="mt-8 text-2xl font-bold text-cyan-600">
+            <figcaption className="mt-8 text-2xl font-bold text-pink-600">
               — Chris Kemp / Deputy CEO, Zeus Scooters
             </figcaption>
           </figure>
@@ -129,22 +129,23 @@ export default function CaseStudyPage() {
             </div>
 
             {/* Button */}
-            <motion.a
-              href={strategyAgreed ? ctaLink : "#"}
-              whileHover={strategyAgreed ? { scale: 1.03, y: -1 } : { scale: 1.0 }}
-              whileTap={strategyAgreed ? { scale: 0.98 } : { scale: 1.0 }}
-              className={`flex items-center justify-center w-full px-12 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out
-                ${strategyAgreed
-                  ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:shadow-pink-500/50 cursor-pointer" 
-                  : "bg-gray-200 text-gray-500 cursor-not-allowed shadow-none"
-                }`} 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={(e) => { !strategyAgreed && e.preventDefault(); }}
-            >
-              Book Your Strategy Call &rarr;
-            </motion.a>
+            <a href={strategyAgreed ? ctaLink : "#"}>
+              <motion.div
+                whileHover={strategyAgreed ? { scale: 1.03, y: -1 } : { scale: 1.0 }}
+                whileTap={strategyAgreed ? { scale: 0.98 } : { scale: 1.0 }}
+                className={`flex items-center justify-center w-full px-12 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out
+                  ${strategyAgreed
+                    ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:shadow-pink-500/50 cursor-pointer" 
+                    : "bg-gray-200 text-gray-500 cursor-not-allowed shadow-none"
+                  }`} 
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                onClick={(e: any) => { !strategyAgreed && e.preventDefault(); }}
+              >
+                Book Your Strategy Call &rarr;
+              </motion.div>
+            </a>
           </div>
         </div>
       </div>
@@ -164,4 +165,3 @@ export default function CaseStudyPage() {
     </div>
   );
 }
-
