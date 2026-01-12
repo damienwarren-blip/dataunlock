@@ -129,7 +129,7 @@ export default function CaseStudyPage() {
             </div>
 
             {/* Button */}
-            <a href={strategyAgreed ? ctaLink : "#"}>
+            <a href={strategyAgreed ? ctaLink : "#"} onClick={(e: any) => { !strategyAgreed && e.preventDefault(); }}>
               <div className={`flex items-center justify-center w-full px-12 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out
                 ${strategyAgreed
                   ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:shadow-pink-500/50 cursor-pointer" 
@@ -141,7 +141,6 @@ export default function CaseStudyPage() {
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 } as any}
-                  onClick={(e: any) => { !strategyAgreed && e.preventDefault(); }}
                 >
                   Book Your Strategy Call &rarr;
                 </motion.div>
