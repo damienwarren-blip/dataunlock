@@ -130,21 +130,22 @@ export default function CaseStudyPage() {
 
             {/* Button */}
             <a href={strategyAgreed ? ctaLink : "#"}>
-              <motion.div
-                whileHover={strategyAgreed ? { scale: 1.03, y: -1 } : { scale: 1.0 }}
-                whileTap={strategyAgreed ? { scale: 0.98 } : { scale: 1.0 }}
-                className={`flex items-center justify-center w-full px-12 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out
-                  ${strategyAgreed
-                    ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:shadow-pink-500/50 cursor-pointer" 
-                    : "bg-gray-200 text-gray-500 cursor-not-allowed shadow-none"
-                  }`} 
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                onClick={(e: any) => { !strategyAgreed && e.preventDefault(); }}
-              >
-                Book Your Strategy Call &rarr;
-              </motion.div>
+              <div className={`flex items-center justify-center w-full px-12 py-5 text-xl font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out
+                ${strategyAgreed
+                  ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:shadow-pink-500/50 cursor-pointer" 
+                  : "bg-gray-200 text-gray-500 cursor-not-allowed shadow-none"
+                }`}>
+                <motion.div
+                  whileHover={strategyAgreed ? { scale: 1.03, y: -1 } : { scale: 1.0 }}
+                  whileTap={strategyAgreed ? { scale: 0.98 } : { scale: 1.0 }}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 } as any}
+                  onClick={(e: any) => { !strategyAgreed && e.preventDefault(); }}
+                >
+                  Book Your Strategy Call &rarr;
+                </motion.div>
+              </div>
             </a>
           </div>
         </div>
