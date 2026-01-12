@@ -159,8 +159,9 @@ const StrategyReportGraphic = () => {
                                                 initial={{ width: 0 }} 
                                                 animate={{ width: "75%" }} 
                                                 transition={{ delay: 1.5, duration: 1 }}
-                                                className="h-full bg-pink-500" 
-                                            />
+                                            >
+                                                <div className="h-full bg-pink-500" />
+                                            </motion.div>
                                         </div>
                                         <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center">Confidence Score: 94%</div>
                                     </div>
