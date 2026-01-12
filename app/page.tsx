@@ -80,86 +80,87 @@ const StrategyReportGraphic = () => {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-20 w-full aspect-[16/10] bg-white rounded-xl sm:rounded-2xl border-[6px] sm:border-[12px] border-gray-900 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] overflow-hidden font-sans"
             >
-                {/* Screen Content */}
-                <div className="w-full h-full flex flex-col bg-[#fdfdfd] overflow-y-auto sm:overflow-hidden">
-                    {/* Top Bar */}
-                    <div className="h-8 sm:h-14 border-b border-gray-100 flex items-center justify-between px-3 sm:px-6 bg-white shrink-0">
-                        <div className="flex items-center gap-1.5 sm:gap-3">
-                            <div className="w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg bg-gray-900 flex items-center justify-center">
-                                <Zap className="w-2.5 h-2.5 sm:w-4 h-4 text-white" />
-                            </div>
-                            <div className="text-[10px] sm:text-sm font-black tracking-tight truncate">Revenue Strategy Dashboard</div>
-                        </div>
-                        <div className="flex gap-1 sm:gap-2">
-                            <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full bg-gray-200" />
-                            <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full bg-gray-200" />
-                            <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full bg-gray-200" />
-                        </div>
-                    </div>
-
-                    {/* Dashboard Layout */}
-                    <div className="flex-1 p-3 sm:p-6 grid grid-cols-12 gap-3 sm:gap-6">
-                        {/* Sidebar/Main Content */}
-                        <div className="col-span-12 sm:col-span-8 space-y-3 sm:space-y-6">
-                            <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.5 }}>
-                                <div className="bg-cyan-50 text-cyan-600 text-[8px] sm:text-[10px] font-black px-2 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase inline-block mb-1 sm:mb-3">
-                                    Critical Finding
+                <div className="relative z-20 w-full aspect-[16/10] bg-white rounded-xl sm:rounded-2xl border-[6px] sm:border-[12px] border-gray-900 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] overflow-hidden font-sans">
+                    {/* Screen Content */}
+                    <div className="w-full h-full flex flex-col bg-[#fdfdfd] overflow-y-auto sm:overflow-hidden">
+                        {/* Top Bar */}
+                        <div className="h-8 sm:h-14 border-b border-gray-100 flex items-center justify-between px-3 sm:px-6 bg-white shrink-0">
+                            <div className="flex items-center gap-1.5 sm:gap-3">
+                                <div className="w-4 h-4 sm:w-8 sm:h-8 rounded sm:rounded-lg bg-gray-900 flex items-center justify-center">
+                                    <Zap className="w-2.5 h-2.5 sm:w-4 h-4 text-white" />
                                 </div>
-                                <h2 className="text-base sm:text-3xl font-black text-black leading-tight">Churn risk identified in Enterprise Tier</h2>
-                            </motion.div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
-                                <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.7 }} className="p-2 sm:p-5 rounded-lg sm:rounded-2xl bg-gray-50 border border-gray-100">
-                                    <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-0.5 sm:mb-2">Primary Cause</div>
-                                    <p className="text-[10px] sm:text-sm text-gray-600 font-medium leading-relaxed">
-                                        Integrations complexity is stalling 40% of post-onboarding expansion.
-                                    </p>
-                                </motion.div>
-                                <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.8 }} className="hidden sm:block p-5 rounded-2xl bg-pink-50 border border-pink-100">
-                                    <div className="text-[10px] font-bold text-pink-400 uppercase mb-2">Action Status</div>
-                                    <p className="text-sm text-pink-600 font-bold leading-relaxed italic">
-                                        Strategy unlocked instantly.
-                                    </p>
-                                </motion.div>
+                                <div className="text-[10px] sm:text-sm font-black tracking-tight truncate">Revenue Strategy Dashboard</div>
                             </div>
-
-                            <div className="space-y-1.5 sm:space-y-3">
-                                <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase">Recommended Actions</div>
-                                <div className="space-y-1 sm:space-y-2">
-                                    <motion.div initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.9 }} className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl">
-                                        <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-cyan-600 flex items-center justify-center text-[8px] sm:text-[10px] text-white font-bold shrink-0">1</div>
-                                        <div className="text-[10px] sm:text-sm font-semibold text-black truncate">Deploy "One-Click Sync" beta to DACH.</div>
-                                    </motion.div>
-                                    <motion.div initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.1 }} className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl opacity-50">
-                                        <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-cyan-100 flex items-center justify-center text-[8px] sm:text-[10px] text-cyan-600 font-bold shrink-0">2</div>
-                                        <div className="text-[10px] sm:text-sm font-semibold text-gray-500 truncate">Prioritize API docs for Segment.</div>
-                                    </motion.div>
-                                </div>
+                            <div className="flex gap-1 sm:gap-2">
+                                <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full bg-gray-200" />
+                                <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full bg-gray-200" />
+                                <div className="w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full bg-gray-200" />
                             </div>
                         </div>
 
-                        {/* Side Stats */}
-                        <div className="col-span-12 sm:col-span-4 space-y-3 sm:space-y-6">
-                            <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.3 }} className="p-3 sm:p-6 bg-gray-900 rounded-lg sm:rounded-2xl text-white h-full flex flex-col justify-between">
-                                <div>
-                                    <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-1 sm:mb-4">Projected Impact</div>
-                                    <div className="text-xl sm:text-5xl font-black text-white">+€84k</div>
-                                    <div className="mt-0.5 sm:mt-2 text-[8px] sm:text-xs font-bold text-green-400">Monthly Revenue Uplift</div>
-                                </div>
-                                <div className="hidden sm:block space-y-4">
-                                    <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                                        <motion.div 
-                                            initial={{ width: 0 }} 
-                                            animate={{ width: "75%" }} 
-                                            transition={{ delay: 1.5, duration: 1 }}
-                                            className="h-full bg-pink-500" 
-                                        />
+                        {/* Dashboard Layout */}
+                        <div className="flex-1 p-3 sm:p-6 grid grid-cols-12 gap-3 sm:gap-6">
+                            {/* Sidebar/Main Content */}
+                            <div className="col-span-12 sm:col-span-8 space-y-3 sm:space-y-6">
+                                <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.5 }}>
+                                    <div className="bg-cyan-50 text-cyan-600 text-[8px] sm:text-[10px] font-black px-2 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase inline-block mb-1 sm:mb-3">
+                                        Critical Finding
                                     </div>
-                                    <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center">Confidence Score: 94%</div>
+                                    <h2 className="text-base sm:text-3xl font-black text-black leading-tight">Churn risk identified in Enterprise Tier</h2>
+                                </motion.div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                                    <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.7 }} className="p-2 sm:p-5 rounded-lg sm:rounded-2xl bg-gray-50 border border-gray-100">
+                                        <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-0.5 sm:mb-2">Primary Cause</div>
+                                        <p className="text-[10px] sm:text-sm text-gray-600 font-medium leading-relaxed">
+                                            Integrations complexity is stalling 40% of post-onboarding expansion.
+                                        </p>
+                                    </motion.div>
+                                    <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.8 }} className="hidden sm:block p-5 rounded-2xl bg-pink-50 border border-pink-100">
+                                        <div className="text-[10px] font-bold text-pink-400 uppercase mb-2">Action Status</div>
+                                        <p className="text-sm text-pink-600 font-bold leading-relaxed italic">
+                                            Strategy unlocked instantly.
+                                        </p>
+                                    </motion.div>
                                 </div>
-                            </motion.div>
+
+                                <div className="space-y-1.5 sm:space-y-3">
+                                    <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase">Recommended Actions</div>
+                                    <div className="space-y-1 sm:space-y-2">
+                                        <motion.div initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.9 }} className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl">
+                                            <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-cyan-600 flex items-center justify-center text-[8px] sm:text-[10px] text-white font-bold shrink-0">1</div>
+                                            <div className="text-[10px] sm:text-sm font-semibold text-black truncate">Deploy "One-Click Sync" beta to DACH.</div>
+                                        </motion.div>
+                                        <motion.div initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.1 }} className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl opacity-50">
+                                            <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-cyan-100 flex items-center justify-center text-[8px] sm:text-[10px] text-cyan-600 font-bold shrink-0">2</div>
+                                            <div className="text-[10px] sm:text-sm font-semibold text-gray-500 truncate">Prioritize API docs for Segment.</div>
+                                        </motion.div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Side Stats */}
+                            <div className="col-span-12 sm:col-span-4 space-y-3 sm:space-y-6">
+                                <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.3 }} className="p-3 sm:p-6 bg-gray-900 rounded-lg sm:rounded-2xl text-white h-full flex flex-col justify-between">
+                                    <div>
+                                        <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-1 sm:mb-4">Projected Impact</div>
+                                        <div className="text-xl sm:text-5xl font-black text-white">+€84k</div>
+                                        <div className="mt-0.5 sm:mt-2 text-[8px] sm:text-xs font-bold text-green-400">Monthly Revenue Uplift</div>
+                                    </div>
+                                    <div className="hidden sm:block space-y-4">
+                                        <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                                            <motion.div 
+                                                initial={{ width: 0 }} 
+                                                animate={{ width: "75%" }} 
+                                                transition={{ delay: 1.5, duration: 1 }}
+                                                className="h-full bg-pink-500" 
+                                            />
+                                        </div>
+                                        <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center">Confidence Score: 94%</div>
+                                    </div>
+                                </motion.div>
+                            </div>
                         </div>
                     </div>
                 </div>
