@@ -111,38 +111,43 @@ const StrategyReportGraphic = () => {
                                 </motion.div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
-                                    <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.7 }} className="p-2 sm:p-5 rounded-lg sm:rounded-2xl bg-gray-50 border border-gray-100">
-                                        <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-0.5 sm:mb-2">Primary Cause</div>
-                                        <p className="text-[10px] sm:text-sm text-gray-600 font-medium leading-relaxed">
-                                            Integrations complexity is stalling 40% of post-onboarding expansion.
-                                        </p>
+                                    <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.7 }}>
+                                        <div className="p-2 sm:p-5 rounded-lg sm:rounded-2xl bg-gray-50 border border-gray-100">
+                                            <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-0.5 sm:mb-2">Primary Cause</div>
+                                            <p className="text-[10px] sm:text-sm text-gray-600 font-medium leading-relaxed">
+                                                Integrations complexity is stalling 40% of post-onboarding expansion.
+                                            </p>
+                                        </div>
                                     </motion.div>
-                                    <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.8 }} className="hidden sm:block p-5 rounded-2xl bg-pink-50 border border-pink-100">
+                                    <motion.div initial={{ x: -10, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.8 }}>
+                                        <div className="hidden sm:block p-5 rounded-2xl bg-pink-50 border border-pink-100">
                                         <div className="text-[10px] font-bold text-pink-400 uppercase mb-2">Action Status</div>
                                         <p className="text-sm text-pink-600 font-bold leading-relaxed italic">
                                             Strategy unlocked instantly.
                                         </p>
+                                        </div>
                                     </motion.div>
                                 </div>
 
                                 <div className="space-y-1.5 sm:space-y-3">
                                     <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase">Recommended Actions</div>
                                     <div className="space-y-1 sm:space-y-2">
-                                        <motion.div initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.9 }} className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl">
+                                        <div className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl">
                                             <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-cyan-600 flex items-center justify-center text-[8px] sm:text-[10px] text-white font-bold shrink-0">1</div>
                                             <div className="text-[10px] sm:text-sm font-semibold text-black truncate">Deploy "One-Click Sync" beta to DACH.</div>
-                                        </motion.div>
-                                        <motion.div initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.1 }} className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl opacity-50">
+                                        </div>
+                                        <div className="flex items-center gap-2 sm:gap-3 p-1.5 sm:p-3 bg-white border border-gray-100 rounded-lg sm:rounded-xl opacity-50">
                                             <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-cyan-100 flex items-center justify-center text-[8px] sm:text-[10px] text-cyan-600 font-bold shrink-0">2</div>
                                             <div className="text-[10px] sm:text-sm font-semibold text-gray-500 truncate">Prioritize API docs for Segment.</div>
-                                        </motion.div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Side Stats */}
                             <div className="col-span-12 sm:col-span-4 space-y-3 sm:space-y-6">
-                                <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.3 }} className="p-3 sm:p-6 bg-gray-900 rounded-lg sm:rounded-2xl text-white h-full flex flex-col justify-between">
+                                <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 1.3 }}>
+                                    <div className="p-3 sm:p-6 bg-gray-900 rounded-lg sm:rounded-2xl text-white h-full flex flex-col justify-between">
                                     <div>
                                         <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase mb-1 sm:mb-4">Projected Impact</div>
                                         <div className="text-xl sm:text-5xl font-black text-white">+€84k</div>
@@ -158,6 +163,7 @@ const StrategyReportGraphic = () => {
                                             />
                                         </div>
                                         <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center">Confidence Score: 94%</div>
+                                    </div>
                                     </div>
                                 </motion.div>
                             </div>
@@ -203,7 +209,8 @@ export default function App() {
             {/* Hero */}
             <section className="pt-32 sm:pt-48 pb-20 sm:pb-32 px-4 sm:px-6 max-w-7xl mx-auto">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="lg:w-1/2">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <div className="lg:w-1/2">
                         <div className="inline-block mb-6 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">Early access for pilot partners</div>
                         <h1 className="text-[clamp(3.5rem,10vw,9rem)] font-black mb-8 sm:mb-16 tracking-tighter leading-[0.85]">
                             Unlock the revenue <br/><span className="text-pink-600 italic">in your data.</span>
@@ -217,6 +224,7 @@ export default function App() {
                         >
                             Join as Pilot Partner
                         </button>
+                        </div>
                     </motion.div>
                     <div className="lg:w-1/2 w-full">
                         <StrategyReportGraphic />
