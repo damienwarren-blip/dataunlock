@@ -274,8 +274,8 @@ export default function App() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="p-8 sm:p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm"
                         >
+                            <div className="p-8 sm:p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm">
                             <div className="text-[10px] font-black text-pink-600 bg-pink-50 px-3 py-1 rounded-full uppercase tracking-widest inline-block mb-8">Fastest to value</div>
                             <div className="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6">
                                 <ClipboardList className="text-white w-6 h-6" />
@@ -284,6 +284,7 @@ export default function App() {
                             <p className="text-gray-500 font-medium leading-relaxed">
                                 Instantly process your CSVs, surveys, and support tickets. No cleanup, no reformatting — Get your strategy in minutes.
                             </p>
+                            </div>
                         </motion.div>
 
                         <motion.div 
@@ -291,8 +292,8 @@ export default function App() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="p-8 sm:p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm"
                         >
+                            <div className="p-8 sm:p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm">
                             <div className="text-[10px] font-black text-purple-600 bg-purple-50 px-3 py-1 rounded-full uppercase tracking-widest inline-block mb-8">Enterprise ready</div>
                             <div className="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6">
                                 <Database className="text-white w-6 h-6" />
@@ -301,6 +302,7 @@ export default function App() {
                             <p className="text-gray-500 font-medium leading-relaxed">
                                 Connect directly to your data warehouse, CRM, or support platform. Real-time feedback processing. Fully documented.
                             </p>
+                            </div>
                         </motion.div>
 
                         <motion.div 
@@ -308,8 +310,8 @@ export default function App() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="p-8 sm:p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm"
                         >
+                            <div className="p-8 sm:p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm">
                             <div className="text-[10px] font-black text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full uppercase tracking-widest inline-block mb-8">Active listening</div>
                             <div className="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6">
                                 <Bot className="text-white w-6 h-6" />
@@ -318,6 +320,7 @@ export default function App() {
                             <p className="text-gray-500 font-medium leading-relaxed">
                                 Launch multilingual AI chatbots that collect feedback in real-time and feed directly into our engine.
                             </p>
+                            </div>
                         </motion.div>
                     </div>
                 </div>
