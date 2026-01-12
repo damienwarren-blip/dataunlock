@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 // --- THEME CONSTANTS ---
-const THEME = {
+const THEME: Record<string, string> = {
     pink: "bg-pink-600",
     pinkLight: "bg-pink-50",
     pinkText: "text-pink-600",
