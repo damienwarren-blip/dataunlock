@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { motion, AnimatePresence, HTMLMotionProps } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     ChevronRight,
     ArrowRight,
@@ -100,7 +100,6 @@ const DataUnlockLogo = () => (
     </div>
 );
 
-// --- PROPS INTERFACE ---
 interface PrivacyModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -111,28 +110,18 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
     
     if (!isOpen) return null;
 
-    // Explicitly define motion props to satisfy TypeScript's strict checking
-    const backdropProps: HTMLMotionProps<"div"> = {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        className: "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-    };
-
-    const modalProps: HTMLMotionProps<"div"> = {
-        initial: { scale: 0.95, opacity: 0, y: 20 },
-        animate: { scale: 1, opacity: 1, y: 0 },
-        exit: { scale: 0.95, opacity: 0, y: 20 },
-        className: "bg-white w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col"
-    };
-
     return (
         <AnimatePresence>
-            <motion.div {...backdropProps}>
-                <motion.div {...modalProps}>
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                <motion.div 
+                    initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                    className="bg-white w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col"
+                >
                     <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6">
                         <div className="flex justify-between items-start">
-                            <div>
+                            <div className="text-left">
                                 <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-1 md:mb-2 text-black">Privacy & Data Governance</h1>
                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Version 1.0 • Effective Jan 14, 2026</p>
                             </div>
@@ -205,7 +194,7 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
                         )}
                     </div>
                 </motion.div>
-            </motion.div>
+            </div>
         </AnimatePresence>
     );
 };
@@ -236,47 +225,46 @@ export default function App() {
 
             {/* Hero */}
             <section className="pt-32 md:pt-56 pb-20 md:pb-40 px-4 md:px-6 max-w-7xl mx-auto text-center">
-                <motion.div 
-                    initial={{ opacity: 0, y: 30 }} 
-                    animate={{ opacity: 1, y: 0 }} 
-                    transition={{ duration: 0.8 }}
-                    className="max-w-5xl mx-auto"
-                >
-                    <div className="inline-block mb-6 md:mb-8 text-[9px] md:text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">
-                        Early access for pilot partners
-                    </div>
-                    <h1 className="text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[9rem] font-black mb-8 md:mb-12 tracking-tighter leading-[0.9] sm:leading-[0.85]">
-                        Unlock the revenue <br/><span className="text-pink-600 italic">in your data.</span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed italic px-4">
-                        Your raw data holds revenue drivers. We unlock them—fast and secure.
-                    </p>
-                    <div className="px-4">
-                        <a
-                            href="mailto:damien@dataunlock.ai"
-                            className="w-full md:w-auto px-8 md:px-14 py-5 md:py-7 bg-black text-white rounded-xl md:rounded-2xl font-black text-lg md:text-2xl hover:bg-pink-600 transition-all active:scale-[0.98] shadow-2xl shadow-gray-200 inline-block"
-                        >
-                            Join as Pilot Partner
-                        </a>
-                    </div>
-                </motion.div>
+                <div className="max-w-5xl mx-auto">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30 }} 
+                        animate={{ opacity: 1, y: 0 }} 
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="inline-block mb-6 md:mb-8 text-[9px] md:text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">
+                            Early access for pilot partners
+                        </div>
+                        <h1 className="text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[9rem] font-black mb-8 md:mb-12 tracking-tighter leading-[0.9] sm:leading-[0.85]">
+                            Unlock the revenue <br/><span className="text-pink-600 italic">in your data.</span>
+                        </h1>
+                        <p className="text-base sm:text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed italic px-4">
+                            Your raw data holds revenue drivers. We unlock them—fast and secure.
+                        </p>
+                        <div className="px-4">
+                            <a
+                                href="mailto:damien@dataunlock.ai"
+                                className="w-full md:w-auto px-8 md:px-14 py-5 md:py-7 bg-black text-white rounded-xl md:rounded-2xl font-black text-lg md:text-2xl hover:bg-pink-600 transition-all active:scale-[0.98] shadow-2xl shadow-gray-200 inline-block"
+                            >
+                                Join as Pilot Partner
+                            </a>
+                        </div>
+                    </motion.div>
+                </div>
             </section>
 
             {/* How It Works */}
             <section className="py-20 md:py-32 px-4 md:px-6 bg-white border-y border-gray-100">
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto text-left">
                     <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-12 md:mb-20 italic px-2">The Process. How we unlock.</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 px-2">
-                        {HOW_IT_WORKS.map((item, i) => {
-                             const stepMotionProps: HTMLMotionProps<"div"> = {
-                                initial: { opacity: 0, y: 20 },
-                                whileInView: { opacity: 1, y: 0 },
-                                viewport: { once: true },
-                                transition: { delay: i * 0.1 },
-                                className: "flex flex-col"
-                            };
-                            return (
-                                <motion.div key={i} {...stepMotionProps}>
+                        {HOW_IT_WORKS.map((item, i) => (
+                            <div key={i} className="flex flex-col">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 }}
+                                >
                                     <div className="text-4xl md:text-6xl font-black text-gray-100 mb-2 md:mb-4">{item.step}</div>
                                     <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[(item.color + 'Light') as ThemeKey]} flex items-center justify-center mb-6`}>
                                         <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[(item.color + 'Text') as ThemeKey]}`} />
@@ -284,15 +272,15 @@ export default function App() {
                                     <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-4 tracking-tight">{item.title}</h3>
                                     <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed">{item.detail}</p>
                                 </motion.div>
-                            );
-                        })}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* Compliance */}
             <section className="py-20 md:py-32 px-4 md:px-6 bg-gray-50 border-y border-gray-100">
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto text-left">
                     <div className="max-w-2xl mb-12 md:mb-20 px-2">
                         <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 italic">Built for Trust.</h2>
                         <p className="text-xs md:text-xl text-gray-400 font-bold uppercase tracking-widest">Compliance by design.</p>
