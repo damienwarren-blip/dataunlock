@@ -30,9 +30,19 @@ const THEME = {
     roseLight: "bg-rose-50",
     roseText: "text-rose-600",
     darkText: "text-gray-900"
-};
+} as const;
 
-const HOW_IT_WORKS = [
+type ThemeKey = keyof typeof THEME;
+
+interface HowItWorksItem {
+    step: string;
+    title: string;
+    detail: string;
+    icon: any;
+    color: string;
+}
+
+const HOW_IT_WORKS: HowItWorksItem[] = [
     {
         step: "01",
         title: "Load",
@@ -79,7 +89,6 @@ const COMPLIANCE_ITEMS = [
     }
 ];
 
-// --- LOGO COMPONENT ---
 const DataUnlockLogo = () => (
     <div className="relative w-8 h-8 flex-shrink-0 flex items-center justify-center">
         <div className="absolute inset-0 bg-black rounded-lg flex items-center justify-center">
@@ -91,12 +100,14 @@ const DataUnlockLogo = () => (
     </div>
 );
 
-/**
- * PrivacyModal Component
- * Added explicit type definitions to resolve TypeScript build errors in Next.js/Vercel
- */
-const PrivacyModal = ({ isOpen, onClose }) => {
-    const [activeTab, setActiveTab] = useState('summary');
+// --- PROPS INTERFACE FOR TYPESCRIPT ---
+interface PrivacyModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
+    const [activeTab, setActiveTab] = useState<'summary' | 'full'>('summary');
     
     if (!isOpen) return null;
     return (
@@ -116,14 +127,14 @@ const PrivacyModal = ({ isOpen, onClose }) => {
                     <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6">
                         <div className="flex justify-between items-start">
                             <div>
-                                <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-1 md:mb-2">Privacy & Data Governance</h1>
+                                <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-1 md:mb-2 text-black">Privacy & Data Governance</h1>
                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Version 1.0 • Effective Jan 14, 2026</p>
                             </div>
                             <button 
                                 onClick={onClose}
                                 className="p-2 hover:bg-gray-100 rounded-full transition-colors border border-gray-100"
                             >
-                                <X className="w-5 h-5" />
+                                <X className="w-5 h-5 text-black" />
                             </button>
                         </div>
                         
@@ -143,15 +154,15 @@ const PrivacyModal = ({ isOpen, onClose }) => {
                         </div>
                     </div>
 
-                    <div className="p-6 md:p-16 overflow-y-auto flex-1 text-gray-800 prose prose-slate max-w-none">
+                    <div className="p-6 md:p-16 overflow-y-auto flex-1 text-gray-800">
                         {activeTab === 'summary' ? (
                             <div className="space-y-8 md:space-y-12">
                                 <section>
-                                    <h2 className="text-lg md:text-xl font-black mb-3 md:mb-4 uppercase tracking-tight text-black">Data Control</h2>
-                                    <p className="text-base md:text-lg font-medium text-gray-600 leading-relaxed">You remain the Data Controller. DataUnlock acts strictly as a Processor. You have total control over your data, including the right to delete any information at any time.</p>
+                                    <h2 className="text-lg md:text-xl font-black mb-3 md:mb-4 uppercase tracking-tight text-black text-left">Data Control</h2>
+                                    <p className="text-base md:text-lg font-medium text-gray-600 leading-relaxed text-left">You remain the Data Controller. DataUnlock acts strictly as a Processor. You have total control over your data, including the right to delete any information at any time.</p>
                                 </section>
                                 <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                                    <div className="p-5 md:p-6 bg-pink-50 rounded-2xl border border-pink-100">
+                                    <div className="p-5 md:p-6 bg-pink-50 rounded-2xl border border-pink-100 text-left">
                                         <h3 className="font-black text-pink-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
                                             <ShieldCheck className="w-4 h-4" /> Security Standards
                                         </h3>
@@ -162,7 +173,7 @@ const PrivacyModal = ({ isOpen, onClose }) => {
                                             <li>• RBAC & strict production access controls</li>
                                         </ul>
                                     </div>
-                                    <div className="p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                                    <div className="p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100 text-left">
                                         <h3 className="font-black text-gray-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
                                             <Lock className="w-4 h-4" /> Processing Scope
                                         </h3>
@@ -176,7 +187,7 @@ const PrivacyModal = ({ isOpen, onClose }) => {
                                 </section>
                             </div>
                         ) : (
-                            <div className="space-y-10 text-xs md:text-sm leading-relaxed pb-20 whitespace-pre-wrap">
+                            <div className="space-y-10 text-xs md:text-sm leading-relaxed pb-20 whitespace-pre-wrap text-left">
                                 <div className="mb-8 border-b border-gray-100 pb-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
                                     DataUnlock Privacy Policy Version: 1.0 Last Updated: January 14, 2026
                                 </div>
@@ -260,8 +271,8 @@ export default function App() {
                                 className="flex flex-col"
                             >
                                 <div className="text-4xl md:text-6xl font-black text-gray-100 mb-2 md:mb-4">{item.step}</div>
-                                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[item.color + 'Light']} flex items-center justify-center mb-6`}>
-                                    <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[item.color + 'Text']}`} />
+                                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[(item.color + 'Light') as ThemeKey]} flex items-center justify-center mb-6`}>
+                                    <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[(item.color + 'Text') as ThemeKey]}`} />
                                 </div>
                                 <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-4 tracking-tight">{item.title}</h3>
                                 <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed">{item.detail}</p>
