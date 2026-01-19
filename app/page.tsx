@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, HTMLMotionProps } from 'framer-motion';
 import {
     ChevronRight,
     ArrowRight,
@@ -100,7 +100,7 @@ const DataUnlockLogo = () => (
     </div>
 );
 
-// --- PROPS INTERFACE FOR TYPESCRIPT ---
+// --- PROPS INTERFACE ---
 interface PrivacyModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -110,20 +110,26 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
     const [activeTab, setActiveTab] = useState<'summary' | 'full'>('summary');
     
     if (!isOpen) return null;
+
+    // Explicitly define motion props to satisfy TypeScript's strict checking
+    const backdropProps: HTMLMotionProps<"div"> = {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        className: "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+    };
+
+    const modalProps: HTMLMotionProps<"div"> = {
+        initial: { scale: 0.95, opacity: 0, y: 20 },
+        animate: { scale: 1, opacity: 1, y: 0 },
+        exit: { scale: 0.95, opacity: 0, y: 20 },
+        className: "bg-white w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col"
+    };
+
     return (
         <AnimatePresence>
-            <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-            >
-                <motion.div 
-                    initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                    className="bg-white w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col"
-                >
+            <motion.div {...backdropProps}>
+                <motion.div {...modalProps}>
                     <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6">
                         <div className="flex justify-between items-start">
                             <div>
@@ -261,23 +267,25 @@ export default function App() {
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-12 md:mb-20 italic px-2">The Process. How we unlock.</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 px-2">
-                        {HOW_IT_WORKS.map((item, i) => (
-                            <motion.div 
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="flex flex-col"
-                            >
-                                <div className="text-4xl md:text-6xl font-black text-gray-100 mb-2 md:mb-4">{item.step}</div>
-                                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[(item.color + 'Light') as ThemeKey]} flex items-center justify-center mb-6`}>
-                                    <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[(item.color + 'Text') as ThemeKey]}`} />
-                                </div>
-                                <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-4 tracking-tight">{item.title}</h3>
-                                <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed">{item.detail}</p>
-                            </motion.div>
-                        ))}
+                        {HOW_IT_WORKS.map((item, i) => {
+                             const stepMotionProps: HTMLMotionProps<"div"> = {
+                                initial: { opacity: 0, y: 20 },
+                                whileInView: { opacity: 1, y: 0 },
+                                viewport: { once: true },
+                                transition: { delay: i * 0.1 },
+                                className: "flex flex-col"
+                            };
+                            return (
+                                <motion.div key={i} {...stepMotionProps}>
+                                    <div className="text-4xl md:text-6xl font-black text-gray-100 mb-2 md:mb-4">{item.step}</div>
+                                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[(item.color + 'Light') as ThemeKey]} flex items-center justify-center mb-6`}>
+                                        <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[(item.color + 'Text') as ThemeKey]}`} />
+                                    </div>
+                                    <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-4 tracking-tight">{item.title}</h3>
+                                    <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed">{item.detail}</p>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
