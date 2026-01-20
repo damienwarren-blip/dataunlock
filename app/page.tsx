@@ -113,14 +113,14 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
     return (
         <AnimatePresence>
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                <motion.div 
-                    initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                    className="w-full max-w-5xl"
-                >
-                    <div className="bg-white w-full max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col">
+                <div className="w-full max-w-5xl">
+                    <motion.div 
+                        initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                        className="bg-white w-full max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col"
+                    >
                         <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6">
                             <div className="flex justify-between items-start">
                                 <div className="text-left">
@@ -195,8 +195,8 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
                                 </div>
                             )}
                         </div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
             </div>
         </AnimatePresence>
     );
