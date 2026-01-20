@@ -33,19 +33,19 @@ const HOW_IT_WORKS = [
         step: "01",
         title: "LOAD",
         icon: UploadCloud,
-        detail: "Plug in raw data—CSVs, tickets, or API streams. We anonymize instantly.",
+        detail: "Plug in raw data—CSVs, tickets, or API streams.",
     },
     {
         step: "02",
         title: "UNLOCK",
         icon: Unlock,
-        detail: "Our mapping engine identifies the exact friction points costing you revenue.",
+        detail: "Our mapping identifies the exact friction points costing you revenue.",
     },
     {
         step: "03",
         title: "ACT",
         icon: PlayCircle,
-        detail: "Get a prioritized action plan. No filler, just the steps to scale.",
+        detail: "Get a prioritized action plan. The exact steps to execute.",
     }
 ];
 
@@ -110,7 +110,6 @@ export default function App() {
                     
                     <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-600">
                         <button onClick={() => scrollTo('process')} className="hover:text-pink-500 transition-colors">Process</button>
-                        <button onClick={() => scrollTo('integration')} className="hover:text-pink-500 transition-colors">Integration</button>
                         <button onClick={() => scrollTo('security')} className="hover:text-pink-500 transition-colors">Security</button>
                     </div>
 
@@ -141,7 +140,7 @@ export default function App() {
                         </h1>
 
                         <p className="text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mb-12 leading-relaxed italic">
-                            Your customer data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. 
+                            Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. 
                             <span className="text-black block not-italic font-bold mt-2">We give you the exact steps to unlock revenue in your data—fast and secure.</span>
                         </p>
 
@@ -187,36 +186,6 @@ export default function App() {
                                     </p>
                                 </div>
                             </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Integration Section */}
-            <section id="integration" className="py-32 px-6 bg-white border-t border-gray-100">
-                <div className="max-w-7xl mx-auto">
-                    <div className="mb-24">
-                        <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Architecture</p>
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8 uppercase">FLEXIBLE INTEGRATION</h2>
-                        <p className="text-xl font-bold uppercase tracking-widest text-gray-400">Modular design built for scale.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            { title: "Manual Load", icon: ClipboardList, badge: "Fastest", desc: "Instantly process CSVs, surveys, and tickets. No cleanup needed." },
-                            { title: "API Access", icon: Database, badge: "Seamless", desc: "Connect directly to your warehouse or CRM for real-time intelligence." },
-                            { title: "Chat Deploy", icon: Bot, badge: "Active", desc: "Launch multilingual AI agents that feed feedback into our engine." }
-                        ].map((box, i) => (
-                            <div key={i} className="p-10 bg-gray-50 rounded-[2.5rem] border border-gray-100 flex flex-col group hover:border-pink-500/20 transition-all">
-                                <div className="text-[10px] font-black text-pink-600 bg-pink-100 px-3 py-1 rounded-full uppercase tracking-widest inline-block w-fit mb-8">{box.badge}</div>
-                                <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-black/10">
-                                    <box.icon className="text-white w-7 h-7" />
-                                </div>
-                                <h3 className="text-3xl font-black mb-4 italic uppercase tracking-tighter">{box.title}</h3>
-                                <p className="text-gray-500 font-medium leading-relaxed">
-                                    {box.desc}
-                                </p>
-                            </div>
                         ))}
                     </div>
                 </div>
