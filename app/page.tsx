@@ -95,7 +95,7 @@ export default function App() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Fixed: Added explicit string type for 'id' to satisfy TypeScript build checks
+    // Explicitly typed string for 'id' to fix "implicit any" build error
     const scrollTo = (id: string) => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -112,8 +112,8 @@ export default function App() {
                     </div>
                     
                     <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-600">
-                        <button onClick={() => scrollTo('process')} className="hover:text-pink-500 transition-colors">Process</button>
-                        <button onClick={() => scrollTo('security')} className="hover:text-pink-500 transition-colors">Security</button>
+                        <button onClick={() => scrollTo('process')} className="hover:text-pink-500 transition-colors cursor-pointer">Process</button>
+                        <button onClick={() => scrollTo('security')} className="hover:text-pink-500 transition-colors cursor-pointer">Security</button>
                     </div>
 
                     <a href="mailto:damien@dataunlock.ai" className="bg-black text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-pink-600 transition-all active:scale-95 flex items-center gap-2">
@@ -289,9 +289,9 @@ export default function App() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
                         <div>
-                            <div className="flex items-center gap-3 mb-6">
+                            <div className="flex items-center gap-3 mb-6" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
                                 <DataUnlockLogo />
-                                <span className="text-xl font-black tracking-tighter uppercase">DATAUNLOCK</span>
+                                <span className="text-xl font-black tracking-tighter uppercase cursor-pointer">DATAUNLOCK</span>
                             </div>
                             <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest max-w-xs leading-loose">
                                 © 2026 DATAUNLOCK. <br/> SECURE FEEDBACK INTELLIGENCE. <br/> PROCESSED IN THE EU.
@@ -304,7 +304,7 @@ export default function App() {
                             </p>
                             <button 
                                 onClick={() => setShowPrivacy(true)}
-                                className="text-[10px] font-black uppercase tracking-widest text-pink-600 hover:text-pink-500 transition-colors border-b border-pink-600/30"
+                                className="text-[10px] font-black uppercase tracking-widest text-pink-600 hover:text-pink-500 transition-colors border-b border-pink-600/30 cursor-pointer"
                             >
                                 View Privacy Policy
                             </button>
@@ -333,7 +333,7 @@ export default function App() {
                             <div className="absolute top-0 left-0 w-full h-2 bg-pink-500" />
                             <button 
                                 onClick={() => setShowPrivacy(false)}
-                                className="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors"
+                                className="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors cursor-pointer"
                             >
                                 <X className="w-6 h-6" />
                             </button>
@@ -358,7 +358,7 @@ export default function App() {
                             
                             <button 
                                 onClick={() => setShowPrivacy(false)}
-                                className="w-full py-4 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-600 transition-colors"
+                                className="w-full py-4 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-600 transition-colors cursor-pointer"
                             >
                                 Close Policy
                             </button>
