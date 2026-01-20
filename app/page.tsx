@@ -17,7 +17,10 @@ import {
     ClipboardList,
     Activity,
     Mail,
-    X
+    X,
+    UploadCloud,
+    Key,
+    PlayCircle
 } from 'lucide-react';
 
 // Bypassing strict TS motion props for the build
@@ -27,21 +30,21 @@ const MotionSection = motion.section as any;
 const HOW_IT_WORKS = [
     {
         step: "01",
-        title: "INGEST",
+        title: "LOAD",
         detail: "Plug in raw, messy data. CSVs, tickets, or direct API streams. We anonymize instantly.",
-        icon: FileText,
+        icon: UploadCloud,
     },
     {
         step: "02",
-        title: "DECODE",
+        title: "UNLOCK",
         detail: "Our mapping engine identifies the exact friction points costing you revenue.",
-        icon: Zap,
+        icon: Key,
     },
     {
         step: "03",
-        title: "EXECUTE",
+        title: "ACT",
         detail: "Get a prioritized action plan. No fluff, just the steps to scale.",
-        icon: TrendingUp,
+        icon: PlayCircle,
     }
 ];
 
@@ -93,23 +96,24 @@ export default function App() {
         <div className="bg-white text-black font-sans selection:bg-pink-500 selection:text-white overflow-x-hidden min-h-screen">
             {/* Nav */}
             <nav className={`fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-black/5 text-black' : 'bg-transparent text-black'}`}>
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <div className="flex items-center gap-3">
+                <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+                    <div className="flex items-center gap-3 shrink-0">
                         <DataUnlockLogo />
-                        <span className="text-xl font-black tracking-tighter uppercase">DATAUNLOCK</span>
+                        <span className="text-xl font-black tracking-tighter uppercase whitespace-nowrap">DATAUNLOCK</span>
                     </div>
                     <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-600">
                         <a href="#process" className="hover:text-pink-500 transition-colors">Process</a>
                         <a href="#integration" className="hover:text-pink-500 transition-colors">Integration</a>
                         <a href="#security" className="hover:text-pink-500 transition-colors">Security</a>
                     </div>
-                    <a href="mailto:damien@dataunlock.ai" className="bg-black text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-pink-500 hover:text-white transition-all active:scale-95">
-                        Get Pilot Access
+                    <a href="mailto:damien@dataunlock.ai" className="bg-black text-white p-2.5 md:px-6 md:py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-pink-500 hover:text-white transition-all active:scale-95 shrink-0">
+                        <span className="hidden md:inline">Get Pilot Access</span>
+                        <Mail className="w-5 h-5 md:hidden" />
                     </a>
                 </div>
             </nav>
 
-            {/* Hero (White Background - All text black, Revenue pink) */}
+            {/* Hero */}
             <MotionSection className="relative pt-40 pb-20 md:pt-64 md:pb-40 px-6 bg-white text-black">
                 <div className="max-w-7xl mx-auto relative">
                     <div className="max-w-4xl">
@@ -139,13 +143,13 @@ export default function App() {
                 </div>
             </MotionSection>
 
-            {/* The Process (White Background) */}
+            {/* How we unlock */}
             <section id="process" className="py-32 px-6 bg-white text-black border-t border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8">
                         <div>
                             <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Workflow</p>
-                            <h2 className="text-6xl md:text-8xl font-black tracking-tighter italic leading-none">THE ENGINE.</h2>
+                            <h2 className="text-6xl md:text-8xl font-black tracking-tighter italic leading-none uppercase">HOW WE UNLOCK.</h2>
                         </div>
                         <p className="text-gray-500 max-w-sm text-lg font-medium">
                             Proprietary mapping that eliminates noise and targets the signals that scale revenue.
@@ -155,7 +159,10 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
                         {HOW_IT_WORKS.map((item, i) => (
                             <div key={i} className="bg-white p-8 md:p-12 hover:bg-gray-50 transition-colors group">
-                                <div className="text-pink-500/20 text-6xl md:text-8xl font-black mb-6 md:mb-8 group-hover:text-pink-500 transition-colors duration-500">{item.step}</div>
+                                <div className="flex justify-between items-start mb-6 md:mb-8">
+                                    <div className="text-pink-500/20 text-6xl md:text-8xl font-black group-hover:text-pink-500 transition-colors duration-500 leading-none">{item.step}</div>
+                                    <item.icon className="w-12 h-12 text-black/10 group-hover:text-pink-500 transition-colors duration-500" />
+                                </div>
                                 <h3 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">{item.title}</h3>
                                 <p className="text-gray-500 leading-relaxed text-base md:text-lg">{item.detail}</p>
                             </div>
@@ -164,13 +171,13 @@ export default function App() {
                 </div>
             </section>
 
-            {/* Flexible Integration Section (White Background) */}
+            {/* Integration Section */}
             <section id="integration" className="py-32 px-6 bg-white text-black border-t border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-24">
                         <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Architecture</p>
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8">FLEXIBLE INTEGRATION</h2>
-                        <p className="text-xl font-bold uppercase tracking-widest text-gray-400">Modular design built to work with your stack.</p>
+                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8 uppercase">FLEXIBLE INTEGRATION</h2>
+                        <p className="text-xl font-bold uppercase tracking-widest text-gray-400">Modular design built to work for you.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -216,7 +223,7 @@ export default function App() {
                 </div>
             </section>
 
-            {/* Success Case (White Background) */}
+            {/* Case Study */}
             <section className="py-32 px-6 bg-white text-black overflow-hidden relative border-y border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col lg:flex-row gap-16 items-center">
@@ -264,12 +271,12 @@ export default function App() {
                 </div>
             </section>
 
-            {/* Redesigned Trust / Security Section (White Background, Complete Content) */}
+            {/* Trust / Security */}
             <section id="security" className="py-32 px-6 bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="max-w-2xl mb-20">
                         <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Trust & Compliance</p>
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8">BUILT FOR TRUST.</h2>
+                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8 uppercase">BUILT FOR TRUST.</h2>
                         <p className="text-xl font-bold uppercase tracking-widest text-gray-400">Security by design, compliance by nature.</p>
                     </div>
 
@@ -287,7 +294,7 @@ export default function App() {
                 </div>
             </section>
 
-            {/* Final CTA Section (White Background) */}
+            {/* Final CTA */}
             <section className="py-32 px-6 bg-white text-black">
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-gray-50 rounded-[4rem] p-12 md:p-24 border border-gray-100 text-center relative overflow-hidden">
@@ -305,7 +312,7 @@ export default function App() {
                 </div>
             </section>
 
-            {/* Footer with Privacy Statement Link */}
+            {/* Footer */}
             <footer className="py-20 px-6 bg-white border-t border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
@@ -327,7 +334,7 @@ export default function App() {
                                 onClick={() => setShowPrivacy(true)}
                                 className="text-[10px] font-black uppercase tracking-widest text-pink-600 hover:text-pink-500 transition-colors border-b border-pink-600/30"
                             >
-                                View Privacy Pop-out
+                                View Privacy Policy
                             </button>
                         </div>
                     </div>
@@ -339,7 +346,7 @@ export default function App() {
                 </div>
             </footer>
 
-            {/* Privacy Pop-out Modal */}
+            {/* Privacy Policy Modal */}
             <AnimatePresence>
                 {showPrivacy && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center px-6">
@@ -368,7 +375,7 @@ export default function App() {
                                 <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
                                     <ShieldCheck className="w-6 h-6 text-pink-600" />
                                 </div>
-                                <h3 className="text-3xl font-black italic tracking-tighter mb-4">PRIVACY STATEMENT</h3>
+                                <h3 className="text-3xl font-black italic tracking-tighter mb-4 uppercase">PRIVACY POLICY</h3>
                                 <div className="space-y-4 text-sm text-gray-500 font-medium leading-relaxed">
                                     <p>
                                         <span className="text-black font-bold">Zero-Training Policy:</span> We never use your proprietary data to train public AI models. Your business intelligence stays your business.
@@ -389,7 +396,7 @@ export default function App() {
                                 onClick={() => setShowPrivacy(false)}
                                 className="w-full py-4 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-600 transition-colors"
                             >
-                                Close Statement
+                                Close Policy
                             </button>
                         </MotionDiv>
                     </div>
