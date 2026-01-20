@@ -34,6 +34,9 @@ const THEME = {
 
 type ThemeKey = keyof typeof THEME;
 
+// Type-safe cast for motion.div to avoid the className error in strict builds
+const MotionDiv = motion.div as any;
+
 interface HowItWorksItem {
     step: string;
     title: string;
@@ -100,12 +103,7 @@ const DataUnlockLogo = () => (
     </div>
 );
 
-interface PrivacyModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
+const PrivacyModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
     const [activeTab, setActiveTab] = useState<'summary' | 'full'>('summary');
 
     useEffect(() => {
@@ -121,7 +119,7 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
-                    <motion.div 
+                    <MotionDiv 
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -211,7 +209,7 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
                                 </div>
                             )}
                         </div>
-                    </motion.div>
+                    </MotionDiv>
                 </div>
             )}
         </AnimatePresence>
@@ -241,7 +239,7 @@ export default function App() {
 
             {/* Hero Section */}
             <section className="pt-32 pb-16 md:pt-56 md:pb-40 px-5 md:px-6 max-w-7xl mx-auto text-center">
-                <motion.div 
+                <MotionDiv 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }} 
                     transition={{ duration: 0.8 }}
@@ -263,7 +261,7 @@ export default function App() {
                     >
                         Join the Pilot
                     </a>
-                </motion.div>
+                </MotionDiv>
             </section>
 
             {/* How It Works */}
