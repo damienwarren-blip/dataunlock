@@ -113,9 +113,6 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
     return (
         <AnimatePresence>
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                {/* To bypass the "className" type error on motion.div:
-                  Wrap a motion.div (for animation) around a standard div (for styling).
-                */}
                 <motion.div 
                     initial={{ scale: 0.95, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -229,26 +226,26 @@ export default function App() {
             </nav>
 
             {/* Hero */}
-            <section className="pt-32 md:pt-56 pb-20 md:pb-40 px-4 md:px-6 max-w-7xl mx-auto text-center">
+            <section className="pt-40 md:pt-56 pb-24 md:pb-40 px-6 md:px-6 max-w-7xl mx-auto text-center">
                 <div className="max-w-5xl mx-auto">
                     <motion.div 
                         initial={{ opacity: 0, y: 30 }} 
                         animate={{ opacity: 1, y: 0 }} 
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-block mb-6 md:mb-8 text-[9px] md:text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">
+                        <div className="inline-block mb-6 md:mb-8 text-[10px] md:text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">
                             Early access for pilot partners
                         </div>
-                        <h1 className="text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[9rem] font-black mb-8 md:mb-12 tracking-tighter leading-[0.9] sm:leading-[0.85]">
+                        <h1 className="text-[3.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[9rem] font-black mb-10 md:mb-12 tracking-tighter leading-[0.85] sm:leading-[0.85]">
                             Unlock the revenue <br/><span className="text-pink-600 italic">in your data.</span>
                         </h1>
-                        <p className="text-base sm:text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed italic px-4">
+                        <p className="text-lg sm:text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mx-auto mb-12 md:mb-12 leading-relaxed italic px-2">
                             Your raw data holds revenue drivers. We unlock them—fast and secure.
                         </p>
-                        <div className="px-4">
+                        <div className="px-0">
                             <a
                                 href="mailto:damien@dataunlock.ai"
-                                className="w-full md:w-auto px-8 md:px-14 py-5 md:py-7 bg-black text-white rounded-xl md:rounded-2xl font-black text-lg md:text-2xl hover:bg-pink-600 transition-all active:scale-[0.98] shadow-2xl shadow-gray-200 inline-block"
+                                className="w-full md:w-auto px-10 md:px-14 py-6 md:py-7 bg-black text-white rounded-2xl md:rounded-2xl font-black text-xl md:text-2xl hover:bg-pink-600 transition-all active:scale-[0.98] shadow-2xl shadow-black/5 inline-block"
                             >
                                 Join as Pilot Partner
                             </a>
@@ -258,10 +255,13 @@ export default function App() {
             </section>
 
             {/* How It Works */}
-            <section className="py-20 md:py-32 px-4 md:px-6 bg-white border-y border-gray-100">
+            <section className="py-20 md:py-32 px-6 md:px-6 bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto text-left">
-                    <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-12 md:mb-20 italic px-2">The Process. How we unlock.</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 px-2">
+                    <div className="max-w-2xl mb-12 md:mb-20">
+                        <h2 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 italic">The Process.</h2>
+                        <p className="text-xs md:text-xl text-gray-400 font-bold uppercase tracking-widest text-left">How we unlock.</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
                         {HOW_IT_WORKS.map((item, i) => (
                             <div key={i} className="flex flex-col">
                                 <motion.div
@@ -274,8 +274,8 @@ export default function App() {
                                     <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[(item.color + 'Light') as ThemeKey]} flex items-center justify-center mb-6`}>
                                         <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[(item.color + 'Text') as ThemeKey]}`} />
                                     </div>
-                                    <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-4 tracking-tight">{item.title}</h3>
-                                    <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed">{item.detail}</p>
+                                    <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-4 tracking-tight text-left">{item.title}</h3>
+                                    <p className="text-sm md:text-base text-gray-500 font-medium leading-relaxed text-left">{item.detail}</p>
                                 </motion.div>
                             </div>
                         ))}
@@ -284,20 +284,20 @@ export default function App() {
             </section>
 
             {/* Compliance */}
-            <section className="py-20 md:py-32 px-4 md:px-6 bg-gray-50 border-y border-gray-100">
+            <section className="py-20 md:py-32 px-6 md:px-6 bg-gray-50 border-y border-gray-100">
                 <div className="max-w-7xl mx-auto text-left">
-                    <div className="max-w-2xl mb-12 md:mb-20 px-2">
-                        <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 italic">Built for Trust.</h2>
-                        <p className="text-xs md:text-xl text-gray-400 font-bold uppercase tracking-widest">Compliance by design.</p>
+                    <div className="max-w-2xl mb-12 md:mb-20">
+                        <h2 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter mb-4 italic">Built for Trust.</h2>
+                        <p className="text-xs md:text-xl text-gray-400 font-bold uppercase tracking-widest text-left">Compliance by design.</p>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                         {COMPLIANCE_ITEMS.map((item, i) => (
-                            <div key={i} className="bg-white p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] border border-gray-200 shadow-sm transition-all hover:shadow-xl">
+                            <div key={i} className="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-gray-200 shadow-sm transition-all hover:shadow-xl">
                                 <div className="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
                                     <item.icon className="w-5 h-5 text-pink-600" />
                                 </div>
-                                <h3 className="text-lg md:text-2xl font-black mb-2 tracking-tight">{item.title}</h3>
-                                <p className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-relaxed">{item.detail}</p>
+                                <h3 className="text-xl md:text-2xl font-black mb-2 tracking-tight text-left">{item.title}</h3>
+                                <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-relaxed text-left">{item.detail}</p>
                             </div>
                         ))}
                     </div>
@@ -305,24 +305,24 @@ export default function App() {
             </section>
 
             {/* Final CTA */}
-            <section className="py-24 md:py-48 px-4 md:px-6 bg-white">
+            <section className="py-24 md:py-48 px-6 md:px-6 bg-white">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-[2.5rem] sm:text-[4rem] md:text-[6rem] lg:text-[8rem] font-black mb-10 md:mb-16 tracking-tighter leading-[0.9] sm:leading-[0.85]">
-                        Unlock the revenue <br/><span className="text-pink-600 italic">in your data.</span>
+                    <h2 className="text-[3.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[8rem] font-black mb-12 md:mb-16 tracking-tighter leading-[0.85] sm:leading-[0.85]">
+                        Ready to <br/><span className="text-pink-600 italic">unlock revenue?</span>
                     </h2>
-                    <div className="px-4">
+                    <div className="px-0">
                         <a
                             href="mailto:damien@dataunlock.ai"
-                            className="inline-flex items-center justify-center w-full max-w-2xl py-6 md:py-10 text-xl md:text-4xl font-black rounded-[2rem] md:rounded-[3rem] bg-black text-white hover:bg-pink-600 transition-all active:scale-[0.98] shadow-2xl group"
+                            className="inline-flex items-center justify-center w-full max-w-2xl py-8 md:py-10 text-2xl md:text-4xl font-black rounded-[2rem] md:rounded-[3rem] bg-black text-white hover:bg-pink-600 transition-all active:scale-[0.98] shadow-2xl shadow-black/5 group"
                         >
-                            Join as Pilot Partner <ChevronRight className="ml-2 md:ml-4 w-6 h-6 md:w-10 md:h-10 group-hover:translate-x-2 transition-transform" />
+                            Join as Pilot Partner <ChevronRight className="ml-3 md:ml-4 w-8 h-8 md:w-10 md:h-10 group-hover:translate-x-2 transition-transform" />
                         </a>
                     </div>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer className="py-12 md:py-24 bg-white px-4 md:px-8 border-t border-gray-100">
+            <footer className="py-12 md:py-24 bg-white px-6 md:px-8 border-t border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
                         <div className="text-lg md:text-xl font-black tracking-tighter flex items-center gap-3">
