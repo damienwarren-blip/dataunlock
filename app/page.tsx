@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
     ArrowRight,
     ShieldCheck,
@@ -20,16 +19,16 @@ import {
 } from 'lucide-react';
 
 /**
- * DataUnlock App - Production Fix
- * 1. Explicitly typed scrollTo param.
- * 2. Removed ALL className props from motion components to satisfy strict TS/Turbopack rules.
- * 3. Layout is handled by standard divs; motion components are used as clean wrappers.
+ * DataUnlock App - Final Production Stability Fix
+ * 1. REMOVED Framer Motion entirely to bypass the recurring Type errors.
+ * 2. Replaced with standard CSS transitions and Tailwind animations.
+ * 3. Explicitly typed all parameters and data structures.
  */
 
 interface WorkItem {
     step: string;
     title: string;
-    icon: any;
+    icon: React.ElementType;
     detail: string;
 }
 
@@ -91,8 +90,10 @@ const DataUnlockLogo = () => (
 export default function App() {
     const [scrolled, setScrolled] = useState(false);
     const [showPrivacy, setShowPrivacy] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -105,6 +106,19 @@ export default function App() {
 
     return (
         <div className="bg-white text-black font-sans selection:bg-pink-500 selection:text-white overflow-x-hidden min-h-screen">
+            {/* Custom Styles for entry animations without framer-motion */}
+            <style jsx global>{`
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in-up {
+                    animation: fadeInUp 0.8s ease-out forwards;
+                }
+                .delay-100 { animation-delay: 0.1s; }
+                .delay-200 { animation-delay: 0.2s; }
+            `}</style>
+
             {/* Navigation */}
             <nav className={`fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-black/5' : 'bg-transparent'}`}>
                 <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
@@ -114,8 +128,8 @@ export default function App() {
                     </div>
                     
                     <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-600">
-                        <button onClick={() => scrollTo('process')} className="hover:text-pink-500 transition-colors cursor-pointer">Process</button>
-                        <button onClick={() => scrollTo('security')} className="hover:text-pink-500 transition-colors cursor-pointer">Security</button>
+                        <button onClick={() => scrollTo('process')} className="hover:text-pink-500 transition-colors cursor-pointer outline-none">Process</button>
+                        <button onClick={() => scrollTo('security')} className="hover:text-pink-500 transition-colors cursor-pointer outline-none">Security</button>
                     </div>
 
                     <a href="mailto:damien@dataunlock.ai" className="bg-black text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-pink-600 transition-all active:scale-95 flex items-center gap-2">
@@ -127,37 +141,28 @@ export default function App() {
 
             {/* Hero Section */}
             <header className="relative pt-40 pb-20 md:pt-64 md:pb-40 px-6">
-                <div className="max-w-7xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        {/* No className on motion.div above - content is inside standard div */}
-                        <div>
-                            <div className="mb-8 inline-flex items-center gap-2 text-[10px] font-black bg-black/5 border border-black/10 px-4 py-2 rounded-full uppercase tracking-[0.3em]">
-                                <Activity className="w-3 h-3 text-pink-500 animate-pulse" /> 
-                                Now Accepting Pilot Partners
-                            </div>
-                            
-                            <h1 className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter mb-12 uppercase">
-                                UNLOCK <br/>
-                                <span className="text-pink-500 italic">REVENUE</span> <br/>
-                                IN YOUR DATA.
-                            </h1>
+                <div className={`max-w-7xl mx-auto ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                    <div className="mb-8 inline-flex items-center gap-2 text-[10px] font-black bg-black/5 border border-black/10 px-4 py-2 rounded-full uppercase tracking-[0.3em]">
+                        <Activity className="w-3 h-3 text-pink-500 animate-pulse" /> 
+                        Now Accepting Pilot Partners
+                    </div>
+                    
+                    <h1 className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter mb-12 uppercase">
+                        UNLOCK <br/>
+                        <span className="text-pink-500 italic">REVENUE</span> <br/>
+                        IN YOUR DATA.
+                    </h1>
 
-                            <p className="text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mb-12 leading-relaxed italic">
-                                Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. 
-                                <span className="text-black block not-italic font-bold mt-2">We give you the exact steps to unlock revenue in your data—fast and secure.</span>
-                            </p>
+                    <p className="text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mb-12 leading-relaxed italic">
+                        Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. 
+                        <span className="text-black block not-italic font-bold mt-2">We give you the exact steps to unlock revenue in your data—fast and secure.</span>
+                    </p>
 
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <a href="mailto:damien@dataunlock.ai" className="px-10 py-6 bg-pink-600 text-white rounded-2xl font-black text-xl hover:bg-black transition-all shadow-xl shadow-pink-500/20 text-center inline-flex items-center justify-center gap-3">
-                                    Start Your Pilot <ArrowRight className="w-6 h-6" />
-                                </a>
-                            </div>
-                        </div>
-                    </motion.div>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <a href="mailto:damien@dataunlock.ai" className="px-10 py-6 bg-pink-600 text-white rounded-2xl font-black text-xl hover:bg-black transition-all shadow-xl shadow-pink-500/20 text-center inline-flex items-center justify-center gap-3">
+                            Start Your Pilot <ArrowRight className="w-6 h-6" />
+                        </a>
+                    </div>
                 </div>
             </header>
 
@@ -172,30 +177,22 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {HOW_IT_WORKS.map((item, i) => (
                             <div key={i} className="relative p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:border-pink-500 hover:shadow-2xl hover:shadow-pink-500/5 group min-h-[350px] flex flex-col justify-between overflow-hidden">
-                                <motion.div 
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    {/* Standard div handles all styles now */}
-                                    <div className="h-full w-full flex flex-col justify-between">
-                                        <div className="text-8xl font-black text-black/5 absolute top-4 right-8 group-hover:text-pink-500/10 transition-colors pointer-events-none">
-                                            {item.step}
-                                        </div>
-                                        <div>
-                                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-gray-100 group-hover:border-pink-500/30 transition-colors">
-                                                <item.icon className="w-7 h-7 text-pink-600" />
-                                            </div>
-                                            <h3 className="text-4xl font-black mb-6 italic text-pink-600 uppercase tracking-tighter">
-                                                {item.title}
-                                            </h3>
-                                            <p className="text-xl leading-relaxed text-gray-500 font-medium">
-                                                {item.detail}
-                                            </p>
-                                        </div>
+                                <div className="h-full w-full flex flex-col justify-between">
+                                    <div className="text-8xl font-black text-black/5 absolute top-4 right-8 group-hover:text-pink-500/10 transition-colors pointer-events-none">
+                                        {item.step}
                                     </div>
-                                </motion.div>
+                                    <div>
+                                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-gray-100 group-hover:border-pink-500/30 transition-colors">
+                                            <item.icon className="w-7 h-7 text-pink-600" />
+                                        </div>
+                                        <h3 className="text-4xl font-black mb-6 italic text-pink-600 uppercase tracking-tighter">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-xl leading-relaxed text-gray-500 font-medium">
+                                            {item.detail}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -312,7 +309,7 @@ export default function App() {
                             </p>
                             <button 
                                 onClick={() => setShowPrivacy(true)}
-                                className="text-[10px] font-black uppercase tracking-widest text-pink-600 hover:text-pink-500 transition-colors border-b border-pink-600/30 cursor-pointer"
+                                className="text-[10px] font-black uppercase tracking-widest text-pink-600 hover:text-pink-500 transition-colors border-b border-pink-600/30 cursor-pointer outline-none"
                             >
                                 View Privacy Policy
                             </button>
@@ -321,61 +318,49 @@ export default function App() {
                 </div>
             </footer>
 
-            {/* Privacy Policy Modal */}
-            <AnimatePresence>
-                {showPrivacy && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center px-6">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+            {/* Privacy Policy Modal - Pure CSS/React approach */}
+            {showPrivacy && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center px-6 transition-opacity duration-300">
+                    <div 
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+                        onClick={() => setShowPrivacy(false)}
+                    />
+                    <div className="relative bg-white w-full max-w-lg rounded-[2.5rem] p-8 md:p-12 shadow-2xl overflow-hidden animate-fade-in-up">
+                        <div className="absolute top-0 left-0 w-full h-2 bg-pink-500" />
+                        <button 
                             onClick={() => setShowPrivacy(false)}
+                            className="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors cursor-pointer outline-none"
                         >
-                             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-                        </motion.div>
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                        >
-                            <div className="relative bg-white w-full max-w-lg rounded-[2.5rem] p-8 md:p-12 shadow-2xl overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-2 bg-pink-500" />
-                                <button 
-                                    onClick={() => setShowPrivacy(false)}
-                                    className="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors cursor-pointer"
-                                >
-                                    <X className="w-6 h-6" />
-                                </button>
-                                
-                                <div className="mb-8">
-                                    <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
-                                        <ShieldCheck className="w-6 h-6 text-pink-600" />
-                                    </div>
-                                    <h3 className="text-3xl font-black italic tracking-tighter mb-4 uppercase">PRIVACY POLICY</h3>
-                                    <div className="space-y-4 text-sm text-gray-500 font-medium leading-relaxed">
-                                        <p>
-                                            <span className="text-black font-bold">Zero-Training Policy:</span> We never use your proprietary data to train public AI models.
-                                        </p>
-                                        <p>
-                                            <span className="text-black font-bold">Full Anonymization:</span> PII is stripped at the ingestion layer before analysis begins.
-                                        </p>
-                                        <p>
-                                            <span className="text-black font-bold">EU Sovereignty:</span> All data processing is strictly performed on infrastructure located within the EU.
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <button 
-                                    onClick={() => setShowPrivacy(false)}
-                                    className="w-full py-4 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-600 transition-colors cursor-pointer"
-                                >
-                                    Close Policy
-                                </button>
+                            <X className="w-6 h-6" />
+                        </button>
+                        
+                        <div className="mb-8">
+                            <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
+                                <ShieldCheck className="w-6 h-6 text-pink-600" />
                             </div>
-                        </motion.div>
+                            <h3 className="text-3xl font-black italic tracking-tighter mb-4 uppercase">PRIVACY POLICY</h3>
+                            <div className="space-y-4 text-sm text-gray-500 font-medium leading-relaxed">
+                                <p>
+                                    <span className="text-black font-bold">Zero-Training Policy:</span> We never use your proprietary data to train public AI models.
+                                </p>
+                                <p>
+                                    <span className="text-black font-bold">Full Anonymization:</span> PII is stripped at the ingestion layer before analysis begins.
+                                </p>
+                                <p>
+                                    <span className="text-black font-bold">EU Sovereignty:</span> All data processing is strictly performed on infrastructure located within the EU.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <button 
+                            onClick={() => setShowPrivacy(false)}
+                            className="w-full py-4 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-600 transition-colors cursor-pointer outline-none"
+                        >
+                            Close Policy
+                        </button>
                     </div>
-                )}
-            </AnimatePresence>
+                </div>
+            )}
         </div>
     );
 }
