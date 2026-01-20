@@ -3,31 +3,26 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    ChevronRight,
     ArrowRight,
-    Zap,
-    FileText,
-    TrendingUp,
     ShieldCheck,
     Lock,
     Globe,
     FileCheck,
     Quote,
-    Database,
-    Bot,
-    ClipboardList,
     Activity,
     Mail,
     X,
     UploadCloud,
     Unlock,
-    PlayCircle
+    PlayCircle,
+    TrendingUp,
+    Zap
 } from 'lucide-react';
 
 /**
  * DataUnlock App
- * A high-impact, single-file landing page for feedback intelligence.
- * Built with React, Tailwind CSS, and Framer Motion.
+ * Refactored to solve the "className" Type Error on motion.div.
+ * Using a wrapper div pattern for maximum compatibility with strict TS environments.
  */
 
 const HOW_IT_WORKS = [
@@ -95,8 +90,7 @@ export default function App() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Explicitly typed string for 'id' to fix "implicit any" build error
-    const scrollTo = (id: string) => {
+    const scrollTo = (id) => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
@@ -106,7 +100,7 @@ export default function App() {
             {/* Navigation */}
             <nav className={`fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-black/5' : 'bg-transparent'}`}>
                 <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
-                    <div className="flex items-center gap-3 shrink-0" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+                    <div className="flex items-center gap-3 shrink-0 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
                         <DataUnlockLogo />
                         <span className="text-xl font-black tracking-tighter uppercase whitespace-nowrap">DATAUNLOCK</span>
                     </div>
@@ -166,29 +160,31 @@ export default function App() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {HOW_IT_WORKS.map((item, i) => (
-                            <motion.div 
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                viewport={{ once: true }}
-                                className="relative p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:border-pink-500 hover:shadow-2xl hover:shadow-pink-500/5 group min-h-[350px] flex flex-col justify-between"
-                            >
-                                <div className="text-8xl font-black text-black/5 absolute top-4 right-8 group-hover:text-pink-500/10 transition-colors pointer-events-none">
-                                    {item.step}
-                                </div>
-                                <div>
-                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-gray-100 group-hover:border-pink-500/30 transition-colors">
-                                        <item.icon className="w-7 h-7 text-pink-600" />
+                            <div key={i} className="relative p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:border-pink-500 hover:shadow-2xl hover:shadow-pink-500/5 group min-h-[350px] flex flex-col justify-between overflow-hidden">
+                                {/* FIX: Animation logic decoupled from CSS container to avoid TypeScript className conflict */}
+                                <motion.div 
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.1 }}
+                                    viewport={{ once: true }}
+                                    className="h-full w-full flex flex-col justify-between"
+                                >
+                                    <div className="text-8xl font-black text-black/5 absolute top-4 right-8 group-hover:text-pink-500/10 transition-colors pointer-events-none">
+                                        {item.step}
                                     </div>
-                                    <h3 className="text-4xl font-black mb-6 italic text-pink-600 uppercase tracking-tighter">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-xl leading-relaxed text-gray-500 font-medium">
-                                        {item.detail}
-                                    </p>
-                                </div>
-                            </motion.div>
+                                    <div>
+                                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-gray-100 group-hover:border-pink-500/30 transition-colors">
+                                            <item.icon className="w-7 h-7 text-pink-600" />
+                                        </div>
+                                        <h3 className="text-4xl font-black mb-6 italic text-pink-600 uppercase tracking-tighter">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-xl leading-relaxed text-gray-500 font-medium">
+                                            {item.detail}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -289,9 +285,9 @@ export default function App() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
                         <div>
-                            <div className="flex items-center gap-3 mb-6" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+                            <div className="flex items-center gap-3 mb-6 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
                                 <DataUnlockLogo />
-                                <span className="text-xl font-black tracking-tighter uppercase cursor-pointer">DATAUNLOCK</span>
+                                <span className="text-xl font-black tracking-tighter uppercase">DATAUNLOCK</span>
                             </div>
                             <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest max-w-xs leading-loose">
                                 © 2026 DATAUNLOCK. <br/> SECURE FEEDBACK INTELLIGENCE. <br/> PROCESSED IN THE EU.
