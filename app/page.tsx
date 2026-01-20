@@ -20,7 +20,9 @@ import {
     X,
     UploadCloud,
     Key,
-    PlayCircle
+    PlayCircle,
+    Info,
+    Unlock
 } from 'lucide-react';
 
 // Bypassing strict TS motion props for the build
@@ -31,20 +33,20 @@ const HOW_IT_WORKS = [
     {
         step: "01",
         title: "LOAD",
-        detail: "Plug in raw, messy data. CSVs, tickets, or direct API streams. We anonymize instantly.",
         icon: UploadCloud,
+        detail: "Plug in raw data—CSVs, tickets, or API streams. We anonymize instantly.",
     },
     {
         step: "02",
         title: "UNLOCK",
+        icon: Unlock,
         detail: "Our mapping engine identifies the exact friction points costing you revenue.",
-        icon: Key,
     },
     {
         step: "03",
         title: "ACT",
-        detail: "Get a prioritized action plan. No fluff, just the steps to scale.",
         icon: PlayCircle,
+        detail: "Get a prioritized action plan. No filler, just the steps to scale.",
     }
 ];
 
@@ -143,28 +145,34 @@ export default function App() {
                 </div>
             </MotionSection>
 
-            {/* How we unlock */}
+            {/* THE ENGINE: Simplified & High-Impact */}
             <section id="process" className="py-32 px-6 bg-white text-black border-t border-gray-100">
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8">
-                        <div>
-                            <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Workflow</p>
-                            <h2 className="text-6xl md:text-8xl font-black tracking-tighter italic leading-none uppercase">HOW WE UNLOCK.</h2>
-                        </div>
-                        <p className="text-gray-500 max-w-sm text-lg font-medium">
-                            Proprietary mapping that eliminates noise and targets the signals that scale revenue.
-                        </p>
+                    <div className="mb-24">
+                        <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">THE ENGINE</p>
+                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8 uppercase">HOW WE UNLOCK.</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {HOW_IT_WORKS.map((item, i) => (
-                            <div key={i} className="bg-white p-8 md:p-12 hover:bg-gray-50 transition-colors group">
-                                <div className="flex justify-between items-start mb-6 md:mb-8">
-                                    <div className="text-pink-500/20 text-6xl md:text-8xl font-black group-hover:text-pink-500 transition-colors duration-500 leading-none">{item.step}</div>
-                                    <item.icon className="w-12 h-12 text-black/10 group-hover:text-pink-500 transition-colors duration-500" />
+                            <div 
+                                key={i} 
+                                className="relative p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:border-pink-500 min-h-[320px] group flex flex-col justify-between"
+                            >
+                                <div className="text-8xl font-black text-black/5 absolute top-4 right-8 group-hover:text-pink-500/10 transition-colors">
+                                    {item.step}
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">{item.title}</h3>
-                                <p className="text-gray-500 leading-relaxed text-base md:text-lg">{item.detail}</p>
+                                <div>
+                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-gray-100 group-hover:border-pink-500/30 transition-colors">
+                                        <item.icon className="w-7 h-7 text-pink-600" />
+                                    </div>
+                                    <h3 className="text-5xl font-black mb-6 italic text-pink-600">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-xl leading-relaxed text-gray-500 font-medium">
+                                        {item.detail}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
