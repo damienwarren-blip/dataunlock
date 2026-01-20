@@ -21,8 +21,7 @@ import {
 
 /**
  * DataUnlock App
- * Refactored to solve the "className" Type Error on motion.div.
- * Using a wrapper div pattern for maximum compatibility with strict TS environments.
+ * Resolved TypeScript implicit 'any' error and motion.div className conflicts.
  */
 
 const HOW_IT_WORKS = [
@@ -90,7 +89,8 @@ export default function App() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const scrollTo = (id) => {
+    // Fixed implicit 'any' error by adding : string type
+    const scrollTo = (id: string) => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
@@ -161,7 +161,6 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {HOW_IT_WORKS.map((item, i) => (
                             <div key={i} className="relative p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:border-pink-500 hover:shadow-2xl hover:shadow-pink-500/5 group min-h-[350px] flex flex-col justify-between overflow-hidden">
-                                {/* FIX: Animation logic decoupled from CSS container to avoid TypeScript className conflict */}
                                 <motion.div 
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
