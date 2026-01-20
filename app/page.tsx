@@ -95,7 +95,8 @@ export default function App() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const scrollTo = (id) => {
+    // Fixed: Added explicit string type for 'id' to satisfy TypeScript build checks
+    const scrollTo = (id: string) => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
