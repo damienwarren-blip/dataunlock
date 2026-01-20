@@ -46,7 +46,7 @@ const HOW_IT_WORKS: HowItWorksItem[] = [
     {
         step: "01",
         title: "Load",
-        detail: "Load Raw Data. Process CSVs, surveys, tickets, or feedback instantly. No cleanup needed. Fully anonymous. GDPR-safe. You control your data.",
+        detail: "Load Raw Data. Process CSVs, surveys, tickets, or feedback instantly. No cleanup needed. Fully anonymous. GDPR-safe.",
         icon: FileText,
         color: "pink"
     },
@@ -60,7 +60,7 @@ const HOW_IT_WORKS: HowItWorksItem[] = [
     {
         step: "03",
         title: "Impact",
-        detail: "Drive Revenue. Execute with confidence. Turn feedback into customer wins, lower churn, higher revenue. Real results.",
+        detail: "Drive Revenue. Execute with confidence. Turn feedback into customer wins, lower churn, higher revenue.",
         icon: TrendingUp,
         color: "cyan"
     }
@@ -85,7 +85,7 @@ const COMPLIANCE_ITEMS = [
     { 
         icon: FileCheck, 
         title: "Enterprise Security", 
-        detail: "✓ AES 256 encryption – At rest and in transit. ✓ SOC 2 Type II Ready – Built for your compliance team." 
+        detail: "✓ AES 256 encryption. SOC 2 Type II controls implemented." 
     }
 ];
 
@@ -109,106 +109,111 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
     const [activeTab, setActiveTab] = useState<'summary' | 'full'>('summary');
 
     useEffect(() => {
-        if (isOpen) document.body.style.overflow = 'hidden';
-        else document.body.style.overflow = 'unset';
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
         return () => { document.body.style.overflow = 'unset'; };
     }, [isOpen]);
     
-    if (!isOpen) return null;
-
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                    transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                    className="w-full max-w-5xl h-[92vh] sm:h-auto max-h-[90vh] flex flex-col bg-white rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl shadow-pink-500/10"
-                >
-                    <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6 bg-white shrink-0">
-                        <div className="flex justify-between items-start gap-4">
-                            <div className="text-left">
-                                <h1 className="text-xl md:text-3xl font-black tracking-tight mb-1 text-black leading-tight">Privacy & Governance</h1>
-                                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Version 1.0 • Jan 2026</p>
-                            </div>
-                            <button 
-                                onClick={onClose}
-                                className="p-2 hover:bg-gray-100 rounded-full transition-colors border border-gray-100 shrink-0"
-                            >
-                                <X className="w-5 h-5 text-black" />
-                            </button>
-                        </div>
-                        
-                        <div className="flex gap-6 md:gap-8">
-                            <button 
-                                onClick={() => setActiveTab('summary')}
-                                className={`pb-3 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'summary' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400'}`}
-                            >
-                                Summary
-                            </button>
-                            <button 
-                                onClick={() => setActiveTab('full')}
-                                className={`pb-3 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'full' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400'}`}
-                            >
-                                Full Policy
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="p-6 md:p-16 overflow-y-auto flex-1 text-gray-800 bg-white">
-                        {activeTab === 'summary' ? (
-                            <div className="space-y-8 md:space-y-12">
-                                <section>
-                                    <h2 className="text-lg md:text-xl font-black mb-3 uppercase tracking-tight text-black text-left">Data Control</h2>
-                                    <p className="text-sm md:text-lg font-medium text-gray-600 leading-relaxed text-left italic">
-                                        "You remain the Data Controller. DataUnlock acts strictly as a Processor."
-                                    </p>
-                                    <p className="text-sm md:text-lg font-medium text-gray-500 leading-relaxed text-left mt-4">
-                                        You have total control over your data, including the right to delete any information at any time. We don't "own" your insights; you do.
-                                    </p>
-                                </section>
-                                <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 pb-8">
-                                    <div className="p-5 md:p-6 bg-pink-50 rounded-2xl border border-pink-100 text-left">
-                                        <h3 className="font-black text-pink-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
-                                            <ShieldCheck className="w-4 h-4" /> Infrastructure
-                                        </h3>
-                                        <ul className="text-xs md:text-sm text-pink-800 space-y-2 font-medium">
-                                            <li>• AES-256 Encryption everywhere</li>
-                                            <li>• Hosted on EU-native infrastructure</li>
-                                            <li>• Zero-knowledge processing options</li>
-                                            <li>• SOC2 Type II controls implemented</li>
-                                        </ul>
-                                    </div>
-                                    <div className="p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100 text-left">
-                                        <h3 className="font-black text-gray-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
-                                            <Lock className="w-4 h-4" /> AI Ethics
-                                        </h3>
-                                        <ul className="text-xs md:text-sm text-gray-600 space-y-2 font-medium">
-                                            <li>• No LLM training on customer data</li>
-                                            <li>• Deterministic analysis pipelines</li>
-                                            <li>• Anonymization at the edge</li>
-                                            <li>• Transparent data lineage</li>
-                                        </ul>
-                                    </div>
-                                </section>
-                            </div>
-                        ) : (
-                            <div className="space-y-8 text-xs md:text-sm leading-relaxed pb-20 text-left">
-                                <div className="p-4 bg-gray-50 rounded-xl font-mono text-[10px] text-gray-400">
-                                    DOCUMENT_REF: DU_PRIVACY_JAN_26_V1
+            {isOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                        className="w-full max-w-5xl h-[92vh] sm:h-auto max-h-[90vh] flex flex-col bg-white rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl shadow-pink-500/10"
+                    >
+                        {/* Modal Header */}
+                        <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6 bg-white shrink-0">
+                            <div className="flex justify-between items-start gap-4">
+                                <div className="text-left">
+                                    <h1 className="text-xl md:text-3xl font-black tracking-tight mb-1 text-black leading-tight">Privacy & Governance</h1>
+                                    <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest text-left">Version 1.0 • Jan 2026</p>
                                 </div>
-                                <p className="text-gray-600 font-medium">
-                                    DataUnlock provides enterprise-grade feedback intelligence. This section covers our full legal commitment to data sovereignty, GDPR Article 28 compliance, and technical safeguard specifications.
-                                </p>
-                                <p className="text-gray-400 italic">
-                                    [Full legal documentation for pilot partners is available upon request during onboarding.]
-                                </p>
+                                <button 
+                                    onClick={onClose}
+                                    className="p-2 hover:bg-gray-100 rounded-full transition-colors border border-gray-100 shrink-0"
+                                >
+                                    <X className="w-5 h-5 text-black" />
+                                </button>
                             </div>
-                        )}
-                    </div>
-                </motion.div>
-            </div>
+                            
+                            <div className="flex gap-6 md:gap-8">
+                                <button 
+                                    onClick={() => setActiveTab('summary')}
+                                    className={`pb-3 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'summary' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400'}`}
+                                >
+                                    Summary
+                                </button>
+                                <button 
+                                    onClick={() => setActiveTab('full')}
+                                    className={`pb-3 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'full' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400'}`}
+                                >
+                                    Full Policy
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Modal Content */}
+                        <div className="p-6 md:p-16 overflow-y-auto flex-1 text-gray-800 bg-white">
+                            {activeTab === 'summary' ? (
+                                <div className="space-y-8 md:space-y-12">
+                                    <section>
+                                        <h2 className="text-lg md:text-xl font-black mb-3 uppercase tracking-tight text-black text-left">Data Control</h2>
+                                        <p className="text-sm md:text-lg font-medium text-gray-600 leading-relaxed text-left italic">
+                                            "You remain the Data Controller. DataUnlock acts strictly as a Processor."
+                                        </p>
+                                        <p className="text-sm md:text-lg font-medium text-gray-500 leading-relaxed text-left mt-4">
+                                            You have total control over your data, including the right to delete any information at any time. We don't "own" your insights; you do.
+                                        </p>
+                                    </section>
+                                    <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 pb-8">
+                                        <div className="p-5 md:p-6 bg-pink-50 rounded-2xl border border-pink-100 text-left">
+                                            <h3 className="font-black text-pink-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                                                <ShieldCheck className="w-4 h-4" /> Infrastructure
+                                            </h3>
+                                            <ul className="text-xs md:text-sm text-pink-800 space-y-2 font-medium">
+                                                <li>• AES-256 Encryption everywhere</li>
+                                                <li>• Hosted on EU-native infrastructure</li>
+                                                <li>• Zero-knowledge processing options</li>
+                                                <li>• SOC2 Type II controls implemented</li>
+                                            </ul>
+                                        </div>
+                                        <div className="p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100 text-left">
+                                            <h3 className="font-black text-gray-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                                                <Lock className="w-4 h-4" /> AI Ethics
+                                            </h3>
+                                            <ul className="text-xs md:text-sm text-gray-600 space-y-2 font-medium">
+                                                <li>• No LLM training on customer data</li>
+                                                <li>• Deterministic analysis pipelines</li>
+                                                <li>• Anonymization at the edge</li>
+                                                <li>• Transparent data lineage</li>
+                                            </ul>
+                                        </div>
+                                    </section>
+                                </div>
+                            ) : (
+                                <div className="space-y-8 text-xs md:text-sm leading-relaxed pb-20 text-left">
+                                    <div className="p-4 bg-gray-50 rounded-xl font-mono text-[10px] text-gray-400">
+                                        DOCUMENT_REF: DU_PRIVACY_JAN_26_V1
+                                    </div>
+                                    <p className="text-gray-600 font-medium">
+                                        DataUnlock provides enterprise-grade feedback intelligence. This section covers our full legal commitment to data sovereignty, GDPR Article 28 compliance, and technical safeguard specifications.
+                                    </p>
+                                    <p className="text-gray-400 italic">
+                                        [Full legal documentation for pilot partners is available upon request during onboarding.]
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                </div>
+            )}
         </AnimatePresence>
     );
 };
@@ -218,6 +223,7 @@ export default function App() {
 
     return (
         <div className="bg-[#FAFAFA] font-sans selection:bg-pink-100 selection:text-pink-900 text-gray-900 overflow-x-hidden min-h-screen">
+            {/* Navigation */}
             <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-4 bg-white/80 backdrop-blur-xl border-b border-gray-100">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="text-base md:text-xl font-black tracking-tighter flex items-center gap-2 md:gap-3">
@@ -233,6 +239,7 @@ export default function App() {
                 </div>
             </nav>
 
+            {/* Hero Section */}
             <section className="pt-32 pb-16 md:pt-56 md:pb-40 px-5 md:px-6 max-w-7xl mx-auto text-center">
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -259,11 +266,12 @@ export default function App() {
                 </motion.div>
             </section>
 
+            {/* How It Works */}
             <section className="py-20 md:py-32 px-5 md:px-6 bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-12 md:mb-20 text-left">
                         <h2 className="text-3xl md:text-6xl font-black tracking-tighter mb-2 italic">The Process.</h2>
-                        <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest">Efficiency Redefined.</p>
+                        <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest text-left">Efficiency Redefined.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
                         {HOW_IT_WORKS.map((item, i) => (
@@ -280,10 +288,11 @@ export default function App() {
                 </div>
             </section>
 
+            {/* Compliance Section */}
             <section className="py-20 md:py-32 px-5 md:px-6 bg-gray-50">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-12 md:mb-20 text-left">
-                        <h2 className="text-3xl md:text-6xl font-black tracking-tighter mb-2 italic">Built for Trust.</h2>
+                        <h2 className="text-3xl md:text-6xl font-black tracking-tighter mb-2 italic text-left">Built for Trust.</h2>
                         <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest text-left">Enterprise Ready.</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -300,6 +309,7 @@ export default function App() {
                 </div>
             </section>
 
+            {/* CTA Section */}
             <section className="py-24 md:py-48 px-5 md:px-6 bg-white text-center">
                 <div className="max-w-4xl mx-auto">
                     <h2 className="text-[2.5rem] md:text-[6rem] font-black mb-12 tracking-tighter leading-[0.95]">
@@ -314,6 +324,7 @@ export default function App() {
                 </div>
             </section>
 
+            {/* Footer */}
             <footer className="py-12 md:py-24 bg-white px-5 border-t border-gray-100">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
                     <div className="text-base md:text-xl font-black tracking-tighter flex items-center gap-3">
