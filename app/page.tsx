@@ -119,81 +119,83 @@ const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="bg-white w-full max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col"
                     >
-                        <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6">
-                            <div className="flex justify-between items-start">
-                                <div className="text-left">
-                                    <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-1 md:mb-2 text-black">Privacy & Data Governance</h1>
-                                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Version 1.0 • Effective Jan 14, 2026</p>
-                                </div>
-                                <button 
-                                    onClick={onClose}
-                                    className="p-2 hover:bg-gray-100 rounded-full transition-colors border border-gray-100"
-                                >
-                                    <X className="w-5 h-5 text-black" />
-                                </button>
-                            </div>
-                            
-                            <div className="flex gap-6 md:gap-8">
-                                <button 
-                                    onClick={() => setActiveTab('summary')}
-                                    className={`pb-4 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'summary' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400 hover:text-gray-600'}`}
-                                >
-                                    Summary
-                                </button>
-                                <button 
-                                    onClick={() => setActiveTab('full')}
-                                    className={`pb-4 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'full' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400 hover:text-gray-600'}`}
-                                >
-                                    Full Policy
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="p-6 md:p-16 overflow-y-auto flex-1 text-gray-800">
-                            {activeTab === 'summary' ? (
-                                <div className="space-y-8 md:space-y-12">
-                                    <section>
-                                        <h2 className="text-lg md:text-xl font-black mb-3 md:mb-4 uppercase tracking-tight text-black text-left">Data Control</h2>
-                                        <p className="text-base md:text-lg font-medium text-gray-600 leading-relaxed text-left">You remain the Data Controller. DataUnlock acts strictly as a Processor. You have total control over your data, including the right to delete any information at any time.</p>
-                                    </section>
-                                    <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                                        <div className="p-5 md:p-6 bg-pink-50 rounded-2xl border border-pink-100 text-left">
-                                            <h3 className="font-black text-pink-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
-                                                <ShieldCheck className="w-4 h-4" /> Security Standards
-                                            </h3>
-                                            <ul className="text-xs md:text-sm text-pink-800 space-y-2 font-medium">
-                                                <li>• AES-256 Encryption at rest & in transit</li>
-                                                <li>• Data hosted in EU (Ireland/Frankfurt)</li>
-                                                <li>• TLS 1.3+ communication protocols</li>
-                                                <li>• RBAC & strict production access controls</li>
-                                            </ul>
-                                        </div>
-                                        <div className="p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100 text-left">
-                                            <h3 className="font-black text-gray-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
-                                                <Lock className="w-4 h-4" /> Processing Scope
-                                            </h3>
-                                            <ul className="text-xs md:text-sm text-gray-600 space-y-2 font-medium">
-                                                <li>• No LLM training on raw customer data</li>
-                                                <li>• Automatic question type detection</li>
-                                                <li>• Semantic clustering for open-ended text</li>
-                                                <li>• Human-readable insight generation</li>
-                                            </ul>
-                                        </div>
-                                    </section>
-                                </div>
-                            ) : (
-                                <div className="space-y-10 text-xs md:text-sm leading-relaxed pb-20 whitespace-pre-wrap text-left">
-                                    <div className="mb-8 border-b border-gray-100 pb-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                                        DataUnlock Privacy Policy Version: 1.0 Last Updated: January 14, 2026
+                        {/* We use a standard div here for the layout/styling to avoid Framer Motion className type errors */}
+                        <div className="bg-white w-full max-h-[90vh] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] shadow-2xl relative flex flex-col">
+                            <div className="px-6 py-6 md:px-16 md:pt-12 border-b border-gray-100 flex flex-col gap-6">
+                                <div className="flex justify-between items-start">
+                                    <div className="text-left">
+                                        <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-1 md:mb-2 text-black">Privacy & Data Governance</h1>
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Version 1.0 • Effective Jan 14, 2026</p>
                                     </div>
-                                    <section>
-                                        <h2 className="text-lg md:text-xl font-black mb-4 uppercase tracking-tight text-black">1. INTRODUCTION</h2>
-                                        <p className="text-gray-600">DataUnlock is an AI-powered feedback intelligence platform that transforms raw survey data into structured insights. This policy outlines our commitment to your data privacy.</p>
-                                    </section>
+                                    <button 
+                                        onClick={onClose}
+                                        className="p-2 hover:bg-gray-100 rounded-full transition-colors border border-gray-100"
+                                    >
+                                        <X className="w-5 h-5 text-black" />
+                                    </button>
                                 </div>
-                            )}
+                                
+                                <div className="flex gap-6 md:gap-8">
+                                    <button 
+                                        onClick={() => setActiveTab('summary')}
+                                        className={`pb-4 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'summary' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400 hover:text-gray-600'}`}
+                                    >
+                                        Summary
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveTab('full')}
+                                        className={`pb-4 text-[10px] md:text-xs font-black uppercase tracking-widest transition-all border-b-2 ${activeTab === 'full' ? 'border-pink-600 text-pink-600' : 'border-transparent text-gray-400 hover:text-gray-600'}`}
+                                    >
+                                        Full Policy
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="p-6 md:p-16 overflow-y-auto flex-1 text-gray-800">
+                                {activeTab === 'summary' ? (
+                                    <div className="space-y-8 md:space-y-12">
+                                        <section>
+                                            <h2 className="text-lg md:text-xl font-black mb-3 md:mb-4 uppercase tracking-tight text-black text-left">Data Control</h2>
+                                            <p className="text-base md:text-lg font-medium text-gray-600 leading-relaxed text-left">You remain the Data Controller. DataUnlock acts strictly as a Processor. You have total control over your data, including the right to delete any information at any time.</p>
+                                        </section>
+                                        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                                            <div className="p-5 md:p-6 bg-pink-50 rounded-2xl border border-pink-100 text-left">
+                                                <h3 className="font-black text-pink-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                                                    <ShieldCheck className="w-4 h-4" /> Security Standards
+                                                </h3>
+                                                <ul className="text-xs md:text-sm text-pink-800 space-y-2 font-medium">
+                                                    <li>• AES-256 Encryption at rest & in transit</li>
+                                                    <li>• Data hosted in EU (Ireland/Frankfurt)</li>
+                                                    <li>• TLS 1.3+ communication protocols</li>
+                                                    <li>• RBAC & strict production access controls</li>
+                                                </ul>
+                                            </div>
+                                            <div className="p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100 text-left">
+                                                <h3 className="font-black text-gray-900 mb-3 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                                                    <Lock className="w-4 h-4" /> Processing Scope
+                                                </h3>
+                                                <ul className="text-xs md:text-sm text-gray-600 space-y-2 font-medium">
+                                                    <li>• No LLM training on raw customer data</li>
+                                                    <li>• Automatic question type detection</li>
+                                                    <li>• Semantic clustering for open-ended text</li>
+                                                    <li>• Human-readable insight generation</li>
+                                                </ul>
+                                            </div>
+                                        </section>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-10 text-xs md:text-sm leading-relaxed pb-20 whitespace-pre-wrap text-left">
+                                        <div className="mb-8 border-b border-gray-100 pb-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                            DataUnlock Privacy Policy Version: 1.0 Last Updated: January 14, 2026
+                                        </div>
+                                        <section>
+                                            <h2 className="text-lg md:text-xl font-black mb-4 uppercase tracking-tight text-black">1. INTRODUCTION</h2>
+                                            <p className="text-gray-600">DataUnlock is an AI-powered feedback intelligence platform that transforms raw survey data into structured insights. This policy outlines our commitment to your data privacy.</p>
+                                        </section>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </motion.div>
                 </div>
