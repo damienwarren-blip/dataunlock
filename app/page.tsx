@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ArrowRight,
     ShieldCheck,
@@ -10,357 +10,231 @@ import {
     Quote,
     Activity,
     Mail,
-    X,
     UploadCloud,
     Unlock,
     PlayCircle,
     TrendingUp,
-    Zap
+    Zap,
+    ChevronRight
 } from 'lucide-react';
 
-/**
- * DataUnlock App - Final Production Stability Fix
- * 1. REMOVED Framer Motion entirely to bypass the recurring Type errors.
- * 2. Replaced with standard CSS transitions and Tailwind animations.
- * 3. Explicitly typed all parameters and data structures.
- */
+// --- COMPONENTS ---
 
-interface WorkItem {
-    step: string;
-    title: string;
-    icon: React.ElementType;
-    detail: string;
-}
+const DataUnlockLogo = () => (
+    <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+        <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="3.5">
+            <path d="M7 6v8a5 5 0 0 0 10 0V6" />
+            <line x1="12" y1="14" x2="12" y2="19" className="text-pink-600" />
+        </svg>
+    </div>
+);
 
-const HOW_IT_WORKS: WorkItem[] = [
+const HOW_IT_WORKS = [
     {
         step: "01",
         title: "LOAD",
-        icon: UploadCloud,
         detail: "Plug in raw data—CSVs, tickets, or API streams.",
+        icon: UploadCloud,
     },
     {
         step: "02",
         title: "UNLOCK",
-        icon: Unlock,
         detail: "Our mapping identifies the exact friction points costing you revenue.",
+        icon: Unlock,
     },
     {
         step: "03",
         title: "ACT",
-        icon: PlayCircle,
         detail: "Get a prioritized action plan. The exact steps to execute.",
+        icon: PlayCircle,
     }
 ];
 
 const COMPLIANCE_ITEMS = [
-    { 
-        icon: ShieldCheck, 
-        title: "GDPR Compliant", 
-        detail: "✓ GDPR Compliant – No training on your data. Fully anonymized." 
-    },
-    { 
-        icon: Lock, 
-        title: "Processed in EU", 
-        detail: "✓ Processed in EU – Analysis stays in GDPR infrastructure." 
-    },
-    { 
-        icon: Globe, 
-        title: "Global Delivery", 
-        detail: "✓ Processing secure in EU, strategy delivered worldwide." 
-    },
-    { 
-        icon: FileCheck, 
-        title: "Enterprise Security", 
-        detail: "✓ AES 256 encryption – At rest and in transit. ✓ SOC 2 Type II Ready." 
-    }
+    { icon: ShieldCheck, title: "GDPR Compliant", detail: "✓ GDPR Compliant – No training on your data. Fully anonymized." },
+    { icon: Lock, title: "Processed in EU", detail: "✓ Processed in EU – Analysis stays in GDPR infrastructure." },
+    { icon: Globe, title: "Global Delivery", detail: "✓ Processing secure in EU, strategy delivered worldwide." },
+    { icon: FileCheck, title: "Enterprise Security", detail: "✓ AES 256 encryption – At rest and in transit. ✓ SOC 2 Type II Ready." }
 ];
 
-const DataUnlockLogo = () => (
-    <div className="relative group cursor-pointer">
-        <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center transition-transform group-hover:rotate-6">
-            <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="3.5">
-                <path d="M7 6v8a5 5 0 0 0 10 0V6" />
-                <line x1="12" y1="14" x2="12" y2="19" className="text-pink-600" />
-            </svg>
-        </div>
-    </div>
-);
-
 export default function App() {
-    const [scrolled, setScrolled] = useState(false);
-    const [showPrivacy, setShowPrivacy] = useState(false);
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-        const handleScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const scrollTo = (id: string) => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-    };
-
     return (
-        <div className="bg-white text-black font-sans selection:bg-pink-500 selection:text-white overflow-x-hidden min-h-screen">
-            {/* Custom Styles for entry animations without framer-motion */}
-            <style jsx global>{`
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                .animate-fade-in-up {
-                    animation: fadeInUp 0.8s ease-out forwards;
-                }
-                .delay-100 { animation-delay: 0.1s; }
-                .delay-200 { animation-delay: 0.2s; }
-            `}</style>
-
-            {/* Navigation */}
-            <nav className={`fixed top-0 w-full z-50 transition-all duration-300 px-6 py-4 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-black/5' : 'bg-transparent'}`}>
-                <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
-                    <div className="flex items-center gap-3 shrink-0 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+        <div className="bg-[#FAFAFA] font-sans selection:bg-pink-100 selection:text-pink-900 text-gray-900 overflow-x-hidden">
+            {/* Nav */}
+            <nav className="fixed top-0 w-full z-50 p-4 md:p-6 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+                <div className="max-w-7xl mx-auto flex justify-between items-center">
+                    <div className="text-lg md:text-xl font-black tracking-tighter flex items-center gap-2">
                         <DataUnlockLogo />
-                        <span className="text-xl font-black tracking-tighter uppercase whitespace-nowrap">DATAUNLOCK</span>
+                        DATAUNLOCK
                     </div>
-                    
-                    <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-600">
-                        <button onClick={() => scrollTo('process')} className="hover:text-pink-500 transition-colors cursor-pointer outline-none">Process</button>
-                        <button onClick={() => scrollTo('security')} className="hover:text-pink-500 transition-colors cursor-pointer outline-none">Security</button>
+                    <div className="flex items-center gap-3 md:gap-4">
+                        <button 
+                            onClick={() => document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="bg-black text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold hover:bg-gray-800 transition-all flex items-center gap-2"
+                        >
+                            Get Pilot Access <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        </button>
                     </div>
-
-                    <a href="mailto:damien@dataunlock.ai" className="bg-black text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-pink-600 transition-all active:scale-95 flex items-center gap-2">
-                        <span className="hidden sm:inline">Get Pilot Access</span>
-                        <Mail className="w-4 h-4 sm:hidden md:inline" />
-                    </a>
                 </div>
             </nav>
 
-            {/* Hero Section */}
-            <header className="relative pt-40 pb-20 md:pt-64 md:pb-40 px-6">
-                <div className={`max-w-7xl mx-auto ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                    <div className="mb-8 inline-flex items-center gap-2 text-[10px] font-black bg-black/5 border border-black/10 px-4 py-2 rounded-full uppercase tracking-[0.3em]">
-                        <Activity className="w-3 h-3 text-pink-500 animate-pulse" /> 
+            {/* Hero */}
+            <section className="pt-28 sm:pt-36 md:pt-48 pb-16 md:pb-32 px-6 max-w-7xl mx-auto">
+                <div className="max-w-4xl">
+                    <div className="inline-block mb-4 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest flex items-center gap-2">
+                        <Activity className="w-3 h-3 animate-pulse" />
                         Now Accepting Pilot Partners
                     </div>
-                    
-                    <h1 className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter mb-12 uppercase">
-                        UNLOCK <br/>
-                        <span className="text-pink-500 italic">REVENUE</span> <br/>
+                    <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.9] md:leading-[0.85] mb-6 md:mb-10">
+                        UNLOCK<br/>
+                        <span className="text-pink-600">REVENUE</span><br/>
                         IN YOUR DATA.
                     </h1>
-
-                    <p className="text-lg md:text-2xl text-gray-500 font-medium max-w-2xl mb-12 leading-relaxed italic">
-                        Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. 
-                        <span className="text-black block not-italic font-bold mt-2">We give you the exact steps to unlock revenue in your data—fast and secure.</span>
+                    <p className="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl mb-8 md:mb-12 leading-relaxed">
+                        Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. We give you the exact steps to unlock revenue in your data—fast and secure.
                     </p>
-
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <a href="mailto:damien@dataunlock.ai" className="px-10 py-6 bg-pink-600 text-white rounded-2xl font-black text-xl hover:bg-black transition-all shadow-xl shadow-pink-500/20 text-center inline-flex items-center justify-center gap-3">
-                            Start Your Pilot <ArrowRight className="w-6 h-6" />
-                        </a>
-                    </div>
+                    <button 
+                        onClick={() => document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="w-full sm:w-auto px-8 md:px-10 py-5 md:py-6 bg-black text-white rounded-2xl font-black text-xl md:text-2xl hover:scale-105 transition-all shadow-2xl shadow-gray-200"
+                    >
+                        Start Your Pilot
+                    </button>
                 </div>
-            </header>
+            </section>
 
-            {/* The Engine Section */}
-            <section id="process" className="py-32 px-6 bg-white border-t border-gray-100">
+            {/* How It Works */}
+            <section className="py-20 md:py-24 px-6 bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto">
-                    <div className="mb-24">
-                        <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">THE ENGINE</p>
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8 uppercase">HOW WE UNLOCK.</h2>
+                    <div className="mb-12 md:mb-16">
+                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-pink-600 mb-3">THE ENGINE</p>
+                        <h2 className="text-4xl md:text-7xl font-black tracking-tighter">HOW WE UNLOCK.</h2>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                         {HOW_IT_WORKS.map((item, i) => (
-                            <div key={i} className="relative p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 transition-all hover:bg-white hover:border-pink-500 hover:shadow-2xl hover:shadow-pink-500/5 group min-h-[350px] flex flex-col justify-between overflow-hidden">
-                                <div className="h-full w-full flex flex-col justify-between">
-                                    <div className="text-8xl font-black text-black/5 absolute top-4 right-8 group-hover:text-pink-500/10 transition-colors pointer-events-none">
-                                        {item.step}
-                                    </div>
-                                    <div>
-                                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-gray-100 group-hover:border-pink-500/30 transition-colors">
-                                            <item.icon className="w-7 h-7 text-pink-600" />
-                                        </div>
-                                        <h3 className="text-4xl font-black mb-6 italic text-pink-600 uppercase tracking-tighter">
-                                            {item.title}
-                                        </h3>
-                                        <p className="text-xl leading-relaxed text-gray-500 font-medium">
-                                            {item.detail}
-                                        </p>
-                                    </div>
+                            <div key={i}>
+                                <div className="text-5xl md:text-7xl font-black text-gray-50 mb-3 md:mb-4">{item.step}</div>
+                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-pink-50 flex items-center justify-center mb-5 md:mb-6">
+                                    <item.icon className="w-6 h-6 md:w-7 md:h-7 text-pink-600" />
                                 </div>
+                                <h3 className="text-xl md:text-2xl font-black mb-3 md:mb-4 tracking-tight">{item.title}</h3>
+                                <p className="text-gray-500 font-medium leading-relaxed text-sm md:text-base">{item.detail}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Case Study Section */}
-            <section className="py-32 px-6 bg-white border-y border-gray-100">
+            {/* Success Case: Zeus Scooters - QuickChat Layout Style */}
+            <section className="py-20 md:py-24 px-6 bg-black text-white overflow-hidden relative">
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col lg:flex-row gap-16 items-center">
+                    <div className="flex flex-col lg:flex-row gap-12 md:gap-16 items-center">
                         <div className="lg:w-1/2">
-                            <div className="flex items-center gap-3 mb-8">
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-pink-500 bg-pink-500/10 px-4 py-2 rounded-full border border-pink-500/20">Case Study</span>
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Zeus Scooters</span>
+                            <div className="flex items-center gap-3 mb-6 md:mb-8">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-pink-500 bg-pink-500/10 px-3 md:px-4 py-2 rounded-full">Case Study</span>
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-gray-500">Zeus Scooters</span>
                             </div>
-                            <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9] uppercase">
-                                MICRO-MOBILITY IMPACT. <br/>
-                                <span className="text-pink-500 italic">CHURN REDUCTION</span> FOR 150K USERS.
+                            <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 md:mb-10 leading-[1] md:leading-[0.9]">
+                                MICRO-MOBILITY IMPACT. <span className="text-pink-500">CHURN REDUCTION</span> FOR 150K USERS.
                             </h2>
                             
-                            <div className="relative p-12 bg-gray-50 border border-gray-100 rounded-[3rem]">
-                                <Quote className="absolute top-6 right-8 w-12 h-12 text-pink-500/20" />
-                                <p className="text-3xl font-bold leading-tight mb-8 italic">
-                                    "You've given me a step-by-step guide to reduce churn. The impact was immediate."
+                            <div className="relative p-6 md:p-12 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[3rem] mb-8 md:mb-12">
+                                <Quote className="absolute top-4 md:top-6 right-6 md:right-8 w-8 h-8 md:w-12 md:h-12 text-pink-500/20" />
+                                <p className="text-2xl md:text-3xl font-bold leading-tight mb-6 md:mb-8">
+                                    "You've given me a step-by-step guide to reduce churn."
                                 </p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center font-black text-white">CK</div>
+                                <div className="flex items-center gap-3 md:gap-4">
+                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-600 rounded-full flex items-center justify-center font-black text-sm md:text-base">CK</div>
                                     <div>
-                                        <div className="font-black text-lg">Chris Kemp</div>
-                                        <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Deputy CEO, Zeus Scooters</div>
+                                        <div className="font-black text-base md:text-lg">Chris Kemp</div>
+                                        <div className="text-gray-500 text-[10px] md:text-sm font-bold uppercase tracking-widest">Deputy CEO, Zeus Scooters</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-                            <div className="p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] flex flex-col justify-between hover:bg-pink-50/50 transition-all group">
-                                <TrendingUp className="w-10 h-10 text-pink-500 mb-12" />
+                        <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all">
+                                <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-pink-500 mb-8 md:mb-12" />
                                 <div>
-                                    <div className="text-6xl font-black mb-2 tracking-tighter">€900K</div>
-                                    <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Revenue Recovery</div>
+                                    <div className="text-4xl md:text-5xl font-black mb-2">€900K</div>
+                                    <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Revenue Recovery</div>
                                 </div>
                             </div>
-                            <div className="p-10 bg-gray-50 border border-gray-100 rounded-[2.5rem] flex flex-col justify-between hover:bg-pink-50/50 transition-all group">
-                                <Zap className="w-10 h-10 text-black mb-12" />
+                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all md:col-span-2">
+                                <div className="flex justify-between items-start">
+                                    <Zap className="w-8 h-8 md:w-10 md:h-10 text-pink-500 mb-8 md:mb-12" />
+                                    <div className="text-right">
+                                        <div className="text-4xl md:text-5xl font-black leading-none">&lt;7</div>
+                                        <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mt-1">Days</div>
+                                    </div>
+                                </div>
                                 <div>
-                                    <div className="text-6xl font-black mb-2 tracking-tighter">&lt;7D</div>
-                                    <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Execution Speed</div>
+                                    <div className="text-xl md:text-2xl font-black mb-1">Execution Speed</div>
+                                    <div className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest">From data to actionable strategy</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[120px] -z-10" />
             </section>
 
-            {/* Security Section */}
-            <section id="security" className="py-32 px-6 bg-white">
+            {/* Compliance Section */}
+            <section className="py-20 md:py-32 px-6 bg-gray-50 border-y border-gray-100 overflow-hidden relative">
                 <div className="max-w-7xl mx-auto">
-                    <div className="max-w-2xl mb-20">
-                        <p className="text-pink-600 font-black uppercase tracking-[0.4em] text-[10px] mb-4">Trust & Compliance</p>
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter italic leading-none mb-8 uppercase">BUILT FOR TRUST.</h2>
-                        <p className="text-xl font-bold uppercase tracking-widest text-gray-400">Enterprise grade security as standard.</p>
+                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-10 mb-12 md:mb-20">
+                        <div className="max-w-2xl">
+                            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-pink-600 mb-3">Trust & Compliance</p>
+                            <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-4">BUILT FOR TRUST.</h2>
+                            <p className="text-lg md:text-2xl text-gray-500 font-bold uppercase tracking-widest">Security by design, compliance by nature.</p>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                         {COMPLIANCE_ITEMS.map((item, i) => (
-                            <div key={i} className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 transition-all hover:border-pink-500/20 hover:bg-white shadow-sm">
-                                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm">
-                                    <item.icon className="w-6 h-6 text-pink-600" />
+                            <div key={i} className="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-gray-200 shadow-sm transition-all hover:shadow-md">
+                                <div className="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
+                                    <item.icon className="w-5 h-5 text-pink-600" />
                                 </div>
-                                <h3 className="text-2xl font-black mb-3 tracking-tight uppercase tracking-tighter">{item.title}</h3>
-                                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-relaxed">{item.detail}</p>
+                                <h3 className="text-lg md:text-2xl font-black mb-1 tracking-tight">{item.title}</h3>
+                                <p className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-relaxed">{item.detail}</p>
                             </div>
                         ))}
                     </div>
                 </div>
+                <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-pink-100 rounded-full blur-[100px] opacity-20 -z-10" />
             </section>
 
             {/* Final CTA */}
-            <section className="py-32 px-6 bg-white">
-                <div className="max-w-7xl mx-auto">
-                    <div className="bg-gray-900 rounded-[4rem] p-12 md:p-24 text-center relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-2 bg-pink-500"></div>
-                        <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 italic uppercase text-white">READY TO UNLOCK?</h2>
-                        <p className="text-xl text-gray-400 font-medium mb-12 max-w-2xl mx-auto">
-                            Stop guessing. Start knowing. Join our pilot program and turn your data into a growth engine.
-                        </p>
-                        <div className="flex justify-center">
-                             <a href="mailto:damien@dataunlock.ai" className="px-12 py-6 bg-pink-600 text-white rounded-2xl font-black text-xl hover:bg-white hover:text-black transition-all flex items-center gap-3">
-                                <Mail className="w-6 h-6" /> Get Pilot Access
-                            </a>
-                        </div>
-                    </div>
+            <section id="final-cta" className="py-20 md:py-48 px-6 bg-white">
+                <div className="max-w-5xl mx-auto text-center">
+                    <h2 className="text-5xl sm:text-6xl md:text-[9rem] font-black mb-12 md:mb-16 tracking-tighter leading-[0.9] md:leading-[0.85]">
+                        READY TO<br/><span className="text-pink-600">UNLOCK REVENUE?</span>
+                    </h2>
+                    <p className="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
+                        Stop guessing. Start knowing. Join our pilot program and turn your data into a growth engine.
+                    </p>
+                    <a
+                        href="mailto:damien@dataunlock.ai?subject=DataUnlock Pilot Inquiry"
+                        className="inline-flex items-center justify-center w-full max-w-2xl py-8 md:py-10 text-2xl md:text-4xl font-black rounded-[2rem] md:rounded-[3rem] bg-black text-white hover:scale-[1.02] shadow-2xl transition-all"
+                    >
+                        Get Pilot Access <ChevronRight className="ml-2 md:ml-4 w-6 h-6 md:w-10 md:h-10" />
+                    </a>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer className="py-20 px-6 bg-white border-t border-gray-100">
-                <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
-                        <div>
-                            <div className="flex items-center gap-3 mb-6 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-                                <DataUnlockLogo />
-                                <span className="text-xl font-black tracking-tighter uppercase">DATAUNLOCK</span>
-                            </div>
-                            <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest max-w-xs leading-loose">
-                                © 2026 DATAUNLOCK. <br/> SECURE FEEDBACK INTELLIGENCE. <br/> PROCESSED IN THE EU.
-                            </p>
-                        </div>
-                        <div className="max-w-md">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-black mb-4">Privacy & Data</h4>
-                            <p className="text-gray-400 text-xs leading-relaxed font-medium mb-4">
-                                We are committed to sovereignty. No training on user data. All processing in EU jurisdiction.
-                            </p>
-                            <button 
-                                onClick={() => setShowPrivacy(true)}
-                                className="text-[10px] font-black uppercase tracking-widest text-pink-600 hover:text-pink-500 transition-colors border-b border-pink-600/30 cursor-pointer outline-none"
-                            >
-                                View Privacy Policy
-                            </button>
-                        </div>
+            <footer className="py-12 md:py-16 bg-white px-8 border-t border-gray-100">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="text-lg md:text-xl font-black tracking-tighter flex items-center gap-2">
+                        <DataUnlockLogo />
+                        DATAUNLOCK
+                    </div>
+                    <div className="text-[9px] md:text-[10px] font-black text-gray-300 uppercase tracking-widest text-center">
+                        © 2026 DATAUNLOCK. SECURE FEEDBACK INTELLIGENCE. PROCESSED IN THE EU.
                     </div>
                 </div>
             </footer>
-
-            {/* Privacy Policy Modal - Pure CSS/React approach */}
-            {showPrivacy && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center px-6 transition-opacity duration-300">
-                    <div 
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-                        onClick={() => setShowPrivacy(false)}
-                    />
-                    <div className="relative bg-white w-full max-w-lg rounded-[2.5rem] p-8 md:p-12 shadow-2xl overflow-hidden animate-fade-in-up">
-                        <div className="absolute top-0 left-0 w-full h-2 bg-pink-500" />
-                        <button 
-                            onClick={() => setShowPrivacy(false)}
-                            className="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors cursor-pointer outline-none"
-                        >
-                            <X className="w-6 h-6" />
-                        </button>
-                        
-                        <div className="mb-8">
-                            <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
-                                <ShieldCheck className="w-6 h-6 text-pink-600" />
-                            </div>
-                            <h3 className="text-3xl font-black italic tracking-tighter mb-4 uppercase">PRIVACY POLICY</h3>
-                            <div className="space-y-4 text-sm text-gray-500 font-medium leading-relaxed">
-                                <p>
-                                    <span className="text-black font-bold">Zero-Training Policy:</span> We never use your proprietary data to train public AI models.
-                                </p>
-                                <p>
-                                    <span className="text-black font-bold">Full Anonymization:</span> PII is stripped at the ingestion layer before analysis begins.
-                                </p>
-                                <p>
-                                    <span className="text-black font-bold">EU Sovereignty:</span> All data processing is strictly performed on infrastructure located within the EU.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <button 
-                            onClick={() => setShowPrivacy(false)}
-                            className="w-full py-4 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-pink-600 transition-colors cursor-pointer outline-none"
-                        >
-                            Close Policy
-                        </button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
