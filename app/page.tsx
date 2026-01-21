@@ -32,20 +32,20 @@ const DataUnlockLogo = () => (
 const HOW_IT_WORKS = [
     {
         step: "01",
-        title: "LOAD",
-        detail: "Plug in raw data—CSVs, tickets, or API streams.",
+        title: "LOAD YOUR DATA",
+        detail: "Drop in your raw feedback – CSVs from survey tools, tickets, notes, whatever you've got. No reformatting.",
         icon: UploadCloud,
     },
     {
         step: "02",
-        title: "UNLOCK",
-        detail: "Our mapping identifies the exact friction points costing you revenue.",
+        title: "TELL US WHAT YOU WANT TO KNOW",
+        detail: "Pick your revenue goal: Reduce churn & stop losing customers • Spot upsell & retention wins • Decide what features to build next • Uncover competition threats eating your market",
         icon: Unlock,
     },
     {
         step: "03",
-        title: "ACT",
-        detail: "Get a prioritized action plan. The exact steps to execute.",
+        title: "ACT – EXECUTE",
+        detail: "Get a direct action plan: Top revenue drivers with € impact estimates • Clear, prioritized steps to execute • Exact moves to reduce churn, build winning features, spot upsell opportunities • Ready-to-post social thanks (\"We heard you – here's what we're going to do\").",
         icon: PlayCircle,
     }
 ];
