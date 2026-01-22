@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     ArrowRight,
     ShieldCheck,
@@ -9,7 +9,6 @@ import {
     FileCheck,
     Quote,
     Activity,
-    Mail,
     UploadCloud,
     Unlock,
     PlayCircle,
@@ -21,7 +20,7 @@ import {
 // --- COMPONENTS ---
 
 const DataUnlockLogo = () => (
-    <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+    <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center shrink-0">
         <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="3.5">
             <path d="M7 6v8a5 5 0 0 0 10 0V6" />
             <line x1="12" y1="14" x2="12" y2="19" className="text-pink-600" />
@@ -33,19 +32,19 @@ const HOW_IT_WORKS = [
     {
         step: "01",
         title: "LOAD YOUR DATA",
-        detail: "Drop in your raw feedback – CSVs from survey tools, tickets, notes, whatever you've got. No reformatting.",
+        detail: "Drop or send us your raw data – CSVs from survey tools, tickets, notes, whatever data you already have but currently cannot action.",
         icon: UploadCloud,
     },
     {
         step: "02",
         title: "TELL US WHAT YOU WANT TO KNOW",
-        detail: "Pick your revenue goal: Reduce churn & stop losing customers • Spot upsell & retention wins • Decide what features to build next • Uncover competition threats eating your market",
+        detail: "Pick your revenue goal: Reduce churn & stop losing customers • Spot upsell & retention wins • Decide what features to build next • Uncover competition threats.",
         icon: Unlock,
     },
     {
         step: "03",
         title: "ACT – EXECUTE",
-        detail: "Get a direct action plan: Top revenue drivers with € impact estimates • Clear, prioritized steps to execute • Exact moves to reduce churn, build winning features, spot upsell opportunities • Ready-to-post social thanks (\"We heard you – here's what we're going to do\").",
+        detail: "We give you the Strategy: Top revenue drivers with € impact estimates • Clear, prioritized steps to execute • Exact moves to reduce churn, build winning features, spot upsell opportunities.",
         icon: PlayCircle,
     }
 ];
@@ -59,7 +58,7 @@ const COMPLIANCE_ITEMS = [
 
 export default function App() {
     return (
-        <div className="bg-[#FAFAFA] font-sans selection:bg-pink-100 selection:text-pink-900 text-gray-900 overflow-x-hidden">
+        <div className="bg-[#FAFAFA] font-sans selection:bg-pink-100 selection:text-pink-900 text-gray-900 overflow-x-hidden min-h-screen">
             {/* Nav */}
             <nav className="fixed top-0 w-full z-50 p-4 md:p-6 bg-white/80 backdrop-blur-xl border-b border-gray-100">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -81,7 +80,7 @@ export default function App() {
             {/* Hero */}
             <section className="pt-28 sm:pt-36 md:pt-48 pb-16 md:pb-32 px-6 max-w-7xl mx-auto">
                 <div className="max-w-4xl">
-                    <div className="inline-block mb-4 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest flex items-center gap-2">
+                    <div className="inline-flex items-center mb-4 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest gap-2">
                         <Activity className="w-3 h-3 animate-pulse" />
                         Now Accepting Pilot Partners
                     </div>
@@ -91,7 +90,7 @@ export default function App() {
                         IN YOUR DATA.
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl mb-8 md:mb-12 leading-relaxed">
-                        Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. We give you the exact steps to unlock revenue in your data—fast and secure.
+                        Your data is trapped in spreadsheets. Weeks of analysis. Delayed decisions. We give you the exact steps to unlock revenue - fast and secure.
                     </p>
                     <button 
                         onClick={() => document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' })}
@@ -124,8 +123,8 @@ export default function App() {
                 </div>
             </section>
 
-            {/* Success Case: Zeus Scooters - QuickChat Layout Style */}
-            <section className="py-20 md:py-24 px-6 bg-black text-white overflow-hidden relative">
+            {/* Success Case: Zeus Scooters */}
+            <section className="py-20 md:py-24 px-6 bg-black text-white overflow-hidden relative z-10">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col lg:flex-row gap-12 md:gap-16 items-center">
                         <div className="lg:w-1/2">
@@ -143,7 +142,7 @@ export default function App() {
                                     "You've given me a step-by-step guide to reduce churn."
                                 </p>
                                 <div className="flex items-center gap-3 md:gap-4">
-                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-600 rounded-full flex items-center justify-center font-black text-sm md:text-base">CK</div>
+                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-pink-600 rounded-full flex items-center justify-center font-black text-sm md:text-base shrink-0">CK</div>
                                     <div>
                                         <div className="font-black text-base md:text-lg">Chris Kemp</div>
                                         <div className="text-gray-500 text-[10px] md:text-sm font-bold uppercase tracking-widest">Deputy CEO, Zeus Scooters</div>
@@ -153,14 +152,14 @@ export default function App() {
                         </div>
 
                         <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all">
+                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all min-h-[240px]">
                                 <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-pink-500 mb-8 md:mb-12" />
                                 <div>
                                     <div className="text-4xl md:text-5xl font-black mb-2">€900K</div>
                                     <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Revenue Recovery</div>
                                 </div>
                             </div>
-                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all md:col-span-2">
+                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all md:col-span-2 min-h-[240px]">
                                 <div className="flex justify-between items-start">
                                     <Zap className="w-8 h-8 md:w-10 md:h-10 text-pink-500 mb-8 md:mb-12" />
                                     <div className="text-right">
@@ -193,7 +192,7 @@ export default function App() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                         {COMPLIANCE_ITEMS.map((item, i) => (
                             <div key={i} className="bg-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-gray-200 shadow-sm transition-all hover:shadow-md">
-                                <div className="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center mb-6">
+                                <div className="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center mb-6 shrink-0">
                                     <item.icon className="w-5 h-5 text-pink-600" />
                                 </div>
                                 <h3 className="text-lg md:text-2xl font-black mb-1 tracking-tight">{item.title}</h3>
@@ -212,13 +211,13 @@ export default function App() {
                         READY TO<br/><span className="text-pink-600">UNLOCK REVENUE?</span>
                     </h2>
                     <p className="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
-                        Stop guessing. Start knowing. Join our pilot program and turn your data into a growth engine.
+                        We have a limited number of pilot partnerships available.
                     </p>
                     <a
                         href="mailto:damien@dataunlock.ai?subject=DataUnlock Pilot Inquiry"
                         className="inline-flex items-center justify-center w-full max-w-2xl py-8 md:py-10 text-2xl md:text-4xl font-black rounded-[2rem] md:rounded-[3rem] bg-black text-white hover:scale-[1.02] shadow-2xl transition-all"
                     >
-                        Get Pilot Access <ChevronRight className="ml-2 md:ml-4 w-6 h-6 md:w-10 md:h-10" />
+                        Get Pilot Access <ChevronRight className="ml-2 md:ml-4 w-6 h-6 md:w-10 md:h-10 shrink-0" />
                     </a>
                 </div>
             </section>
