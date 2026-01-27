@@ -56,7 +56,7 @@ const HOW_IT_WORKS = [
     {
         step: "02",
         title: "UNLOCK",
-        detail: "Proprietary engine goes to work to accurately analyze why customers are really leaving and what features actually drive retention. **Analysis you can trust.**",
+        detail: "Our proprietary engine goes to work to accurately analyze why customers are really leaving and what features actually drive retention. **Analysis you can trust.**",
         icon: Target,
         color: "purple"
     },
