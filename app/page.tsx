@@ -174,8 +174,10 @@ const HeroGraphic = () => (
             {/* Strategy Side - Vibrant/Glow */}
             <div className="flex flex-col items-center gap-3">
                 <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    className="relative w-16 h-16 md:w-20 md:h-20 bg-pink-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-pink-300/50 group"
+                    {...({
+                        whileHover: { scale: 1.05 },
+                        className: "relative w-16 h-16 md:w-20 md:h-20 bg-pink-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-pink-300/50 group"
+                    } as any)}
                 >
                     <FileCheck className="w-10 h-10 md:w-12 md:h-12 text-white" />
                     <motion.div 
