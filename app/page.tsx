@@ -173,8 +173,8 @@ export default function App() {
                     >
                         <div className="inline-block mb-6 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">Feedback Intelligence</div>
                         <h1 className="text-6xl sm:text-7xl md:text-[8rem] font-black tracking-tighter leading-[0.9] md:leading-[0.8] mb-12">
-                            Understand your<br/>customer data.<br/>
-                            <span className="text-pink-600">Act faster.</span>
+                            Unlock your<br/>
+                            <span className="text-pink-600">customer data.</span>
                         </h1>
                         
                         <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
