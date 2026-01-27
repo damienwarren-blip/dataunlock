@@ -181,9 +181,11 @@ const HeroGraphic = () => (
                 >
                     <FileCheck className="w-10 h-10 md:w-12 md:h-12 text-white" />
                     <motion.div 
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        className="absolute -inset-4 bg-pink-500/20 rounded-full blur-2xl -z-10"
+                        {...({
+                            animate: { scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] },
+                            transition: { repeat: Infinity, duration: 2 },
+                            className: "absolute -inset-4 bg-pink-500/20 rounded-full blur-2xl -z-10"
+                        } as any)}
                     />
                 </motion.div>
                 <span className="text-[10px] font-black uppercase tracking-widest text-pink-600">Strategy</span>
