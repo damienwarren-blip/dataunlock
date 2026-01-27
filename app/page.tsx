@@ -159,9 +159,11 @@ const HeroGraphic = () => (
             <div className="flex-1 px-4 md:px-10">
                 <div className="h-0.5 w-full bg-gray-50 relative">
                     <motion.div 
-                        animate={{ left: ["-20%", "120%"], opacity: [0, 1, 0] }}
-                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                        className="absolute top-1/2 -translate-y-1/2 w-8 h-8 bg-pink-500 rounded-full blur-xl"
+                        {...({
+                            animate: { left: ["-20%", "120%"], opacity: [0, 1, 0] },
+                            transition: { repeat: Infinity, duration: 2, ease: "easeInOut" },
+                            className: "absolute top-1/2 -translate-y-1/2 w-8 h-8 bg-pink-500 rounded-full blur-xl"
+                        } as any)}
                     />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <Zap className="w-5 h-5 text-pink-500 fill-pink-500" />
