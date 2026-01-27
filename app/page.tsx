@@ -85,7 +85,7 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                 onClick={onClose}
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
             />
-            {/* Added explicit HTML div cast for motion to resolve className type mismatch in some environments */}
+            {/* Fix: Using motion(div) instead of motion.div and spreading props to bypass intrinsic attribute strict typing */}
             <motion.div 
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
