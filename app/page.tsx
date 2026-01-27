@@ -93,15 +93,15 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
             />
             <MotionDiv 
-                className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
+                className="relative bg-white w-full max-w-4xl h-full max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
             >
-                <button onClick={onClose} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <button onClick={onClose} className="fixed md:absolute top-6 right-6 p-2 bg-white/80 backdrop-blur-md hover:bg-gray-100 rounded-full transition-colors z-[110]">
                     <X className="w-6 h-6" />
                 </button>
                 
-                <div className="space-y-8 prose prose-pink max-w-none">
+                <div className="space-y-10 prose prose-pink max-w-none">
                     <header className="border-b border-gray-100 pb-8">
                         <h1 className="text-3xl md:text-4xl font-black text-black mb-4">DataUnlock Privacy Policy</h1>
                         <div className="flex flex-wrap gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
@@ -111,16 +111,112 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                         </div>
                     </header>
 
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">1. INTRODUCTION</h2>
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">1. INTRODUCTION</h2>
                         <p>DataUnlock ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you participate in our pilot program and use our platform.</p>
-                        <div className="bg-gray-50 p-6 rounded-2xl mt-4">
-                            <h3 className="font-bold text-black mb-2 uppercase text-sm">What DataUnlock Does</h3>
-                            <p className="text-sm">DataUnlock is an AI-powered feedback intelligence platform that transforms raw survey data into structured insights and executive-ready recommendations.</p>
+                        
+                        <div className="bg-gray-50 p-6 rounded-2xl">
+                            <h3 className="font-bold text-black mb-2 uppercase text-sm italic">What DataUnlock Does</h3>
+                            <p className="text-sm">DataUnlock is an AI-powered feedback intelligence platform that transforms raw survey data into structured insights and executive-ready recommendations. The system:</p>
+                            <ul className="text-sm list-disc pl-5 mt-2 space-y-1">
+                                <li>Ingests structured survey or feedback data (CSV or Excel files)</li>
+                                <li>Automatically detects question types (numeric, categorical, binary, or text/open-ended)</li>
+                                <li>Applies appropriate analysis strategies: statistical analysis for numeric/categorical data, semantic clustering for text responses</li>
+                                <li>Optionally uses large language models (LLMs) to generate human-readable insights, summaries, root cause analyses, and recommended actions</li>
+                                <li>Produces executive-ready reports and structured JSON output</li>
+                            </ul>
+                        </div>
+                        
+                        <div className="bg-pink-50/50 p-6 rounded-2xl border border-pink-100">
+                            <h3 className="font-bold text-pink-900 mb-2 uppercase text-sm">Company Details</h3>
+                            <p className="text-sm">DataUnlock is based in Ireland and is committed to operating in compliance with GDPR and EU data protection standards.</p>
+                        </div>
+                        <p className="italic text-sm text-gray-500">Please read this carefully. By accessing DataUnlock, you acknowledge you have read and understood this Privacy Policy and our Pilot Consent Form.</p>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">2. WHO WE ARE & YOUR ROLE</h2>
+                        <p>DataUnlock processes data on your behalf as a <strong>Data Processor</strong>. You (the pilot partner organization) are the <strong>Data Controller</strong>, responsible for:</p>
+                        <ul className="list-disc pl-5 space-y-1">
+                            <li>Ensuring lawful collection of survey/feedback data from your respondents/customers</li>
+                            <li>Obtaining necessary consents from individuals whose data you provide</li>
+                            <li>Complying with data protection laws in your jurisdiction</li>
+                            <li>Validating our analysis and insights before making business decisions</li>
+                        </ul>
+                        
+                        <div className="border-l-4 border-gray-200 pl-4 py-2 mt-4">
+                            <h3 className="font-bold text-black text-sm uppercase mb-2">Support for Organizations Without Dedicated Legal Resources</h3>
+                            <p className="text-sm">If your organization does not have a dedicated Data Protection Officer (DPO) or legal team, we recommend:</p>
+                            <ul className="text-sm list-disc pl-5 mt-2 space-y-1">
+                                <li>Consulting with your local data protection authority for guidance</li>
+                                <li>Engaging external legal counsel if needed</li>
+                                <li>Reaching out to us at <strong>privacy@dataunlock.com</strong> for clarification</li>
+                            </ul>
                         </div>
                     </section>
-                    <footer className="pt-8 border-t border-gray-100 text-xs text-gray-400 text-center">
-                        <p>Questions about this policy? Contact <strong>privacy@dataunlock.com</strong></p>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">3. WHAT DATA WE COLLECT ABOUT YOU</h2>
+                        <h3 className="font-black text-sm uppercase text-gray-400">3.1 Organizational Data</h3>
+                        <p>Organization name, type, industry, primary use case, contact details, and billing information.</p>
+                        
+                        <h3 className="font-black text-sm uppercase text-gray-400">3.2 Platform Usage Data</h3>
+                        <p>We collect metadata including login info (IP, browser), API activity, file upload metadata (size, format), and system performance metrics.</p>
+                        
+                        <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
+                            <h3 className="font-bold text-red-900 mb-2 uppercase text-sm">What we DO NOT log:</h3>
+                            <ul className="text-sm text-red-800 list-disc pl-5 space-y-1">
+                                <li>Actual contents of your uploaded files (CSV/Excel data)</li>
+                                <li>Raw survey responses or customer feedback</li>
+                                <li>Sensitive credentials (these are hashed)</li>
+                                <li>Full request/response bodies</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">4. LEGAL BASIS FOR COLLECTING YOUR DATA</h2>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li><strong>Contract:</strong> Fulfilling our pilot program agreement</li>
+                            <li><strong>Legitimate Interest:</strong> Improving security and optimizing performance</li>
+                            <li><strong>Legal Obligation:</strong> Complying with EU (GDPR) and UK jurisdictions</li>
+                            <li><strong>Consent:</strong> Where you explicitly opt in (marketing, case studies)</li>
+                        </ul>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">5. HOW WE USE YOUR DATA</h2>
+                        <p>We use data to deliver the service (ingestion, analysis, LLM processing), improve the product (algorithm refinement), maintain security, and support operations.</p>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">6. DATA SHARING & SUB-PROCESSORS</h2>
+                        <p>We do <strong>not</strong> share your data with third parties except trusted vendors required for infrastructure (AWS, Azure, Sentry, Auth0). All data is hosted in EU regions by default.</p>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">7. DATA RETENTION & DELETION</h2>
+                        <p>Login logs are kept for 180 days, API logs for 90 days. You may request deletion at any time via <strong>privacy@dataunlock.com</strong>. Deletion is usually completed within 30 days.</p>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">8. DATA SECURITY</h2>
+                        <p>We employ TLS 1.3+ for transit, AES-256 for rest, and strict RBAC/MFA access controls. Disaster recovery RTO is 4 hours, RPO is 1 hour.</p>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">10. DATA BREACHES</h2>
+                        <p>In the event of a breach, we will notify you within 72 hours and provide a full forensic report within 5 business days.</p>
+                    </section>
+
+                    <section className="space-y-4">
+                        <h2 className="text-xl font-black text-black uppercase tracking-tight">11. YOUR PRIVACY RIGHTS</h2>
+                        <p>Under GDPR, you have the right to access, rectify, erase, restrict, and port your data. Contact us at <strong>privacy@dataunlock.com</strong> to exercise these rights.</p>
+                    </section>
+
+                    <footer className="pt-8 border-t border-gray-100 text-xs text-gray-400 text-center space-y-2">
+                        <p>Questions? Contact <strong>privacy@dataunlock.com</strong></p>
+                        <p>Data Protection Commission (Ireland) | 21 Fitzwilliam Square South, Dublin 2</p>
                     </footer>
                 </div>
             </MotionDiv>
