@@ -25,7 +25,8 @@ import {
 } from 'lucide-react';
 
 // --- THEME CONSTANTS ---
-const THEME = {
+// Added index signature [key: string]: string to allow dynamic indexing
+const THEME: { [key: string]: string } = {
     pink: "bg-pink-600",
     pinkLight: "bg-pink-50",
     pinkText: "text-pink-600",
