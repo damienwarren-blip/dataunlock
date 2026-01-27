@@ -89,9 +89,9 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
             />
             <motion.div 
+                className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
             >
                 <button onClick={onClose} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors">
                     <X className="w-6 h-6" />
@@ -160,10 +160,10 @@ export default function App() {
             <section className="pt-32 sm:pt-40 md:pt-56 pb-20 md:pb-32 px-6 max-w-7xl mx-auto">
                 <div className="max-w-4xl">
                     <motion.div 
+                        className="text-left"
                         initial={{ opacity: 0, y: 30 }} 
                         animate={{ opacity: 1, y: 0 }} 
                         transition={{ duration: 0.8 }}
-                        className="text-left"
                     >
                         <div className="inline-block mb-6 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">Private Beta</div>
                         <h1 className="text-6xl sm:text-7xl md:text-[9rem] font-black tracking-tighter leading-[0.9] md:leading-[0.8] mb-12">
