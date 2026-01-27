@@ -129,10 +129,12 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
 const HeroGraphic = () => (
     <div className="relative w-full max-w-lg mx-auto lg:mx-0 mt-8 lg:mt-0 px-4 md:px-0">
         <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center justify-between bg-white border border-gray-100 rounded-[3rem] p-8 md:p-14 shadow-2xl shadow-gray-200/50 relative overflow-hidden"
+            {...({
+                initial: { opacity: 0, y: 20 },
+                animate: { opacity: 1, y: 0 },
+                transition: { duration: 0.8 },
+                className: "flex items-center justify-between bg-white border border-gray-100 rounded-[3rem] p-8 md:p-14 shadow-2xl shadow-gray-200/50 relative overflow-hidden"
+            } as any)}
         >
             {/* Messy Side - Darkened for better contrast */}
             <div className="flex flex-col items-center gap-3">
