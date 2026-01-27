@@ -142,9 +142,11 @@ const HeroGraphic = () => (
                     <Files className="w-12 h-12 md:w-16 md:h-16 text-gray-400" />
                     {/* Subtle noise animation */}
                     <motion.div 
-                        animate={{ opacity: [0.4, 0.8, 0.4] }}
-                        transition={{ repeat: Infinity, duration: 3 }}
-                        className="absolute inset-0 flex items-center justify-center"
+                        {...({
+                            animate: { opacity: [0.4, 0.8, 0.4] },
+                            transition: { repeat: Infinity, duration: 3 },
+                            className: "absolute inset-0 flex items-center justify-center"
+                        } as any)}
                     >
                         <div className="w-1.5 h-1.5 bg-gray-500 rounded-full absolute top-2 left-2" />
                         <div className="w-1.5 h-1.5 bg-gray-500 rounded-full absolute bottom-4 right-2" />
