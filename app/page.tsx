@@ -82,13 +82,17 @@ interface PrivacyModalProps {
 
 const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
     if (!isOpen) return null;
+    
+    // Explicitly casting to any to bypass strict framer-motion/React 18 prop conflicts
+    const MotionDiv = motion.div as any;
+
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
             <div 
                 onClick={onClose}
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
             />
-            <motion.div 
+            <MotionDiv 
                 className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -119,7 +123,7 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                         <p>Questions about this policy? Contact <strong>privacy@dataunlock.com</strong></p>
                     </footer>
                 </div>
-            </motion.div>
+            </MotionDiv>
         </div>
     );
 };
@@ -130,6 +134,9 @@ export default function App() {
     const handleEmailClick = () => {
         window.location.href = "mailto:damien@dataunlock.ai?subject=DataUnlock Inquiry";
     };
+
+    // Casting motion elements to any for build stability
+    const MotionDiv = motion.div as any;
 
     return (
         <div className="bg-[#FAFAFA] font-sans selection:bg-pink-100 selection:text-pink-900 text-gray-900 overflow-x-hidden">
@@ -159,7 +166,7 @@ export default function App() {
             {/* Hero */}
             <section className="pt-32 sm:pt-40 md:pt-56 pb-20 md:pb-32 px-6 max-w-7xl mx-auto">
                 <div className="max-w-4xl">
-                    <motion.div 
+                    <MotionDiv 
                         className="text-left"
                         initial={{ opacity: 0, y: 30 }} 
                         animate={{ opacity: 1, y: 0 }} 
@@ -179,7 +186,7 @@ export default function App() {
                                 Contact Us <ArrowRight className="ml-3 w-6 h-6" />
                             </button>
                         </div>
-                    </motion.div>
+                    </MotionDiv>
                 </div>
             </section>
 
