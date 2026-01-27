@@ -21,11 +21,13 @@ import {
     Upload,
     Target,
     BarChart3,
-    X
+    X,
+    FileJson,
+    Files,
+    ArrowRightLeft
 } from 'lucide-react';
 
 // --- THEME CONSTANTS ---
-// Added index signature [key: string]: string to allow dynamic indexing
 const THEME: { [key: string]: string } = {
     pink: "bg-pink-600",
     pinkLight: "bg-pink-50",
@@ -86,7 +88,6 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                 onClick={onClose}
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
             />
-            {/* Fix: Casting props to any to resolve the TypeScript 'className' error in strict environments */}
             <motion.div 
                 {...({
                     initial: { opacity: 0, scale: 0.95, y: 20 },
@@ -113,106 +114,75 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                         <p>DataUnlock ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you participate in our pilot program and use our platform.</p>
                         <div className="bg-gray-50 p-6 rounded-2xl mt-4">
                             <h3 className="font-bold text-black mb-2 uppercase text-sm">What DataUnlock Does</h3>
-                            <p className="text-sm">DataUnlock is an AI-powered feedback intelligence platform that transforms raw survey data into structured insights and executive-ready recommendations. The system ingests structured survey data, applies analysis strategies (statistical and semantic clustering), and optionally uses LLMs to generate insights.</p>
-                        </div>
-                        <div className="mt-4">
-                            <h3 className="font-bold text-black mb-2 uppercase text-sm">Company Details</h3>
-                            <p className="text-sm">DataUnlock is based in Ireland and is committed to operating in compliance with GDPR and EU data protection standards.</p>
+                            <p className="text-sm">DataUnlock is an AI-powered feedback intelligence platform that transforms raw survey data into structured insights and executive-ready recommendations.</p>
                         </div>
                     </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">2. WHO WE ARE & YOUR ROLE</h2>
-                        <p>DataUnlock processes data on your behalf as a <strong>Data Processor</strong>. You (the pilot partner organization) are the <strong>Data Controller</strong>, responsible for ensuring lawful collection of survey data and obtaining necessary consents.</p>
-                        <div className="border-l-4 border-pink-500 pl-4 mt-4 italic text-sm">
-                            If your organization does not have a dedicated DPO or legal team, we recommend consulting with your local data protection authority or reaching out to us at privacy@dataunlock.com.
-                        </div>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">3. WHAT DATA WE COLLECT</h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h3 className="font-bold text-black text-sm mb-2 uppercase">3.1 Organizational Data</h3>
-                                <p className="text-sm">Contact name, email, industry, organization type, and primary use case.</p>
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-black text-sm mb-2 uppercase">3.2 Platform Usage Data</h3>
-                                <p className="text-sm">Metadata including login timestamps, API activity, file upload metadata (size, type), and system performance metrics.</p>
-                            </div>
-                        </div>
-                        <div className="bg-pink-50 p-6 rounded-2xl mt-6 border border-pink-100">
-                            <h3 className="font-bold text-pink-700 mb-2 uppercase text-xs">What we DO NOT log:</h3>
-                            <ul className="grid md:grid-cols-2 gap-2 text-xs font-medium text-pink-900 list-disc pl-4">
-                                <li>Actual contents of uploaded files</li>
-                                <li>Raw survey responses</li>
-                                <li>Individual respondent answers</li>
-                                <li>Plaintext passwords/keys</li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">4. LEGAL BASIS</h2>
-                        <p>We process data based on <strong>Contract</strong> (pilot agreement), <strong>Legitimate Interest</strong> (security/optimization), <strong>Legal Obligation</strong> (GDPR/EU Law), and <strong>Consent</strong>.</p>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">5. HOW WE USE YOUR DATA</h2>
-                        <ul className="space-y-2 list-disc pl-4 text-sm">
-                            <li><strong>Deliver Service:</strong> Ingest files, detect types, apply clustering, and generate reports.</li>
-                            <li><strong>Improve Product:</strong> Aggregate anonymized insights to refine algorithms.</li>
-                            <li><strong>Security:</strong> Monitor for abuse and conduct audits.</li>
-                            <li><strong>Support:</strong> Troubleshoot and send critical security updates.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">6. DATA SHARING & SUB-PROCESSORS</h2>
-                        <p className="mb-4">We do NOT share your data except with trusted infrastructure providers (Sub-Processors) listed below:</p>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left text-xs border-collapse">
-                                <thead>
-                                    <tr className="bg-gray-100">
-                                        <th className="p-2 border">Vendor</th>
-                                        <th className="p-2 border">Purpose</th>
-                                        <th className="p-2 border">Location</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td className="p-2 border font-bold">AWS</td><td className="p-2 border">Cloud Hosting</td><td className="p-2 border">EU (Ireland/Frankfurt)</td></tr>
-                                    <tr><td className="p-2 border font-bold">Azure</td><td className="p-2 border">Alternative Hosting</td><td className="p-2 border">EU / US</td></tr>
-                                    <tr><td className="p-2 border font-bold">Sentry</td><td className="p-2 border">Error Tracking</td><td className="p-2 border">EU-hosted</td></tr>
-                                    <tr><td className="p-2 border font-bold">Auth0</td><td className="p-2 border">Authentication</td><td className="p-2 border">EU-compliant</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">7. RETENTION & DELETION</h2>
-                        <p className="text-sm">Uploaded data is deleted automatically after 6 months. Login logs are kept for 180 days. You may request deletion at any time via privacy@dataunlock.com.</p>
-                    </section>
-
-                    <section>
-                        <h2 className="text-xl font-black text-black uppercase tracking-tight mb-4">8. DATA SECURITY</h2>
-                        <div className="grid md:grid-cols-2 gap-4 text-sm">
-                            <div className="p-4 bg-gray-50 rounded-xl"><strong>Encryption:</strong> TLS 1.3 in transit, AES-256 at rest.</div>
-                            <div className="p-4 bg-gray-50 rounded-xl"><strong>Access:</strong> Role-based access (RBAC) and MFA.</div>
-                            <div className="p-4 bg-gray-50 rounded-xl"><strong>Network:</strong> Firewalls, DDoS protection, and VPN.</div>
-                            <div className="p-4 bg-gray-50 rounded-xl"><strong>Recovery:</strong> Daily encrypted backups with 1hr RPO.</div>
-                        </div>
-                    </section>
-
-                    <footer className="pt-8 border-t border-gray-100 text-xs text-gray-400">
+                    <footer className="pt-8 border-t border-gray-100 text-xs text-gray-400 text-center">
                         <p>Questions about this policy? Contact <strong>privacy@dataunlock.com</strong></p>
-                        <p className="mt-2">Regulatory Contact: Data Protection Commission (Ireland), 21 Fitzwilliam Square South, Dublin 2.</p>
                     </footer>
                 </div>
             </motion.div>
         </div>
     );
 };
+
+const HeroGraphic = () => (
+    <div className="relative w-full max-w-lg mx-auto lg:mx-0 mt-8 lg:mt-0 px-4 md:px-0">
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex items-center justify-between bg-white border border-gray-100 rounded-[3rem] p-8 md:p-14 shadow-2xl shadow-gray-200/50 relative overflow-hidden"
+        >
+            {/* Messy Side - Darkened for better contrast */}
+            <div className="flex flex-col items-center gap-3">
+                <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
+                    <Files className="w-12 h-12 md:w-16 md:h-16 text-gray-400" />
+                    {/* Subtle noise animation */}
+                    <motion.div 
+                        animate={{ opacity: [0.4, 0.8, 0.4] }}
+                        transition={{ repeat: Infinity, duration: 3 }}
+                        className="absolute inset-0 flex items-center justify-center"
+                    >
+                        <div className="w-1.5 h-1.5 bg-gray-500 rounded-full absolute top-2 left-2" />
+                        <div className="w-1.5 h-1.5 bg-gray-500 rounded-full absolute bottom-4 right-2" />
+                    </motion.div>
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Messy Data</span>
+            </div>
+
+            {/* Transition Path */}
+            <div className="flex-1 px-4 md:px-10">
+                <div className="h-0.5 w-full bg-gray-50 relative">
+                    <motion.div 
+                        animate={{ left: ["-20%", "120%"], opacity: [0, 1, 0] }}
+                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                        className="absolute top-1/2 -translate-y-1/2 w-8 h-8 bg-pink-500 rounded-full blur-xl"
+                    />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <Zap className="w-5 h-5 text-pink-500 fill-pink-500" />
+                    </div>
+                </div>
+            </div>
+
+            {/* Strategy Side - Vibrant/Glow */}
+            <div className="flex flex-col items-center gap-3">
+                <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="relative w-16 h-16 md:w-20 md:h-20 bg-pink-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-pink-300/50 group"
+                >
+                    <FileCheck className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                    <motion.div 
+                        animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        className="absolute -inset-4 bg-pink-500/20 rounded-full blur-2xl -z-10"
+                    />
+                </motion.div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-pink-600">Strategy</span>
+            </div>
+        </motion.div>
+    </div>
+);
 
 export default function App() {
     const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
@@ -247,24 +217,20 @@ export default function App() {
             </nav>
 
             {/* Hero */}
-            <section className="pt-28 sm:pt-36 md:pt-48 pb-16 md:pb-32 px-6 max-w-7xl mx-auto text-center lg:text-left">
-                <div className="max-w-4xl">
+            <section className="pt-28 sm:pt-36 md:pt-48 pb-16 md:pb-32 px-6 max-w-7xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                         <div className="inline-block mb-4 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">Private Beta</div>
-                        <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.9] md:leading-[0.85] mb-6 md:mb-10">
+                        <h1 className="text-5xl sm:text-6xl md:text-[7rem] font-black tracking-tighter leading-[0.9] md:leading-[0.85] mb-6 md:mb-10 text-center lg:text-left">
                             DATA TO<br/>
                             <span className="text-pink-600">STRATEGY.</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl mb-8 md:mb-12 leading-relaxed mx-auto lg:mx-0">
+                        <p className="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl mb-8 md:mb-12 leading-relaxed mx-auto lg:mx-0 text-center lg:text-left">
                             You have customer feedback, survey responses, support tickets sitting in spreadsheets. We turn them into clear strategic priorities with revenue impact... <span className="text-black font-bold">Fast and Secure.</span>
                         </p>
-                        <button 
-                            onClick={handleEmailClick}
-                            className="w-full sm:w-auto px-8 md:px-10 py-5 md:py-6 bg-black text-white rounded-2xl font-black text-xl md:text-2xl hover:scale-105 transition-all shadow-2xl shadow-gray-200"
-                        >
-                            Reserve Q1 Slot
-                        </button>
                     </motion.div>
+                    
+                    <HeroGraphic />
                 </div>
             </section>
 
@@ -346,7 +312,6 @@ export default function App() {
                         </div>
                     </div>
                 </div>
-                {/* Decorative background elements */}
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[120px] -z-10" />
             </section>
 
@@ -354,13 +319,13 @@ export default function App() {
             <section className="py-20 md:py-32 px-6 bg-gray-50 border-y border-gray-100 overflow-hidden relative">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-10 mb-12 md:mb-20">
-                        <div className="max-w-2xl">
+                        <div className="max-w-2xl text-center lg:text-left">
                             <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-4">Trust & Compliance.</h2>
                             <p className="text-lg md:text-2xl text-gray-500 font-bold uppercase tracking-widest leading-tight">BUILT FOR TRUST.<br/><span className="text-sm font-bold opacity-60">Security by design, compliance by nature.</span></p>
                         </div>
                         <button 
                             onClick={() => setIsPrivacyOpen(true)}
-                            className="flex items-center gap-3 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-pink-600 border-b-2 border-pink-100 pb-1 hover:border-pink-600 transition-all w-fit"
+                            className="flex items-center gap-3 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-pink-600 border-b-2 border-pink-100 pb-1 hover:border-pink-600 transition-all w-fit mx-auto lg:mx-0"
                         >
                             Privacy Statement <ArrowRight className="w-4 h-4" />
                         </button>
