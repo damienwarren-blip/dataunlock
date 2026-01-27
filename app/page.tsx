@@ -49,21 +49,21 @@ const HOW_IT_WORKS = [
     {
         step: "01",
         title: "LOAD",
-        detail: "You have CSVs from survey tools, support tickets, customer notes. It's all there waiting. You just haven't had the bandwidth to unlock what it means. **Safe, Private and Secure**",
+        detail: "You have CSVs from survey tools, support tickets, customer notes. It's all there waiting. You just haven't had the bandwidth to unlock what it means. **Safe, private, and secure**",
         icon: Upload,
         color: "pink"
     },
     {
         step: "02",
         title: "UNLOCK",
-        detail: "Here's what we do: dig into what's actually there and surface what matters. Why customers are really leaving. Where the upsells are hiding in your support tickets. What features actually drive retention. We give you the clarity you've been missing.",
+        detail: "Proprietary engine goes to work to accurately analyze why customers are really leaving and what features actually drive retention. **Analysis you can trust.**",
         icon: Target,
         color: "purple"
     },
     {
         step: "03",
         title: "EXECUTE",
-        detail: "We hand you the strategic playbook: your top revenue drivers, clearly ranked • the exact steps to stop churn and build what customers want • the specific moves to capture the upsells you're leaving on the table.",
+        detail: "We hand you a strategic playbook: the exact steps to stop churn and build what customers want. **Start getting real results.**",
         icon: BarChart3,
         color: "cyan"
     }
@@ -84,7 +84,6 @@ interface PrivacyModalProps {
 const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
     if (!isOpen) return null;
     
-    // Explicitly casting to any to bypass strict framer-motion/React 18 prop conflicts
     const MotionDiv = motion.div as any;
 
     return (
@@ -136,7 +135,6 @@ export default function App() {
         window.location.href = "mailto:damien@dataunlock.ai?subject=DataUnlock Inquiry";
     };
 
-    // Casting motion elements to any for build stability
     const MotionDiv = motion.div as any;
 
     return (
@@ -180,8 +178,10 @@ export default function App() {
                         </h1>
                         
                         <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-                           <div className="text-sm md:text-base font-bold text-gray-400 uppercase tracking-[0.2em]">
-                               Limited Pilot slots available for Q1 2026.
+                           <div className="text-xl md:text-2xl font-black tracking-tight flex items-center gap-4">
+                               <span className="text-gray-900">Accurate.</span>
+                               <span className="text-pink-600">Secure.</span>
+                               <span className="text-gray-900">Fast.</span>
                            </div>
                         </div>
                     </MotionDiv>
@@ -194,21 +194,25 @@ export default function App() {
                     <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-16 md:mb-24">How it works</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
                         {HOW_IT_WORKS.map((item, i) => (
-                            <div key={i} className="group">
-                                <div className="flex items-center gap-4 mb-8">
-                                    <div className="text-6xl md:text-8xl font-black text-black/5 group-hover:text-pink-600/10 transition-colors duration-500 leading-none">
-                                        {item.step}
-                                    </div>
-                                    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl ${THEME[item.color + 'Light']} flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
-                                        <item.icon className={`w-6 h-6 md:w-8 md:h-8 ${THEME[item.color + 'Text']}`} />
+                            <div key={i} className="group relative">
+                                <div className="flex items-center gap-6 mb-10">
+                                    <div className="relative">
+                                        <div className="text-7xl md:text-9xl font-black text-black/5 leading-none transition-colors duration-500 group-hover:text-pink-600/10 italic">
+                                            {item.step}
+                                        </div>
+                                        <div className={`absolute -right-4 -bottom-2 w-12 h-12 md:w-14 md:h-14 rounded-xl ${THEME[item.color + 'Light']} flex items-center justify-center shadow-lg shadow-black/5 border border-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6`}>
+                                            <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[item.color + 'Text']}`} />
+                                        </div>
                                     </div>
                                 </div>
-                                <h3 className="text-2xl md:text-3xl font-black mb-6 tracking-tight uppercase">{item.title}</h3>
-                                <p className="text-gray-500 font-medium leading-relaxed text-base md:text-lg">
-                                    {item.detail.split('**').map((part, index) => 
-                                        index % 2 === 1 ? <strong key={index} className="text-black font-black">{part}</strong> : part
-                                    )}
-                                </p>
+                                <div className="space-y-4">
+                                    <h3 className="text-2xl md:text-3xl font-black tracking-tight uppercase border-l-4 border-pink-600 pl-4">{item.title}</h3>
+                                    <p className="text-gray-500 font-medium leading-relaxed text-base md:text-lg">
+                                        {item.detail.split('**').map((part, index) => 
+                                            index % 2 === 1 ? <strong key={index} className="text-black font-black">{part}</strong> : part
+                                        )}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
