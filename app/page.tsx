@@ -72,7 +72,12 @@ const COMPLIANCE_ITEMS = [
     { icon: Lock, title: "Enterprise Security", detail: "✓ AES 256 encryption – At rest and in transit. ✓ SOC 2 Type II Ready." }
 ];
 
-const PrivacyModal = ({ isOpen, onClose }) => {
+interface PrivacyModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
     if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
