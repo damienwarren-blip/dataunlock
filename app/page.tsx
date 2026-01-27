@@ -24,7 +24,8 @@ import {
     X,
     FileJson,
     Files,
-    ArrowRightLeft
+    ArrowRightLeft,
+    Database
 } from 'lucide-react';
 
 // --- THEME CONSTANTS ---
@@ -48,7 +49,7 @@ const HOW_IT_WORKS = [
     {
         step: "01",
         title: "LOAD",
-        detail: "You have CSVs from survey tools, support tickets, customer notes. It's all there waiting. You just haven't had the bandwidth to unlock what it means.",
+        detail: "You have CSVs from survey tools, support tickets, customer notes. It's all there waiting. You just haven't had the bandwidth to unlock what it means. **Safe, Private and Secure**",
         icon: Upload,
         color: "pink"
     },
@@ -61,8 +62,8 @@ const HOW_IT_WORKS = [
     },
     {
         step: "03",
-        title: "ACT – EXECUTE",
-        detail: "Then we hand you the playbook: your top revenue drivers, clearly ranked • the exact steps to stop churn and build what customers want • the specific moves to capture the upsells you're leaving on the table.",
+        title: "EXECUTE",
+        detail: "We hand you the strategic playbook: your top revenue drivers, clearly ranked • the exact steps to stop churn and build what customers want • the specific moves to capture the upsells you're leaving on the table.",
         icon: BarChart3,
         color: "cyan"
     }
@@ -146,10 +147,10 @@ export default function App() {
             <nav className="fixed top-0 w-full z-50 p-4 md:p-6 bg-white/80 backdrop-blur-xl border-b border-gray-100">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="text-lg md:text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-7 h-7 md:w-8 md:h-8 bg-black rounded-lg flex items-center justify-center">
-                            <MessageSquare className="text-white w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <div className="w-7 h-7 md:w-8 md:h-8 bg-pink-600 rounded-lg flex items-center justify-center">
+                            <Database className="text-white w-3.5 h-3.5 md:w-4 md:h-4" />
                         </div>
-                        DATAUNLOCK
+                        DATAUNLOCK.AI
                     </div>
                     <div className="flex items-center gap-3 md:gap-4">
                         <span className="hidden sm:block text-[9px] md:text-[10px] font-black bg-pink-100 text-pink-600 px-3 py-1 rounded-full uppercase tracking-widest">Private Beta</span>
@@ -157,7 +158,7 @@ export default function App() {
                             onClick={handleEmailClick}
                             className="bg-black text-white px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold hover:bg-gray-800 transition-all flex items-center gap-2"
                         >
-                            Contact <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                            Inquire <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         </button>
                     </div>
                 </div>
@@ -165,44 +166,49 @@ export default function App() {
 
             {/* Hero */}
             <section className="pt-32 sm:pt-40 md:pt-56 pb-20 md:pb-32 px-6 max-w-7xl mx-auto">
-                <div className="max-w-4xl">
+                <div className="max-w-5xl">
                     <MotionDiv 
                         className="text-left"
                         initial={{ opacity: 0, y: 30 }} 
                         animate={{ opacity: 1, y: 0 }} 
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-block mb-6 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">Private Beta</div>
-                        <h1 className="text-6xl sm:text-7xl md:text-[9rem] font-black tracking-tighter leading-[0.9] md:leading-[0.8] mb-12">
-                            UNDERSTAND<br/>YOUR DATA.<br/>
-                            <span className="text-pink-600">ACT FASTER.</span>
+                        <div className="inline-block mb-6 text-[10px] font-black bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full uppercase tracking-widest">Feedback Intelligence</div>
+                        <h1 className="text-6xl sm:text-7xl md:text-[8rem] font-black tracking-tighter leading-[0.9] md:leading-[0.8] mb-12">
+                            Understand your<br/>customer data.<br/>
+                            <span className="text-pink-600">Act faster.</span>
                         </h1>
                         
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <button
-                                onClick={handleEmailClick}
-                                className="inline-flex items-center justify-center px-10 py-5 text-xl font-black rounded-2xl bg-black text-white hover:bg-gray-800 transition-all"
-                            >
-                                Contact Us <ArrowRight className="ml-3 w-6 h-6" />
-                            </button>
+                        <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+                           <div className="text-sm md:text-base font-bold text-gray-400 uppercase tracking-[0.2em]">
+                               Limited Pilot slots available for Q1 2026.
+                           </div>
                         </div>
                     </MotionDiv>
                 </div>
             </section>
 
             {/* How It Works */}
-            <section className="py-20 md:py-24 px-6 bg-white border-y border-gray-100">
+            <section className="py-20 md:py-32 px-6 bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-12 md:mb-20">How it works</h2>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                    <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-16 md:mb-24">How it works</h2>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
                         {HOW_IT_WORKS.map((item, i) => (
-                            <div key={i}>
-                                <div className="text-5xl md:text-7xl font-black text-gray-50 mb-3 md:mb-4">{item.step}</div>
-                                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${THEME[item.color + 'Light']} flex items-center justify-center mb-5 md:mb-6`}>
-                                    <item.icon className={`w-6 h-6 md:w-7 md:h-7 ${THEME[item.color + 'Text']}`} />
+                            <div key={i} className="group">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="text-6xl md:text-8xl font-black text-black/5 group-hover:text-pink-600/10 transition-colors duration-500 leading-none">
+                                        {item.step}
+                                    </div>
+                                    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl ${THEME[item.color + 'Light']} flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                                        <item.icon className={`w-6 h-6 md:w-8 md:h-8 ${THEME[item.color + 'Text']}`} />
+                                    </div>
                                 </div>
-                                <h3 className="text-xl md:text-2xl font-black mb-3 md:mb-4 tracking-tight uppercase">{item.title}</h3>
-                                <p className="text-gray-500 font-medium leading-relaxed text-sm md:text-base">{item.detail}</p>
+                                <h3 className="text-2xl md:text-3xl font-black mb-6 tracking-tight uppercase">{item.title}</h3>
+                                <p className="text-gray-500 font-medium leading-relaxed text-base md:text-lg">
+                                    {item.detail.split('**').map((part, index) => 
+                                        index % 2 === 1 ? <strong key={index} className="text-black font-black">{part}</strong> : part
+                                    )}
+                                </p>
                             </div>
                         ))}
                     </div>
@@ -238,30 +244,30 @@ export default function App() {
                         </div>
 
                         <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all">
-                                <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-pink-500 mb-8 md:mb-12" />
+                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all text-center md:text-left">
+                                <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-pink-500 mb-8 md:mb-12 mx-auto md:mx-0" />
                                 <div>
                                     <div className="text-4xl md:text-5xl font-black mb-2">€900K</div>
                                     <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Annual Projected<br/>Revenue Recovery</div>
                                 </div>
                             </div>
-                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all">
-                                <MessageSquare className="w-8 h-8 md:w-10 md:h-10 text-cyan-500 mb-8 md:mb-12" />
+                            <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all text-center md:text-left">
+                                <MessageSquare className="w-8 h-8 md:w-10 md:h-10 text-cyan-500 mb-8 md:mb-12 mx-auto md:mx-0" />
                                 <div>
                                     <div className="text-4xl md:text-5xl font-black mb-2">10K</div>
                                     <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Customers Targeted<br/>for Win-Back Q1</div>
                                 </div>
                             </div>
-                            <div className="p-8 md:p-10 bg-pink-600 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between md:col-span-2">
-                                <div className="flex justify-between items-start">
+                            <div className="p-8 md:p-10 bg-pink-600 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between md:col-span-2 text-center md:text-left">
+                                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
                                     <Zap className="w-8 h-8 md:w-10 md:h-10 text-white mb-8 md:mb-12" />
-                                    <div className="text-right">
-                                        <div className="text-4xl md:text-5xl font-black leading-none">&lt;7</div>
+                                    <div className="text-center md:text-right">
+                                        <div className="text-4xl md:text-6xl font-black leading-none">&lt;7</div>
                                         <div className="text-[10px] font-black uppercase tracking-widest opacity-80 mt-1">Days</div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="text-xl md:text-2xl font-black mb-1">Strategy Delivered</div>
+                                <div className="mt-4 md:mt-0">
+                                    <div className="text-xl md:text-3xl font-black mb-1">Strategy Delivered</div>
                                     <div className="text-[10px] md:text-xs font-bold opacity-80 uppercase tracking-widest">Full roadmap to European market retention</div>
                                 </div>
                             </div>
@@ -322,12 +328,20 @@ export default function App() {
             <footer className="py-12 md:py-16 bg-white px-8 border-t border-gray-100">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="text-lg md:text-xl font-black tracking-tighter flex items-center gap-2">
-                        <div className="w-7 h-7 md:w-8 md:h-8 bg-black rounded-lg flex items-center justify-center">
-                            <MessageSquare className="text-white w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <div className="w-7 h-7 md:w-8 md:h-8 bg-pink-600 rounded-lg flex items-center justify-center">
+                            <Database className="text-white w-3.5 h-3.5 md:w-4 md:h-4" />
                         </div>
-                        DATAUNLOCK
+                        DATAUNLOCK.AI
                     </div>
-                    <div className="text-[9px] md:text-[10px] font-black text-gray-300 uppercase tracking-widest italic text-center">© 2026 ALL RIGHTS RESERVED</div>
+                    <div className="flex gap-6 items-center">
+                        <button 
+                            onClick={() => setIsPrivacyOpen(true)}
+                            className="text-[9px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-black transition-colors"
+                        >
+                            Privacy Statement
+                        </button>
+                        <div className="text-[9px] md:text-[10px] font-black text-gray-300 uppercase tracking-widest">© 2026 DATAUNLOCK.AI</div>
+                    </div>
                 </div>
             </footer>
         </div>
