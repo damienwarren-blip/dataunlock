@@ -89,11 +89,9 @@ const PrivacyModal = ({ isOpen, onClose }: PrivacyModalProps) => {
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300" 
             />
             <motion.div 
-                {...({
-                    initial: { opacity: 0, scale: 0.95, y: 20 },
-                    animate: { opacity: 1, scale: 1, y: 0 },
-                    className: "relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
-                } as any)}
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                className="relative bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl p-6 md:p-12 text-sm md:text-base leading-relaxed text-gray-700"
             >
                 <button onClick={onClose} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors">
                     <X className="w-6 h-6" />
