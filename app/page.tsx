@@ -289,21 +289,6 @@ export default function App() {
                                Get the Churn Playbook - <br/>
                                <span className="text-pink-600">Accurate. Secure. Fast.</span>
                            </p>
-
-                           <div className="flex flex-wrap items-center gap-x-8 gap-y-2 pt-4">
-                               <div className="flex items-center gap-2">
-                                   <div className="w-2 h-2 rounded-full bg-pink-600" />
-                                   <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400">Accurate</span>
-                               </div>
-                               <div className="flex items-center gap-2">
-                                   <div className="w-2 h-2 rounded-full bg-pink-600" />
-                                   <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400">Secure</span>
-                               </div>
-                               <div className="flex items-center gap-2">
-                                   <div className="w-2 h-2 rounded-full bg-pink-600" />
-                                   <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400">Fast</span>
-                               </div>
-                           </div>
                         </div>
                     </MotionDiv>
                 </div>
