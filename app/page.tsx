@@ -25,7 +25,11 @@ import {
     FileJson,
     Files,
     ArrowRightLeft,
-    Database
+    Database,
+    Search,
+    BrainCircuit,
+    Lightbulb,
+    Map
 } from 'lucide-react';
 
 // --- THEME CONSTANTS ---
@@ -48,24 +52,31 @@ const THEME: { [key: string]: string } = {
 const HOW_IT_WORKS = [
     {
         step: "01",
-        title: "LOAD",
-        detail: "You have CSVs from survey tools, support tickets, customer notes. It's all there waiting. You just haven't had the bandwidth to unlock what it means. **Safe, private, and secure**",
-        icon: Upload,
+        title: "Understand Your Challenge",
+        detail: "High CAC eating margins. Customers leaving. You don't know why. **We define the real problem.**",
+        icon: Search,
         color: "pink"
     },
     {
         step: "02",
-        title: "UNLOCK",
-        detail: "Our proprietary engine goes to work to accurately analyze why customers are really leaving and what features actually drive retention. **Analysis you can trust.**",
-        icon: Target,
+        title: "Analyze Your Data",
+        detail: "We process your customer feedback, support tickets, churn records – **fast, secure, your data stays yours.**",
+        icon: BrainCircuit,
         color: "purple"
     },
     {
         step: "03",
-        title: "EXECUTE",
-        detail: "We hand you a strategic playbook: the exact steps to stop churn and build what customers want. **Start getting real results.**",
-        icon: BarChart3,
+        title: "Identify the Drivers of Revenue",
+        detail: "What's actually causing churn – **data-led, no guesswork.**",
+        icon: Lightbulb,
         color: "cyan"
+    },
+    {
+        step: "04",
+        title: "Deliver a Roadmap to Impact",
+        detail: "Here's what to fix, in priority order. **So you can act fast.**",
+        icon: Map,
+        color: "rose"
     }
 ];
 
@@ -273,22 +284,36 @@ export default function App() {
                             <span className="text-pink-600">customer data.</span>
                         </h1>
                         
-                        <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-                           <div className="text-xl md:text-2xl font-black tracking-tight flex items-center gap-4">
-                               <span className="text-gray-900">Accurate.</span>
-                               <span className="text-pink-600">Secure.</span>
-                               <span className="text-gray-900">Fast.</span>
+                        <div className="max-w-3xl space-y-8">
+                           <p className="text-2xl md:text-4xl font-black tracking-tight leading-tight text-gray-900">
+                               High CAC eating your margins? Customers leaving? <br/>
+                               <span className="text-pink-600">We give you the playbook to recover.</span>
+                           </p>
+
+                           <div className="flex flex-wrap items-center gap-x-8 gap-y-2 pt-4">
+                               <div className="flex items-center gap-2">
+                                   <div className="w-2 h-2 rounded-full bg-pink-600" />
+                                   <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400">Accurate</span>
+                               </div>
+                               <div className="flex items-center gap-2">
+                                   <div className="w-2 h-2 rounded-full bg-pink-600" />
+                                   <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400">Secure</span>
+                               </div>
+                               <div className="flex items-center gap-2">
+                                   <div className="w-2 h-2 rounded-full bg-pink-600" />
+                                   <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400">Fast</span>
+                               </div>
                            </div>
                         </div>
                     </MotionDiv>
                 </div>
             </section>
 
-            {/* How It Works */}
+            {/* Churn Playbook */}
             <section className="py-20 md:py-32 px-6 bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-16 md:mb-24">How it works</h2>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+                    <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-16 md:mb-24">The Churn Playbook</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
                         {HOW_IT_WORKS.map((item, i) => (
                             <div key={i} className="group relative">
                                 <div className="flex items-center gap-6 mb-10">
@@ -302,8 +327,8 @@ export default function App() {
                                     </div>
                                 </div>
                                 <div className="space-y-4">
-                                    <h3 className="text-2xl md:text-3xl font-black tracking-tight uppercase border-l-4 border-pink-600 pl-4">{item.title}</h3>
-                                    <p className="text-gray-500 font-medium leading-relaxed text-base md:text-lg">
+                                    <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase border-l-4 border-pink-600 pl-4 h-16 flex items-center leading-tight">{item.title}</h3>
+                                    <p className="text-gray-500 font-medium leading-relaxed text-sm md:text-base">
                                         {item.detail.split('**').map((part, index) => 
                                             index % 2 === 1 ? <strong key={index} className="text-black font-black">{part}</strong> : part
                                         )}
