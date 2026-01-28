@@ -286,8 +286,8 @@ export default function App() {
                         
                         <div className="max-w-3xl space-y-8">
                            <p className="text-2xl md:text-4xl font-black tracking-tight leading-tight text-gray-900">
-                               High CAC eating your margins? Customers leaving? <br/>
-                               <span className="text-pink-600">We give you the playbook to recover.</span>
+                               Get the Churn Playbook - <br/>
+                               <span className="text-pink-600">Accurate. Secure. Fast.</span>
                            </p>
 
                            <div className="flex flex-wrap items-center gap-x-8 gap-y-2 pt-4">
