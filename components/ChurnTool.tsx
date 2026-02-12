@@ -302,7 +302,7 @@ export default function CostOfSaleTool() {
       const leadRevenue = leadSegment.reduce((sum, r) => sum + r.revenue, 0);
       
       // Calculate per-category metrics
-      const categoryMetrics = Object.entries(categoryBreakdown).map(([category, data]) => {
+      const categoryMetrics = Object.entries(categoryBreakdown).map(([category, data]: [string, any]) => {
         const savedCustomers = Math.floor(data.count * (successRate / 100));
         const recoverableEquity = savedCustomers * ltv;
         
@@ -314,7 +314,7 @@ export default function CostOfSaleTool() {
           recoverableEquity: recoverableEquity.toFixed(2),
           monthlyMRR: data.totalRevenue.toFixed(2)
         };
-      }).sort((a, b) => b.count - a.count);
+      }).sort((a: any, b: any) => b.count - a.count);
       
       // Overall metrics
       const lagSaved = Math.floor(lagSegment.length * (successRate / 100));
@@ -1002,7 +1002,7 @@ Return ONLY valid JSON:
                   <p className="text-sm text-slate-400 mb-6">Sub-segment breakdown with recommended plays</p>
                   
                   <div className="space-y-3">
-                    {analysis.signal.categoryBreakdown.map((cat, idx) => (
+                    {analysis.signal.categoryBreakdown.map((cat: any, idx: number) => (
                       <div key={idx} className="p-4 bg-slate-900/50 border border-slate-700/50 rounded-lg">
                         <div className="grid grid-cols-4 gap-4">
                           <div>
@@ -1119,7 +1119,7 @@ Return ONLY valid JSON:
                           Key Insights
                         </h4>
                         <ul className="space-y-2">
-                          {aiInsights.keyInsights.map((insight, idx) => (
+                          {aiInsights.keyInsights.map((insight: string, idx: number) => (
                             <li key={idx} className="text-sm text-slate-300 flex items-start gap-2">
                               <CheckCircle2 className="text-emerald-400 mt-0.5 flex-shrink-0" size={16} />
                               {insight}
@@ -1134,7 +1134,7 @@ Return ONLY valid JSON:
                           Strategic Recommendations
                         </h4>
                         <ul className="space-y-2">
-                          {aiInsights.strategicRecommendations.map((rec, idx) => (
+                          {aiInsights.strategicRecommendations.map((rec: string, idx: number) => (
                             <li key={idx} className="text-sm text-slate-300 flex items-start gap-2">
                               <TrendingUp className="text-purple-400 mt-0.5 flex-shrink-0" size={16} />
                               {rec}
