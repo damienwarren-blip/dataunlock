@@ -37,7 +37,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Sentiment analysis for signal categorization
 const analyzeSentiment = (text: string | null) => {
-  if (!text) return { category: 'UNKNOWN', keywords: [] };
+  if (!text) return { category: 'UNKNOWN', keywords: [], play: 'HEALTH_CHECK_EMAIL' };
   
   const lower = text.toLowerCase();
   
