@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic';
 import { CLIENT_REGISTRY, GOAL_TEMPLATES } from '@/src/lib/clientRegistry';
 import { Lock, ShieldAlert, ArrowRight, Loader2 } from 'lucide-react';
 
-/** * 1. FIX: Define the Props Interface for the ChurnTool.
+/**
+ * 1. FIX: Define the Props Interface for the ChurnTool.
  * This tells TypeScript exactly what data the component expects.
  */
 interface ChurnToolProps {
@@ -57,9 +58,6 @@ export default function ClientPortalPage() {
           <ShieldAlert className="w-12 h-12 text-red-500" />
         </div>
         <h1 className="text-2xl font-bold text-white mb-2">404: Portal Not Found</h1>
-        <p className="text-slate-400 max-w-xs">
-          This secure environment does not exist or has been decommissioned.
-        </p>
       </div>
     );
   }
