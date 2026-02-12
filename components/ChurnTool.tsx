@@ -235,12 +235,12 @@ export default function CostOfSaleTool() {
         if (!email || !email.trim()) continue;
         
         // Classify
-        const isChurned = churnValue && 
+        const isChurned = Boolean(churnValue && 
           ['cancelled', 'yes', 'true', '1', 'churned', 'inactive', 'left'].includes(
             String(churnValue).toLowerCase().trim()
-          );
+          ));
         
-        const isAtRisk = feedback && feedback.trim().length > 10;
+        const isAtRisk = Boolean(feedback && feedback.trim().length > 10);
         
         // Sentiment analysis
         const sentiment = analyzeSentiment(feedback);
