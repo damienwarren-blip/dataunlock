@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 
 // SHA-256 helper
-async function sha256(text) {
+async function sha256(text: string) {
   const encoder = new TextEncoder();
   const data = encoder.encode(text);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -119,7 +119,7 @@ export default function CostOfSaleTool() {
     }
   }, []);
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = e.target.files?.[0];
     if (!uploadedFile) return;
     
@@ -130,7 +130,7 @@ export default function CostOfSaleTool() {
     setSchema(null);
   };
 
-  const detectSchema = (headers) => {
+  const detectSchema = (headers: string[]) => {
     const schema = { 
       email: null, 
       revenue: null, 
@@ -387,7 +387,7 @@ export default function CostOfSaleTool() {
     }
   };
 
-  const generateStrategyDocument = (analysis, categories, ltMonths, success) => {
+  const generateStrategyDocument = (analysis: any, categories: any[], ltMonths: number, success: number) => {
     return `
 ══════════════════════════════════════════════════════════════════
                     DEPLOYMENT STRATEGY DOCUMENT
@@ -455,7 +455,7 @@ PII COMPLIANCE
 `;
   };
 
-  const generateReceipt = (analysis, categories) => {
+  const generateReceipt = (analysis: any, categories: any[]) => {
     return `
 ══════════════════════════════════════════════════════════════════
                          AUDIT RECEIPT
@@ -520,12 +520,12 @@ COMPLIANCE
     URL.revokeObjectURL(url);
   };
 
-  const saveGeminiKey = (key) => {
+  const saveGeminiKey = (key: string) => {
     sessionStorage.setItem('gemini_api_key', key);
     setGeminiApiKey(key);
   };
 
-  const generateGeminiInsights = async (analysisData, categoryMetrics) => {
+  const generateGeminiInsights = async (analysisData: any, categoryMetrics: any[]) => {
     if (!geminiApiKey) {
       throw new Error('Gemini API key required');
     }
@@ -577,7 +577,7 @@ Return ONLY valid JSON:
     }
   };
 
-  const generateDeterministicInsights = (analysisData, categoryMetrics) => {
+  const generateDeterministicInsights = (analysisData: any, categoryMetrics: any[]) => {
     const topCategory = categoryMetrics[0];
     const totalRecovery = parseFloat(analysisData.equity.lead.recoverable) + parseFloat(analysisData.equity.lag.recoverable);
     
@@ -770,9 +770,9 @@ Return ONLY valid JSON:
                         type="password"
                         placeholder="Enter Gemini API key"
                         className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-white text-sm mb-2"
-                        onKeyDown={(e) => {
+                        onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                           if (e.key === 'Enter') {
-                            saveGeminiKey(e.target.value);
+                            saveGeminiKey((e.target as HTMLInputElement).value);
                           }
                         }}
                       />
