@@ -201,8 +201,9 @@ export default function CostOfSaleTool() {
       let validRevenueCount = 0;
       
       if (detectedSchema.revenue !== null) {
+        const revenueIdx = detectedSchema.revenue; // TypeScript now knows it's a number
         rows.forEach(row => {
-          const rev = parseFloat(row[detectedSchema.revenue]);
+          const rev = parseFloat(row[revenueIdx]);
           if (!isNaN(rev) && rev > 0) {
             totalMRR += rev;
             validRevenueCount++;
@@ -225,7 +226,7 @@ export default function CostOfSaleTool() {
       
       for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
-        const email = row[detectedSchema.email];
+        const email = detectedSchema.email !== null ? row[detectedSchema.email] : null;
         const feedback = detectedSchema.feedback !== null ? row[detectedSchema.feedback] : null;
         const churnValue = detectedSchema.churn !== null ? row[detectedSchema.churn] : null;
         const revenue = detectedSchema.revenue !== null ? parseFloat(row[detectedSchema.revenue]) : arpu;
