@@ -89,27 +89,27 @@ const getInactivityBucket = (isChurned: boolean) => {
 };
 
 export default function CostOfSaleTool() {
-  const [file, setFile] = useState(null);
-  const [processing, setProcessing] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState('');
-  const [schema, setSchema] = useState(null);
-  const [analysis, setAnalysis] = useState(null);
-  const [deliverables, setDeliverables] = useState(null);
-  const [error, setError] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+  const [statusText, setStatusText] = useState<string>('');
+  const [schema, setSchema] = useState<any>(null);
+  const [analysis, setAnalysis] = useState<any>(null);
+  const [deliverables, setDeliverables] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
   
   // CFO Financial Controls
-  const [lifetimeMonths, setLifetimeMonths] = useState(9);
-  const [successRate, setSuccessRate] = useState(5);
-  const [viewMode, setViewMode] = useState('lag');
+  const [lifetimeMonths, setLifetimeMonths] = useState<number>(9);
+  const [successRate, setSuccessRate] = useState<number>(5);
+  const [viewMode, setViewMode] = useState<'lag' | 'lead'>('lag');
   
   // Intelligence Engine Controls
-  const [selectedEngine, setSelectedEngine] = useState('deterministic');
-  const [geminiApiKey, setGeminiApiKey] = useState('');
-  const [aiInsights, setAiInsights] = useState(null);
-  const [generatingInsights, setGeneratingInsights] = useState(false);
+  const [selectedEngine, setSelectedEngine] = useState<'deterministic' | 'gemini'>('deterministic');
+  const [geminiApiKey, setGeminiApiKey] = useState<string>('');
+  const [aiInsights, setAiInsights] = useState<any>(null);
+  const [generatingInsights, setGeneratingInsights] = useState<boolean>(false);
   
-  const [activeTab, setActiveTab] = useState('upload');
+  const [activeTab, setActiveTab] = useState<string>('upload');
 
   // Check for stored Gemini API key on mount
   useEffect(() => {
