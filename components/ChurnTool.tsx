@@ -25,19 +25,18 @@ import {
 } from 'lucide-react';
 
 // SHA-256 helper
-async function sha256(text: string): Promise<string> {
+async function sha256(text) {
   const encoder = new TextEncoder();
   const data = encoder.encode(text);
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex;
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Sentiment analysis for signal categorization
-const analyzeSentiment = (text) => {
+const analyzeSentiment = (text: string | null) => {
   if (!text) return { category: 'UNKNOWN', keywords: [] };
   
   const lower = text.toLowerCase();
@@ -62,7 +61,7 @@ const analyzeSentiment = (text) => {
 };
 
 // Calculate churn risk score
-const calculateRiskScore = (isChurned, hasFeedback, sentiment) => {
+const calculateRiskScore = (isChurned: boolean, hasFeedback: boolean, sentiment: { category: string }) => {
   if (isChurned) return 100;
   
   let score = 0;
@@ -75,7 +74,7 @@ const calculateRiskScore = (isChurned, hasFeedback, sentiment) => {
 };
 
 // Determine segment key
-const getSegmentKey = (isChurned, isAtRisk, riskScore) => {
+const getSegmentKey = (isChurned: boolean, isAtRisk: boolean, riskScore: number) => {
   if (isChurned) return 'LAG_RECOVERY';
   if (isAtRisk && riskScore >= 70) return 'AR_CRITICAL_HIGH';
   if (isAtRisk && riskScore >= 40) return 'AR_MEDIUM';
@@ -84,7 +83,7 @@ const getSegmentKey = (isChurned, isAtRisk, riskScore) => {
 };
 
 // Inactivity bucket (example - would need date column in real implementation)
-const getInactivityBucket = (isChurned) => {
+const getInactivityBucket = (isChurned: boolean) => {
   if (isChurned) return '60-90';
   return '0-30';
 };
