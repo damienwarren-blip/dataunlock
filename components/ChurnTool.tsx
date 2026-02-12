@@ -178,8 +178,8 @@ export default function CostOfSaleTool() {
         throw new Error('CSV parsing error');
       }
       
-      const headers = parseResult.data[0];
-      const rows = parseResult.data.slice(1);
+      const headers = parseResult.data[0] as string[];
+      const rows = parseResult.data.slice(1) as string[][];
       
       await delay(100);
       
