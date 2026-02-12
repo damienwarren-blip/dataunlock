@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
-import dynamic from 'next/dynamic'; // Required for Turbopack stability
+import dynamic from 'next/dynamic';
 import { CLIENT_REGISTRY, GOAL_TEMPLATES } from '@/src/lib/clientRegistry';
 import { Lock, ShieldAlert, ArrowRight, Loader2 } from 'lucide-react';
 
-// FIX: Force ChurnTool to be Client-Side Only. 
-// This prevents the "undefined" module evaluation error.
+// Define the valid keys based on your GOAL_TEMPLATES registry
+type GoalType = keyof typeof GOAL_TEMPLATES;
+
 const ChurnTool = dynamic(() => import('@/components/ChurnTool'), { 
   ssr: false,
   loading: () => (
@@ -122,8 +123,10 @@ export default function ClientPortalPage() {
     );
   }
 
-  // 4. THE INJECTION: We pass both the config AND the matching template
-  const clientTemplate = GOAL_TEMPLATES[config.goalType] || GOAL_TEMPLATES["revenue-recovery"];
+  // FIX: Type-safe lookup using the GoalType cast
+  // This ensures config.goalType matches a valid key in GOAL_TEMPLATES
+  const goalKey = (config.goalType as GoalType) || "revenue-recovery";
+  const clientTemplate = GOAL_TEMPLATES[goalKey];
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
