@@ -221,8 +221,8 @@ export default function CostOfSaleTool() {
       setStatusText('Running signal analysis...');
       setProgress(40);
       
-      const processedRows = [];
-      const categoryBreakdown = {};
+      const processedRows: any[] = [];
+      const categoryBreakdown: Record<string, { count: number; play: string; totalRevenue: number }> = {};
       
       for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
