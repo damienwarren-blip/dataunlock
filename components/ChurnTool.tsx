@@ -389,7 +389,7 @@ export default function CostOfSaleTool() {
       setActiveTab('waterfall');
       
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'An error occurred');
       setProcessing(false);
     }
   };
@@ -580,7 +580,7 @@ Return ONLY valid JSON:
       }
       throw new Error('Unable to parse Gemini response');
     } catch (err) {
-      throw new Error(`Gemini API failed: ${err.message}`);
+      throw new Error(`Gemini API failed: ${err instanceof Error ? err.message : String(err)}`);
     }
   };
 
@@ -619,7 +619,7 @@ Return ONLY valid JSON:
       
       setAiInsights(insights);
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setGeneratingInsights(false);
     }
