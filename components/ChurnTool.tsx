@@ -131,7 +131,13 @@ export default function CostOfSaleTool() {
   };
 
   const detectSchema = (headers: string[]) => {
-    const schema = { 
+    const schema: {
+      email: number | null;
+      revenue: number | null;
+      feedback: number | null;
+      churn: number | null;
+      accountId: number | null;
+    } = { 
       email: null, 
       revenue: null, 
       feedback: null, 
