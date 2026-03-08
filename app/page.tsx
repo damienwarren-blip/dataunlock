@@ -14,7 +14,12 @@ import {
   Database
 } from 'lucide-react';
 
-const FadeIn = ({ children, delay = 0 }) => (
+interface FadeInProps {
+  children: React.ReactNode;
+  delay?: number;
+}
+
+const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0 }) => (
   <div 
     className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both"
     style={{ animationDelay: `${delay}ms` }}
@@ -23,13 +28,24 @@ const FadeIn = ({ children, delay = 0 }) => (
   </div>
 );
 
-const Badge = ({ children, className = "" }) => (
+interface BadgeProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Badge: React.FC<BadgeProps> = ({ children, className = "" }) => (
   <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${className}`}>
     {children}
   </span>
 );
 
-const SectionHeading = ({ number, title, subtitle }) => (
+interface SectionHeadingProps {
+  number: number;
+  title: string;
+  subtitle: string;
+}
+
+const SectionHeading: React.FC<SectionHeadingProps> = ({ number, title, subtitle }) => (
   <div className="mb-6">
     <div className="flex items-center gap-3 mb-2">
       <span className="text-indigo-600 font-mono font-bold tracking-tighter text-sm">/ 0{number}</span>
@@ -39,7 +55,12 @@ const SectionHeading = ({ number, title, subtitle }) => (
   </div>
 );
 
-const MockupContainer = ({ children, className = "" }) => (
+interface MockupContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const MockupContainer: React.FC<MockupContainerProps> = ({ children, className = "" }) => (
   <div className={`bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-6 ${className}`}>
     {children}
   </div>
