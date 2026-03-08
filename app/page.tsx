@@ -188,7 +188,8 @@ function MockReceipt() {
 
 /* ── STEP 04 MOCKUP: roadmap timeline ── */
 function MockRoadmap() {
-  const phases = [
+  type ColKey = "indigo" | "violet" | "emerald";
+  const phases: { phase: string; days: string; col: ColKey; title: string; tasks: string[]; active: boolean }[] = [
     {
       phase:"Phase 1", days:"Days 1–30", col:"indigo",
       title:"Win-back Campaign",
@@ -208,7 +209,7 @@ function MockRoadmap() {
       active:false,
     },
   ];
-  const colMap = {
+  const colMap: Record<ColKey, { badge: string; dot: string; card: string }> = {
     indigo:  { badge:"text-indigo-700 bg-indigo-50 border-indigo-200",  dot:"bg-indigo-600", card:"bg-indigo-50 border-indigo-200"  },
     violet:  { badge:"text-violet-700 bg-violet-50 border-violet-200",  dot:"bg-violet-400", card:"bg-gray-50  border-gray-200"     },
     emerald: { badge:"text-emerald-700 bg-emerald-50 border-emerald-200",dot:"bg-emerald-400",card:"bg-gray-50  border-gray-200"     },
@@ -396,54 +397,52 @@ export default function App() {
       {/* Success Case — original black version */}
       <section className="py-24 md:py-32 px-6 bg-black text-white overflow-hidden relative">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-12 md:gap-16 items-center">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             <div className="lg:w-1/2">
-              <div className="flex items-center gap-3 mb-6 md:mb-8">
-                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-indigo-400 bg-indigo-500/10 px-4 py-2 rounded-full">Success Case</span>
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Zeus Scooters</span>
+              <div className="flex items-center gap-3 mb-8">
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-full">Success Case</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-600">Zeus Scooters</span>
               </div>
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 md:mb-10 leading-[1] md:leading-[0.9]">
-                Reducing <span className="text-indigo-500">Churn</span> across Europe.
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[0.95]">
+                Reducing <span className="text-indigo-500">Churn</span><br/>across Europe.
               </h2>
-              <div className="relative p-6 md:p-12 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[3rem] mb-8 md:mb-12">
-                <p className="text-2xl md:text-3xl font-bold leading-tight mb-6 md:mb-8">
+              <div className="p-7 bg-white/5 border border-white/10 rounded-2xl">
+                <p className="text-xl md:text-2xl font-semibold leading-snug mb-6">
                   "You've given me a step-by-step guide to reduce churn."
                 </p>
-                <div className="flex items-center gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-indigo-600 rounded-full flex items-center justify-center font-black text-sm md:text-base">CK</div>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-indigo-600 rounded-full flex items-center justify-center font-black text-xs shrink-0">CK</div>
                   <div>
-                    <div className="font-black text-base md:text-lg">Chris Kemp</div>
-                    <div className="text-gray-500 text-[10px] md:text-sm font-bold uppercase tracking-widest">Deputy CEO, Zeus Scooters</div>
+                    <div className="font-black text-sm">Chris Kemp</div>
+                    <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mt-0.5">Deputy CEO, Zeus Scooters</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-              <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all">
-                <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-indigo-400 mb-8 md:mb-12" />
+
+            <div className="lg:w-1/2 grid grid-cols-2 gap-3 w-full">
+              <div className="p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col justify-between hover:bg-white/8 transition-all">
+                <TrendingUp className="w-6 h-6 text-indigo-400 mb-6" />
                 <div>
-                  <div className="text-4xl md:text-5xl font-black mb-2">€900K</div>
-                  <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Annual Projected<br/>Revenue Recovery</div>
+                  <div className="text-3xl md:text-4xl font-black mb-1.5">€900K</div>
+                  <div className="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Annual Projected<br/>Revenue Recovery</div>
                 </div>
               </div>
-              <div className="p-8 md:p-10 bg-white/5 border border-white/10 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between hover:bg-white/10 transition-all">
-                <Globe className="w-8 h-8 md:w-10 md:h-10 text-indigo-300 mb-8 md:mb-12" />
+              <div className="p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col justify-between hover:bg-white/8 transition-all">
+                <Globe className="w-6 h-6 text-indigo-300 mb-6" />
                 <div>
-                  <div className="text-4xl md:text-5xl font-black mb-2">10K</div>
-                  <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Customers Targeted<br/>for Win-Back Q1</div>
+                  <div className="text-3xl md:text-4xl font-black mb-1.5">10K</div>
+                  <div className="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-relaxed">Customers Targeted<br/>for Win-Back Q1</div>
                 </div>
               </div>
-              <div className="p-8 md:p-10 bg-indigo-600 rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-between md:col-span-2">
-                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
-                  <Zap className="w-8 h-8 md:w-10 md:h-10 text-white mb-8 md:mb-12" />
-                  <div className="text-center md:text-right">
-                    <div className="text-4xl md:text-6xl font-black leading-none">&lt;7</div>
-                    <div className="text-[10px] font-black uppercase tracking-widest opacity-80 mt-1">Days</div>
-                  </div>
+              <div className="col-span-2 p-6 bg-indigo-600 rounded-2xl flex items-center justify-between">
+                <div>
+                  <div className="text-xl md:text-2xl font-black mb-1">Strategy Delivered</div>
+                  <div className="text-[9px] font-bold opacity-75 uppercase tracking-widest">Full roadmap · European retention</div>
                 </div>
-                <div className="mt-4 md:mt-0">
-                  <div className="text-xl md:text-3xl font-black mb-1">Strategy Delivered</div>
-                  <div className="text-[10px] md:text-xs font-bold opacity-80 uppercase tracking-widest">Full roadmap to European market retention</div>
+                <div className="text-right shrink-0 ml-4">
+                  <div className="text-5xl md:text-6xl font-black leading-none">&lt;7</div>
+                  <div className="text-[9px] font-black uppercase tracking-widest opacity-80 mt-1">Days</div>
                 </div>
               </div>
             </div>
