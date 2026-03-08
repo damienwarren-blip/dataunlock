@@ -19,7 +19,7 @@ import {
   Map
 } from 'lucide-react';
 
-const FadeIn = ({ children, delay = 0 }) => (
+const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
   <div 
     className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both"
     style={{ animationDelay: `${delay}ms` }}
@@ -28,13 +28,13 @@ const FadeIn = ({ children, delay = 0 }) => (
   </div>
 );
 
-const Badge = ({ children, className = "" }) => (
+const Badge = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${className}`}>
     {children}
   </span>
 );
 
-const SectionHeading = ({ number, title, subtitle }) => (
+const SectionHeading = ({ number, title, subtitle }: { number: number; title: string; subtitle: string }) => (
   <div className="mb-6">
     <div className="flex items-center gap-3 mb-2">
       <span className="text-indigo-600 font-mono font-bold tracking-tighter text-sm">/ 0{number}</span>
@@ -44,7 +44,7 @@ const SectionHeading = ({ number, title, subtitle }) => (
   </div>
 );
 
-const MockupContainer = ({ children, className = "" }) => (
+const MockupContainer = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-6 ${className}`}>
     {children}
   </div>
