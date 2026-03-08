@@ -120,7 +120,7 @@ export default function App() {
                 <span className="text-indigo-600">Zero Data Risk.</span>
               </h1>
               <p className="text-xl text-gray-500 mb-10 max-w-2xl leading-relaxed">
-                We turn your operational data into decisions—privately, in minutes. Execute with confidence through data transparency.
+                We enable scaling companies turn operational data into actionable decisions using transparent AI—so leaders get answers they can trust.
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4">
                 <button 
@@ -143,13 +143,13 @@ export default function App() {
       <section className="py-24 px-6 bg-white border-y border-gray-100">
         <div className="max-w-5xl mx-auto space-y-24">
           
-          {/* 01 Clean Charts */}
+          {/* 01 Simple Visuals */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <FadeIn delay={100}>
               <SectionHeading 
                 number={1} 
-                title="Clean Charts" 
-                subtitle="Aggregated views of your performance trends without the complexity of traditional BI tools."
+                title="Clear Visuals" 
+                subtitle="We transform your messy spreadsheets into simple, beautiful charts that tell the real story of your business."
               />
             </FadeIn>
             <FadeIn delay={200}>
@@ -160,25 +160,25 @@ export default function App() {
                   ))}
                 </div>
                 <div className="flex justify-center">
-                  <Badge className="bg-white text-indigo-600 border-indigo-100">Real-time Analysis</Badge>
+                  <Badge className="bg-white text-indigo-600 border-indigo-100">Live Dashboard</Badge>
                 </div>
               </MockupContainer>
             </FadeIn>
           </div>
 
-          {/* 02 AI Strategy */}
+          {/* 02 Smart Guidance */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <FadeIn delay={100}>
               <SectionHeading 
                 number={2} 
-                title="AI Strategy" 
-                subtitle="Our on-device LLM identifies signals in your data and suggests strategic pivots without compromising raw data privacy."
+                title="Smart Guidance" 
+                subtitle="Our private AI spots hidden patterns and suggests exactly where to focus next, without ever reading your private customer details."
               />
               <ul className="space-y-4">
                 {[
-                  "Identify non-obvious unit economic leaks",
-                  "Automated scenario modeling",
-                  "Competitor-benchmarked performance"
+                  "Find where you're losing money automatically",
+                  "See how you compare to industry leaders",
+                  "Test new ideas before you invest"
                 ].map((text, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-600 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
@@ -192,12 +192,12 @@ export default function App() {
                 <div className="p-4 bg-white rounded-xl border border-violet-100 shadow-sm mb-4">
                   <div className="flex items-center gap-3 mb-3">
                     <Zap className="w-4 h-4 text-violet-600" />
-                    <span className="text-sm font-bold">AI Signal: Customer Churn Risk</span>
+                    <span className="text-sm font-bold">Smart Alert: Growth Opportunity</span>
                     <Badge className="ml-auto bg-emerald-50 text-emerald-700 border-emerald-100 text-[10px]">Active</Badge>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-[10px] font-bold text-gray-400">
-                      <span>COMPUTATION: LOCAL-ONLY</span>
+                      <span>SECURE LOCAL ANALYSIS</span>
                       <span>100%</span>
                     </div>
                     <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
@@ -208,31 +208,31 @@ export default function App() {
                 <div className="text-center">
                   <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center justify-center gap-2">
                     <ShieldCheck className="w-3 h-3 text-emerald-500" />
-                    0 raw rows sent to server
+                    Private & Secure
                   </span>
                 </div>
               </MockupContainer>
             </FadeIn>
           </div>
 
-          {/* 03 Privacy Receipt */}
+          {/* 03 Privacy Proof */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <FadeIn delay={100}>
               <SectionHeading 
                 number={3} 
-                title="Privacy Receipt" 
-                subtitle="Every analysis generates a cryptographic proof of privacy. Prove to your compliance team that data never left the perimeter."
+                title="Privacy Proof" 
+                subtitle="Get a verified record showing your data stayed on your own device. Perfect for showing your team and partners you take security seriously."
               />
             </FadeIn>
             <FadeIn delay={200}>
               <div className="flex gap-4 h-full min-h-[240px]">
                 <div className="flex-1 p-8 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col justify-center">
                   <div className="text-4xl font-bold mb-1 tracking-tight">23,486</div>
-                  <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Rows Loaded</div>
+                  <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Points Analyzed</div>
                 </div>
                 <div className="flex-1 p-8 bg-emerald-50 rounded-2xl border border-emerald-100 flex flex-col justify-center">
-                  <div className="text-4xl font-bold text-emerald-700 mb-1 tracking-tight">0 KB</div>
-                  <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Data Transferred</div>
+                  <div className="text-4xl font-bold text-emerald-700 mb-1 tracking-tight">0</div>
+                  <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Leaked Details</div>
                 </div>
               </div>
             </FadeIn>
@@ -243,24 +243,17 @@ export default function App() {
             <FadeIn delay={100}>
               <SectionHeading 
                 number={4} 
-                title="90-Day Roadmap" 
-                subtitle="Execution is everything. We don't just give you charts; we give you an actionable, step-by-step timeline for growth."
+                title="Your Action Plan" 
+                subtitle="Information is only useful if you use it. We give you a simple, step-by-step checklist to hit your goals over the next three months."
               />
-              <button 
-                onClick={handleCtaClick}
-                className="text-indigo-600 text-sm font-bold flex items-center gap-2 group"
-              >
-                See a sample roadmap 
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
             </FadeIn>
             <FadeIn delay={200}>
               <MockupContainer className="p-8 h-full min-h-[240px]">
                 <div className="space-y-8 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-px before:bg-gray-100">
                   {[
-                    { phase: "Phase 1", title: "Infrastructure Cleanup", days: "Day 1-30", active: false },
-                    { phase: "Phase 2", title: "Scale Operational AI", days: "Day 31-60", active: true },
-                    { phase: "Phase 3", title: "Automated Governance", days: "Day 61-90", active: false }
+                    { phase: "Phase 1", title: "Organize & Cleanup", days: "Month 1", active: false },
+                    { phase: "Phase 2", title: "Accelerate Growth", days: "Month 2", active: true },
+                    { phase: "Phase 3", title: "Full Automation", days: "Month 3", active: false }
                   ].map((step, i) => (
                     <div key={i} className="pl-8 relative">
                       <div className={`absolute left-0 top-1.5 w-4 h-4 rounded-full border-4 border-white shadow-sm ${step.active ? 'bg-indigo-600 animate-pulse' : 'bg-gray-200'}`}></div>
