@@ -328,8 +328,8 @@ export default function App() {
             <FadeIn delay={100}>
               <SectionHeading
                 number={1}
-                title="Clear Visuals"
-                subtitle="We transform your messy spreadsheets into simple, beautiful charts that tell the real story of your business."
+                title="See Your Business Clearly"
+                subtitle="Drop in any spreadsheet or export and instantly see what's actually going on — clean charts, real trends, no jargon. It's your data, just finally readable."
               />
             </FadeIn>
             <FadeIn delay={200}>
@@ -342,21 +342,9 @@ export default function App() {
             <FadeIn delay={100}>
               <SectionHeading
                 number={2}
-                title="Smart Guidance"
-                subtitle="Our private AI spots hidden patterns and suggests exactly where to focus next, without ever reading your private customer details."
+                title="Understand What It Means"
+                subtitle="We surface the patterns that matter — where you're losing customers, where the opportunity is, what to focus on next. Our AI works from an anonymised summary only. Your raw data never moves. Every insight traces back to your data — no guesswork, no hallucinations, nothing invented."
               />
-              <ul className="space-y-4 mt-6">
-                {[
-                  "Find where you're losing money automatically",
-                  "See how you compare to industry leaders",
-                  "Test new ideas before you invest"
-                ].map((text, i) => (
-                  <li key={i} className="flex items-center gap-3 text-gray-600 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-600 shrink-0" />
-                    {text}
-                  </li>
-                ))}
-              </ul>
             </FadeIn>
             <FadeIn delay={200}>
               <MockAI />
@@ -368,8 +356,8 @@ export default function App() {
             <FadeIn delay={100}>
               <SectionHeading
                 number={3}
-                title="Privacy Proof"
-                subtitle="Get a verified record showing your data stayed on your own device. Perfect for showing your team and partners you take security seriously."
+                title="Know Your Data Stayed Safe"
+                subtitle="Every analysis generates a simple, plain-English receipt showing exactly what was looked at and what was sent. Nothing hidden. Nothing assumed. You can show it to your team, your board, or your auditor."
               />
             </FadeIn>
             <FadeIn delay={200}>
@@ -382,8 +370,8 @@ export default function App() {
             <FadeIn delay={100}>
               <SectionHeading
                 number={4}
-                title="Your Action Plan"
-                subtitle="Information is only useful if you use it. We give you a simple, step-by-step checklist to hit your goals over the next three months."
+                title="Walk Away With a Plan"
+                subtitle="You get a clear, prioritised 90-day roadmap — not a report full of charts nobody acts on. Every recommendation connects back to your own data, so you can stand behind every decision."
               />
             </FadeIn>
             <FadeIn delay={200}>
