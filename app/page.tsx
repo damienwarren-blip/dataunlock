@@ -6,13 +6,8 @@ import {
   UserCheck,
   Search,
   ShieldCheck,
-  Eye,
-  CheckCircle2,
   Scale,
-  Activity,
-  FileSearch,
-  Users,
-  Clock
+  Activity
 } from 'lucide-react';
 
 /**
@@ -48,7 +43,9 @@ export default function App() {
   }, []);
 
   const handleCtaClick = () => { 
-    window.location.href = "mailto:damien@dataunlock.ai?subject=DataUnlock Conversation"; 
+    if (typeof window !== 'undefined') {
+      window.location.href = "mailto:damien@dataunlock.ai?subject=DataUnlock Conversation"; 
+    }
   };
 
   return (
@@ -298,7 +295,7 @@ export default function App() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-black/5 text-[10px] font-bold uppercase tracking-widest text-black/20">
-            <span>© 2026 DataUnlock · Human-Centred AI Analytics</span>
+            <span>© {new Date().getFullYear()} DataUnlock · Human-Centred AI Analytics</span>
             <div className="flex gap-8">
               <button onClick={handleCtaClick} className="hover:text-black transition-colors">Security Audit</button>
               <button onClick={handleCtaClick} className="hover:text-black transition-colors">DPA</button>
