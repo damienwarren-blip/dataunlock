@@ -14,8 +14,9 @@ import {
 
 /**
  * THE SHIELD INDEX STYLE COMPONENTS
+ * Adding types to satisfy strict TypeScript requirements in Next.js build
  */
-const FadeIn = ({ children, delay = 0 }) => (
+const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => (
   <div 
     className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both"
     style={{ animationDelay: `${delay}ms` }}
@@ -28,7 +29,7 @@ const LineSeparator = () => (
   <div className="w-full h-[1px] bg-black/5 dark:bg-white/10" />
 );
 
-const SectionLabel = ({ text, light = false }) => (
+const SectionLabel = ({ text, light = false }: { text: string, light?: boolean }) => (
   <div className="flex items-center gap-3 mb-12">
     <div className={`w-2 h-2 rounded-full ${light ? 'bg-white' : 'bg-black'}`} />
     <span className={`text-[10px] font-bold uppercase tracking-[0.3em] ${light ? 'text-white/50' : 'text-black/50'}`}>{text}</span>
