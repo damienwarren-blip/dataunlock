@@ -6,26 +6,24 @@ import {
   Building2,
   TrendingUp,
   AlertTriangle,
-  ArrowUpRight,
-  ArrowDownRight,
-  Euro,
   Store,
   ChevronDown,
   ChevronRight,
   Filter,
   Layers,
+  Target,
+  ArrowRight
 } from 'lucide-react';
 import {
-  ScatterChart,
-  Scatter,
-  XAxis,
-  YAxis,
-  ZAxis,
-  Tooltip,
   ResponsiveContainer,
   BarChart,
   Bar,
-  Cell,
+  XAxis,
+  YAxis,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell
 } from 'recharts';
 
 // --- DATA TYPES & TYPESCRIPT INTERFACES ---
@@ -47,18 +45,6 @@ export interface StoreSale {
   unitPrice: number;
 }
 
-export interface ProductPricingAnalysis {
-  product: Product;
-  totalVolume: number;
-  weightedAveragePrice: number; // WAP across all stores
-  minPrice: number;
-  maxPrice: number;
-  pricingSpreadPct: number;
-  storesAboveWapCount: number;
-  storesBelowWapCount: number;
-  potentialRevenueGain: number; // Opportunity if priced at cohort WAP
-}
-
 // --- MOCK IRISH FMCG DATASET ---
 const IRISH_PRODUCTS: Product[] = [
   { barcode: '501010000001', name: "Barry's Tea Gold Blend 80s", category: 'Tea & Coffee', brand: "Barry's", size: '250g', standardCost: 2.80 },
@@ -76,20 +62,24 @@ const IRISH_PRODUCTS: Product[] = [
 const STORE_FORMATS = ['All Formats', 'Convenience', 'Supermarket', 'Forecourt'] as const;
 
 // Generate realistic store sales data across 47 Irish stores
-const generateStoreSalesData = (products: Product[]): Record<string, StoreSale[]> => {
+const generateStoreSalesData = (products: Product[]): { sales: Record<string, StoreSale[]>; stores: { id: string; name: string }[] } => {
   const sales: Record<string, StoreSale[]> = {};
+  const storeListMaster: { id: string; name: string }[] = [];
+
+  for (let i = 1; i <= 47; i++) {
+    const region = i <= 18 ? 'Dublin' : i <= 32 ? 'Rest of Leinster' : 'Munster/Connacht';
+    storeListMaster.push({ id: `IE-ST-${1000 + i}`, name: `Store #${1000 + i} (${region})` });
+  }
   
   products.forEach((product) => {
     const storeList: StoreSale[] = [];
-    const storeCount = 47;
 
-    for (let i = 1; i <= storeCount; i++) {
+    for (let i = 1; i <= 47; i++) {
       const format: 'Convenience' | 'Supermarket' | 'Forecourt' = 
         i % 3 === 0 ? 'Convenience' : i % 5 === 0 ? 'Forecourt' : 'Supermarket';
       
       const region = i <= 18 ? 'Dublin' : i <= 32 ? 'Rest of Leinster' : 'Munster/Connacht';
       
-      // Base pricing variations
       const baseMarkup = format === 'Forecourt' ? 1.45 : format === 'Convenience' ? 1.35 : 1.25;
       const randomVariance = 0.85 + Math.random() * 0.35;
       const unitPrice = parseFloat((product.standardCost * baseMarkup * randomVariance).toFixed(2));
@@ -108,19 +98,22 @@ const generateStoreSalesData = (products: Product[]): Record<string, StoreSale[]
     sales[product.barcode] = storeList;
   });
 
-  return sales;
+  return { sales, stores: storeListMaster };
 };
 
-const MOCK_SALES_DATA = generateStoreSalesData(IRISH_PRODUCTS);
+const MOCK_DATA = generateStoreSalesData(IRISH_PRODUCTS);
+const MOCK_SALES_DATA = MOCK_DATA.sales;
+const STORE_LIST = MOCK_DATA.stores;
 
 export default function PricingIntelligenceSuite() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedFormat, setSelectedFormat] = useState<string>('All Formats');
-  const [activeTab, setActiveTab] = useState<'overpriced' | 'underpriced'>('overpriced');
+  const [targetStoreId, setTargetStoreId] = useState<string>('IE-ST-1004'); // Default Store
+  const [activeTab, setActiveTab] = useState<'overpriced' | 'underpriced'>('underpriced');
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
-  // --- WAP & COHORT PRICING ENGINE ---
+  // --- TARGET STORE VS COHORT WAP ENGINE ---
   const analysisData = useMemo(() => {
     return IRISH_PRODUCTS.map((product) => {
       let sales = MOCK_SALES_DATA[product.barcode] || [];
@@ -138,16 +131,17 @@ export default function PricingIntelligenceSuite() {
       const maxPrice = prices.length ? Math.max(...prices) : 0;
       const pricingSpreadPct = minPrice > 0 ? ((maxPrice - minPrice) / minPrice) * 100 : 0;
 
-      const storesAboveWapCount = sales.filter((s) => s.unitPrice > weightedAveragePrice).length;
-      const storesBelowWapCount = sales.filter((s) => s.unitPrice < weightedAveragePrice).length;
+      // Target Store specific metrics
+      const targetStoreData = sales.find((s) => s.storeId === targetStoreId);
+      const targetPrice = targetStoreData ? targetStoreData.unitPrice : 0;
+      const targetQty = targetStoreData ? targetStoreData.quantitySold : 0;
+      const priceGap = targetPrice - weightedAveragePrice; // Positive = Overpriced, Negative = Underpriced
 
-      // Potential gain if underpriced stores are realigned to cohort WAP
-      const potentialRevenueGain = sales.reduce((acc, s) => {
-        if (s.unitPrice < weightedAveragePrice) {
-          return acc + (weightedAveragePrice - s.unitPrice) * s.quantitySold;
-        }
-        return acc;
-      }, 0);
+      // Precise Business Opportunity: (Cohort WAP - My Price) * My Qty
+      const targetRevenueGain =
+        targetPrice < weightedAveragePrice && targetPrice > 0
+          ? (weightedAveragePrice - targetPrice) * targetQty
+          : 0;
 
       return {
         product,
@@ -156,14 +150,15 @@ export default function PricingIntelligenceSuite() {
         minPrice,
         maxPrice,
         pricingSpreadPct,
-        storesAboveWapCount,
-        storesBelowWapCount,
-        potentialRevenueGain,
+        targetPrice,
+        targetQty,
+        priceGap,
+        targetRevenueGain,
       };
     });
-  }, [selectedFormat]);
+  }, [selectedFormat, targetStoreId]);
 
-  // Filtered dataset based on user controls
+  // Filtered dataset based on search & category
   const filteredAnalysis = useMemo(() => {
     return analysisData.filter((item) => {
       const matchesSearch =
@@ -175,21 +170,45 @@ export default function PricingIntelligenceSuite() {
     });
   }, [analysisData, searchTerm, selectedCategory]);
 
-  // Split into Overpriced vs Underpriced Cohorts
+  // Split into Overpriced vs Underpriced Cohorts relative to Target Store
   const overpricedItems = useMemo(() => {
-    return [...filteredAnalysis].sort((a, b) => b.storesAboveWapCount - a.storesAboveWapCount);
+    return [...filteredAnalysis]
+      .filter((i) => i.priceGap > 0)
+      .sort((a, b) => b.priceGap - a.priceGap);
   }, [filteredAnalysis]);
 
   const underpricedItems = useMemo(() => {
-    return [...filteredAnalysis].sort((a, b) => b.potentialRevenueGain - a.potentialRevenueGain);
+    return [...filteredAnalysis]
+      .filter((i) => i.targetRevenueGain > 0)
+      .sort((a, b) => b.targetRevenueGain - a.targetRevenueGain);
   }, [filteredAnalysis]);
 
-  // High-level Executive KPIs
-  const totalOpportunityGain = useMemo(() => {
-    return analysisData.reduce((sum, i) => sum + i.potentialRevenueGain, 0);
+  // High-level Executive KPIs for Target Store
+  const totalStoreOpportunity = useMemo(() => {
+    return analysisData.reduce((sum, i) => sum + i.targetRevenueGain, 0);
+  }, [analysisData]);
+
+  // Breakdown Donut Chart Data (Target Store Pricing Posture)
+  const pricePostureData = useMemo(() => {
+    let under = 0;
+    let aligned = 0;
+    let over = 0;
+
+    analysisData.forEach((item) => {
+      if (item.priceGap < -0.05) under++;
+      else if (item.priceGap > 0.05) over++;
+      else aligned++;
+    });
+
+    return [
+      { name: 'Underpriced (Opportunity)', value: under, color: '#10B981' },
+      { name: 'Cohort Aligned', value: aligned, color: '#3B82F6' },
+      { name: 'Overpriced (Risk)', value: over, color: '#F43F5E' },
+    ];
   }, [analysisData]);
 
   const categories = ['All', ...Array.from(new Set(IRISH_PRODUCTS.map((p) => p.category)))];
+  const selectedStoreObj = STORE_LIST.find((s) => s.id === targetStoreId);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 p-6 md:p-10 font-sans">
@@ -205,16 +224,31 @@ export default function PricingIntelligenceSuite() {
               Retail Pricing & Margin Matrix
             </h1>
             <p className="text-slate-500 text-sm mt-1">
-              Quantity-Weighted Average Price (WAP) cohort analysis across 47 store locations.
+              Quantity-Weighted Average Price (WAP) cohort benchmarking relative to target location.
             </p>
           </div>
 
+          {/* TARGET STORE SELECTOR CONTROL */}
           <div className="flex items-center gap-3">
-            <div className="bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
-              <Store className="w-5 h-5 text-slate-400" />
-              <div className="text-xs">
-                <span className="text-slate-400 block font-medium">Active Cohort</span>
-                <span className="font-semibold text-slate-800">47 Stores (Ireland)</span>
+            <div className="bg-white p-2.5 rounded-2xl border border-emerald-300 shadow-sm flex items-center gap-3 ring-2 ring-emerald-500/10">
+              <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
+                <Target className="w-5 h-5" />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                  Selected Target Store
+                </label>
+                <select
+                  value={targetStoreId}
+                  onChange={(e) => setTargetStoreId(e.target.value)}
+                  className="bg-transparent text-sm font-bold text-slate-800 focus:outline-none cursor-pointer"
+                >
+                  {STORE_LIST.map((st) => (
+                    <option key={st.id} value={st.id}>
+                      {st.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
@@ -225,29 +259,35 @@ export default function PricingIntelligenceSuite() {
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Identified Margin Opportunity</p>
+                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  Store Opportunity Gain
+                </p>
                 <h3 className="text-2xl font-bold text-emerald-600 mt-2">
-                  €{totalOpportunityGain.toLocaleString('en-IE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  €{totalStoreOpportunity.toLocaleString('en-IE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </h3>
               </div>
               <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
                 <TrendingUp className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-3">Re-alignment of underpriced items to WAP</p>
+            <p className="text-xs text-slate-400 mt-3">Re-alignment of {selectedStoreObj?.name} to WAP</p>
           </div>
 
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">SKUs Analyzed</p>
-                <h3 className="text-2xl font-bold text-slate-900 mt-2">{analysisData.length} SKUs</h3>
+                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Top Opportunity SKU</p>
+                <h3 className="text-lg font-bold text-slate-900 mt-2 truncate max-w-[180px]">
+                  {underpricedItems[0]?.product.name || 'N/A'}
+                </h3>
               </div>
               <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
                 <Layers className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-3">Across 10 core retail categories</p>
+            <p className="text-xs text-emerald-600 font-semibold mt-3">
+              +€{underpricedItems[0]?.targetRevenueGain.toFixed(2) || '0.00'} potential lift
+            </p>
           </div>
 
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
@@ -265,20 +305,62 @@ export default function PricingIntelligenceSuite() {
                 <AlertTriangle className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-3">Max-to-min price spread within cohort</p>
+            <p className="text-xs text-slate-400 mt-3">Cohort spread across 47 locations</p>
           </div>
 
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Format Filter</p>
+                <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Cohort Format</p>
                 <h3 className="text-2xl font-bold text-slate-900 mt-2">{selectedFormat}</h3>
               </div>
               <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                 <Building2 className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-xs text-slate-400 mt-3">Store structural grouping</p>
+            <p className="text-xs text-slate-400 mt-3">Filtered store grouping</p>
+          </div>
+        </div>
+
+        {/* PRICING POSTURE BREAKDOWN (VISUAL DONUT CHART) */}
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-center md:text-left">
+            <h3 className="text-base font-bold text-slate-900">
+              Pricing Posture: {selectedStoreObj?.name}
+            </h3>
+            <p className="text-xs text-slate-500 max-w-md">
+              Positioning of items at this location relative to the 47-store Quantity-Weighted Average Price (WAP).
+            </p>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <div className="w-28 h-28">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pricePostureData}
+                    innerRadius={25}
+                    outerRadius={42}
+                    paddingAngle={3}
+                    dataKey="value"
+                  >
+                    {pricePostureData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="space-y-1.5 text-xs">
+              {pricePostureData.map((item) => (
+                <div key={item.name} className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+                  <span className="font-medium text-slate-700">{item.name}:</span>
+                  <span className="font-bold text-slate-900">{item.value} SKUs</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -296,7 +378,6 @@ export default function PricingIntelligenceSuite() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-            {/* Category Filter */}
             <div className="flex items-center gap-2">
               <Filter className="w-4 h-4 text-slate-400" />
               <select
@@ -312,7 +393,6 @@ export default function PricingIntelligenceSuite() {
               </select>
             </div>
 
-            {/* Store Format Filter */}
             <select
               value={selectedFormat}
               onChange={(e) => setSelectedFormat(e.target.value)}
@@ -329,18 +409,7 @@ export default function PricingIntelligenceSuite() {
 
         {/* TAB MATRIX & TABLE */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          {/* Tabs */}
           <div className="flex border-b border-slate-200 bg-slate-50/50 p-2 gap-2">
-            <button
-              onClick={() => setActiveTab('overpriced')}
-              className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                activeTab === 'overpriced'
-                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              Overpriced Gaps (Risk)
-            </button>
             <button
               onClick={() => setActiveTab('underpriced')}
               className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
@@ -349,27 +418,35 @@ export default function PricingIntelligenceSuite() {
                   : 'text-slate-500 hover:text-slate-800'
               }`}
             >
-              Underpriced Opportunities (Gain)
+              Top 10 Revenue Opportunities ({underpricedItems.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('overpriced')}
+              className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                activeTab === 'overpriced'
+                  ? 'bg-white text-rose-700 shadow-sm border border-slate-200'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              Overpriced Risks ({overpricedItems.length})
             </button>
           </div>
 
-          {/* Table View */}
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-slate-600">
               <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200 text-xs uppercase tracking-wider">
                 <tr>
                   <th className="py-3.5 px-4">Product / SKU</th>
-                  <th className="py-3.5 px-4">Category</th>
-                  <th className="py-3.5 px-4 text-right">Weighted Avg (€)</th>
-                  <th className="py-3.5 px-4 text-right">Min Price (€)</th>
-                  <th className="py-3.5 px-4 text-right">Max Price (€)</th>
-                  <th className="py-3.5 px-4 text-center">Spread</th>
-                  <th className="py-3.5 px-4 text-right">Opp. Gain (€)</th>
+                  <th className="py-3.5 px-4 text-right">Target Price (€)</th>
+                  <th className="py-3.5 px-4 text-right">Cohort WAP (€)</th>
+                  <th className="py-3.5 px-4 text-right">Price Gap (€)</th>
+                  <th className="py-3.5 px-4 text-right">Target Store Sales</th>
+                  <th className="py-3.5 px-4 text-right">Opportunity (€)</th>
                   <th className="py-3.5 px-4 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {(activeTab === 'overpriced' ? overpricedItems : underpricedItems).map((row) => {
+                {(activeTab === 'underpriced' ? underpricedItems : overpricedItems).map((row) => {
                   const isExpanded = expandedRow === row.product.barcode;
                   return (
                     <React.Fragment key={row.product.barcode}>
@@ -378,23 +455,28 @@ export default function PricingIntelligenceSuite() {
                           <div>{row.product.name}</div>
                           <div className="text-xs text-slate-400">{row.product.barcode}</div>
                         </td>
-                        <td className="py-3.5 px-4 text-slate-500">{row.product.category}</td>
-                        <td className="py-3.5 px-4 text-right font-semibold text-slate-800">
+                        <td className="py-3.5 px-4 text-right font-bold text-slate-900">
+                          €{row.targetPrice.toFixed(2)}
+                        </td>
+                        <td className="py-3.5 px-4 text-right font-semibold text-slate-500">
                           €{row.weightedAveragePrice.toFixed(2)}
                         </td>
-                        <td className="py-3.5 px-4 text-right text-emerald-600">
-                          €{row.minPrice.toFixed(2)}
-                        </td>
-                        <td className="py-3.5 px-4 text-right text-rose-600">
-                          €{row.maxPrice.toFixed(2)}
-                        </td>
-                        <td className="py-3.5 px-4 text-center">
-                          <span className="inline-flex px-2 py-0.5 rounded text-xs font-semibold bg-amber-50 text-amber-700">
-                            +{row.pricingSpreadPct.toFixed(0)}%
+                        <td className="py-3.5 px-4 text-right">
+                          <span
+                            className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${
+                              row.priceGap < 0
+                                ? 'bg-emerald-50 text-emerald-700'
+                                : 'bg-rose-50 text-rose-700'
+                            }`}
+                          >
+                            {row.priceGap < 0 ? '' : '+'}€{row.priceGap.toFixed(2)}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-right font-bold text-emerald-600">
-                          €{row.potentialRevenueGain.toFixed(2)}
+                        <td className="py-3.5 px-4 text-right text-slate-700 font-medium">
+                          {row.targetQty} units
+                        </td>
+                        <td className="py-3.5 px-4 text-right font-extrabold text-emerald-600">
+                          €{row.targetRevenueGain.toFixed(2)}
                         </td>
                         <td className="py-3.5 px-4 text-center">
                           <button
@@ -406,14 +488,19 @@ export default function PricingIntelligenceSuite() {
                         </td>
                       </tr>
 
-                      {/* EXPANDED DRILLDOWN ROW */}
+                      {/* DRILLDOWN STORE COMPARISON ROW */}
                       {isExpanded && (
                         <tr>
-                          <td colSpan={8} className="bg-slate-50/60 p-6 border-y border-slate-200">
+                          <td colSpan={7} className="bg-slate-50/60 p-6 border-y border-slate-200">
                             <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-                              <h4 className="font-semibold text-slate-900 text-sm">
-                                Store-Level Distribution: {row.product.name}
-                              </h4>
+                              <div className="flex items-center justify-between">
+                                <h4 className="font-semibold text-slate-900 text-sm">
+                                  Cohort Pricing Distribution across 47 Stores: {row.product.name}
+                                </h4>
+                                <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">
+                                  Target Store WAP Gap: €{Math.abs(row.priceGap).toFixed(2)}
+                                </span>
+                              </div>
                               
                               <div className="h-48 w-full">
                                 <ResponsiveContainer width="100%" height="100%">
@@ -421,7 +508,14 @@ export default function PricingIntelligenceSuite() {
                                     <XAxis dataKey="storeId" tick={{ fontSize: 10 }} />
                                     <YAxis tick={{ fontSize: 10 }} unit="€" />
                                     <Tooltip formatter={(val: number) => [`€${val.toFixed(2)}`, 'Unit Price']} />
-                                    <Bar dataKey="unitPrice" fill="#10B981" radius={[4, 4, 0, 0]} />
+                                    <Bar dataKey="unitPrice" radius={[4, 4, 0, 0]}>
+                                      {(MOCK_SALES_DATA[row.product.barcode] || []).map((entry) => (
+                                        <Cell
+                                          key={entry.storeId}
+                                          fill={entry.storeId === targetStoreId ? '#10B981' : '#CBD5E1'}
+                                        />
+                                      ))}
+                                    </Bar>
                                   </BarChart>
                                 </ResponsiveContainer>
                               </div>
